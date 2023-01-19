@@ -22,12 +22,46 @@ const reactElem = (
 const Header = () => {
     return reactElem;
 }
+
+const Field = () => {
+    const styledField = {
+        width: '500px',
+        borderColor: "red"
+    }
+
+    return <input placeholder="Type here" type="text" style={styledField}/>
+}
+
+const Btn = () => {
+    const text = 'Log in';
+    const logged = false;
+
+    return <button>{logged ? 'Enter': text}</button>
+}
+
 function App() {
     return (
         <div className="App">
             <Header/>
+            <Field/>
+            <Btn/>
         </div>
     );
+}
+
+class FieldClass extends React.Component{
+    render() {
+        const text = 'Log in';
+
+        const styledField = {
+            width: '500px',
+            borderColor: "red"
+        }
+        return <input
+            placeholder={text}
+            type="text"
+            style={styledField}/>
+    }
 }
 
 export default App;

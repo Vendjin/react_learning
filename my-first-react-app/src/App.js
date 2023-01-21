@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react";
 
@@ -90,7 +89,7 @@ class WhoAmiClass extends React.Component {
         })*/
         // используем колбек, что бы следующая функция выполнялась,
         // после того как выполнилась преыдущая
-        this.setState(state => ({
+        this.setState((state) => ({
             years: state.years + 1
         }))
     }
@@ -101,6 +100,7 @@ class WhoAmiClass extends React.Component {
             position: event.target.value
         })
     }
+
     render() {
         const {name, surname, link} = this.props;
         const {position, years} = this.state

@@ -1,8 +1,43 @@
 import './employers-list-items.css';
 import {Component} from "react";
 
+const EmployersListItem = (props) => {
+    const {name, salary, increase, rise, onDelete, onToggleIncrease, onToggleRise} = props;
+
+    let classNames = 'list-group-item d-flex justify-content-between';
+    if (increase) {
+        classNames += ' increase';
+    }
+    if (rise) {
+        classNames += ' like'
+    }
+    return (
+        <li className={classNames}>
+            <span className="list-group-item-label" onClick={onToggleRise}>{name}</span>
+            <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
+            <div className="d-flex justify-content-center align-items-center">
+                <button type="button"
+                        className="btn-cookie btn-sm"
+                        onClick={onToggleIncrease}>
+                    <i className="fas fa-cookie"></i>
+                </button>
+
+                <button type="button"
+                        className="btn-trash btn-sm "
+                        onClick={onDelete}>
+                    <i className="fas fa-trash"></i>
+                </button>
+                <i className="fas fa-star"></i>
+            </div>
+        </li>
+    )
+}
+
 // классовый компонент
-class EmployersListItem extends Component {
+/*тк хранить данные локально в этом компоненте мы больше не будем, а их выносим
+на уровень выше в app, что бы их оттуда пробросить в app-info, то возвращаемся обратно
+к функциональному стилю, тк стейт нам больше не нужен*/
+/*class EmployersListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +59,7 @@ class EmployersListItem extends Component {
     }
     render() {
         // имя и зп получаем из пропсов
-        const {name, salary} = this.props;
+        const {name, salary, onDelete} = this.props;
         // а премию из стейта, который по умолчанию false
         const {increase, like} = this.state;
 
@@ -34,8 +69,6 @@ class EmployersListItem extends Component {
         } if (like) {
             classNames += ' like'
         }
-
-
 
         return (
             <li className={classNames}>
@@ -49,7 +82,11 @@ class EmployersListItem extends Component {
                     </button>
 
                     <button type="button"
-                            className="btn-trash btn-sm ">
+                            className="btn-trash btn-sm "
+                            /!*props_drill часть4 навешиваем на кнопку состояние
+                            с проброшенной функцией в пропсах из
+                            EmployersListItem <- app.js onDeleteDrill(id)*!/
+                            onClick={onDelete}>
 
                         <i className="fas fa-trash"></i>
                     </button>
@@ -58,34 +95,7 @@ class EmployersListItem extends Component {
             </li>
         )
     }
-}
-
-
-/*const EmployersListItem = ({name, salary, increase}) => {
-
-    let classNames = 'list-group-item d-flex justify-content-between';
-    if (increase) {
-        classNames += ' increase';
-    }
-
-    return (
-         <li className={classNames}>
-             <span className="list-group-item-label">{name}</span>
-             <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
-             <div className="d-flex justify-content-center align-items-center">
-                 <button type="button"
-                         className="btn-cookie btn-sm ">
-                     <i className="fas fa-cookie"></i>
-                 </button>
-
-                 <button type="button"
-                         className="btn-trash btn-sm ">
-                     <i className="fas fa-trash"></i>
-                 </button>
-                 <i className="fas fa-star"></i>
-             </div>
-         </li>
-    )
 }*/
+
 
 export default EmployersListItem;

@@ -26,7 +26,7 @@ class EmployersAddForm extends Component {
         const {onAdd} = this.props;
         const {name, salary} = this.state;
 
-        // если имя меньше 3х символов или не передали зарплату то return
+        // если имя меньше 3х символов или не передали зарплату, то return
         if (name < 3 || !salary) return;
         onAdd(name, salary);
 
@@ -36,6 +36,7 @@ class EmployersAddForm extends Component {
             salary: ''
         })
     }
+
 
     render() {
         // const {adItem} = this.props;

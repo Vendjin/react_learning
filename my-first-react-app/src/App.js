@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-
+import {Component, Fragment} from "react";
 // обычно таким синтаксисом не пользуются
 const elem = React.createElement(
     'h2',
@@ -10,12 +10,13 @@ const elem = React.createElement(
 
 const text = 'TExt';
 const reactElem = (
-    <div>
+    // что бы не плодить пустые дивы используем Fragment
+    <Fragment>
         <h2 className="nameClass">Текст: {text}</h2>
         <label htmlFor="input"></label>
         <input type="text" id={"input"}/>
         <button tabIndex="0">Кнопка</button>
-    </div>
+    </Fragment>
 )
 
 const Header = () => {
@@ -105,7 +106,8 @@ class WhoAmiClass extends React.Component {
         const {name, surname, link} = this.props;
         const {position, years} = this.state
         return (
-            <div>
+            // еще 1 способ избавиться от пустого дива
+            <>
                 <button onClick={this.nextYear}>{this.state.text}</button>
                 <h1>Му name is {name},
                     surname - {surname},
@@ -117,7 +119,7 @@ class WhoAmiClass extends React.Component {
                     <span>Введите должность</span>
                     <input type="text" onChange={(event) => this.commitInputChanges(event, 'green')}/>
                 </form>
-            </div>
+            </>
         )
     }
 }

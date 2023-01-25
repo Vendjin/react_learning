@@ -16,7 +16,9 @@ class App extends Component {
                 {name: "John C.", salary: 800, increase: false, rise: true, id: 1},
                 {name: "Alex M.", salary: 3000, increase: false, rise: false, id: 2},
                 {name: "Carl W.", salary: 15000, increase: false, rise: false, id: 3}
-            ]
+            ],
+            term: '',
+            filter: 'all'
         }
         this.maxId = 4;
     }
@@ -52,57 +54,104 @@ class App extends Component {
             }
         })
     }
-
-
-    onToggleIncrease = (id) => {
-        // this.setState(({data}) => ({}) круглые скобки+ковычки возвращают новый объект)
+    // переделанный вариант на выполнение в зависимости от пропса
+    onToggleProp = (id, prop) => {
+        // this.setState(({data}) => ({}) круглые скобки+кавычки возвращают новый объект)
         this.setState(({data}) => ({
             // мапаем все итемы
             data: data.map(item => {
-                // если итем отвечаем устлвию - это наш объект, меняем его
+                // если итем отвечаем условию - это наш объект, меняем его
                 if (item.id === id) {
-                    return {...item, increase: !item.increase};
+                    return {...item, [prop]: !item[prop]};
                 }
                 // иначе возвращаем итем
                 return item;
             })
         }))
-        /*// простой вариант, но более понятный
-        this.setState(({data}) => {
-
-            const index = data.findIndex(elem => elem.id === id);
-
-            const old = data[index];
-            /!*берет old создает из него новый объект, после создает атрибут increase,
-            с противоположным значение из старого old*!/
-            const newItem = {...old, increase: !old.increase};
-            const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
-
-            return {
-                data: newArr
-            }
-        })*/
     }
 
-    onToggleRise = (id) => {
-        console.log(`Rise this ${id}`);
+    /*    onToggleIncrease = (id) => {
+            // this.setState(({data}) => ({}) круглые скобки+кавычки возвращают новый объект)
+            this.setState(({data}) => ({
+                // мапаем все итемы
+                data: data.map(item => {
+                    // если итем отвечаем устлвию - это наш объект, меняем его
+                    if (item.id === id) {
+                        return {...item, increase: !item.increase};
+                    }
+                    // иначе возвращаем итем
+                    return item;
+                })
+            }))
+            /!*!// простой вариант, но более понятный
+            this.setState(({data}) => {
+
+                const index = data.findIndex(elem => elem.id === id);
+
+                const old = data[index];
+                /!*берет old создает из него новый объект, после создает атрибут increase,
+                с противоположным значение из старого old*!/
+                const newItem = {...old, increase: !old.increase};
+                const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+
+                return {
+                    data: newArr
+                }
+            })*!/
+        }*/
+    // поиск во всем слове типо ctrl + F
+    searchEmp = (items, term) => {
+        if (term.length === 0) return items;
+        console.log(term);
+
+        return items.filter(item => {
+            /*indexOf метод строки который ищет подстроки, если ничего не находит, то возврат -1
+            поэтому условие > -1 т/е найденное*/
+            return item.name.indexOf(term) > -1
+        })
+    }
+
+    filterPost = (items, filter) => {
+        switch (filter) {
+            case 'rise':
+                return items.filter(item => item.rise);
+            case 'moreThen1000':
+                return items.filter(item => item.salary > 1000);
+            default:
+                return items
+        }
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({term: term});
+    }
+
+    onFilterSelect = (filter) => {
+        this.setState({filter});
     }
 
     render() {
+        const {data, term, filter} = this.state;
+        const countEmployees = this.state.data.length;
+        const increaseEmployees = this.state.data.filter(item => item.increase).length;
+        const visibleData = this.filterPost(this.searchEmp(data, term), filter);
+
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo
+                    countEmployees={countEmployees}
+                    increaseEmployees={increaseEmployees}
+                />
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <AppFilter/>
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
+                    <AppFilter  filter={filter} onFilterSelect={this.onFilterSelect}/>
                 </div>
                 <EmployersList
-                    data={this.state.data}
+                    data={visibleData}
                     // props_drill часть1 передаем пропс onDelete который содержит функцию
                     // проброс в верх
                     onDeleteDrill={this.deleteItem}
-                    onToggleIncrease={this.onToggleIncrease}
-                    onToggleRise={this.onToggleRise}
+                    onToggleProp={this.onToggleProp}
                 />
                 <EmployersAddForm
                     onAdd={this.addItem}

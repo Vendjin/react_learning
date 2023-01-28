@@ -1,0 +1,39 @@
+@import "variables";
+
+.button {
+    display: block;
+    max-width: 101px;
+    padding: 11px 18px;
+
+    font-size: 14px;
+    line-height: 16px;
+    color: white;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    border: none;
+    transition: 0.3s transform;
+
+    &__main {
+        background: $main-color;
+        background: linear-gradient(135deg, transparent 10px, $main-color 0) top left,
+
+        linear-gradient(-45deg, transparent 10px, $main-color 0) bottom right;
+        background-size: 51% 100%;
+        background-repeat: no-repeat;
+    }
+
+    &__secondary {
+        background: $grey;
+        background: linear-gradient(135deg, transparent 10px, $grey 0) top left,
+
+        linear-gradient(-45deg, transparent 10px, $grey 0) bottom right;
+        background-size: 51% 100%;
+        background-repeat: no-repeat;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+

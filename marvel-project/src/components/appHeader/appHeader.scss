@@ -1,0 +1,31 @@
+@import "../../style/variables";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    &__title{
+        font-size: 28px;
+        font-weight: bold;
+        line-height: 33px;
+        span{
+            color: $main-color;
+        }
+    }
+
+    &__menu{
+        ul{
+            display: flex;
+            justify-content: space-between;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 33px;
+            gap: 8px;
+            li {
+                a:hover{
+                    color: $main-color;
+                }
+            }
+        }
+    }
+}
+

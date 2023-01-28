@@ -1,23 +1,24 @@
 import './app-filter.css';
 const AppFilter = (props) =>{
     const {filter, onFilterSelect} = props;
+
     const buttonsData = [
-        {name: 'all', label: 'Все сотрудники'},
-        {name: 'rise', label: 'На повышение'},
-        {name: 'moreThen1000', label: 'З/П больше 1000$'},
+        {filterName: 'all', label: 'Все сотрудники'},
+        {filterName: 'rise', label: 'На повышение'},
+        {filterName: 'moreThen1000', label: 'З/П больше 1000$'},
     ];
 
-    const buttons = buttonsData.map(({name, label}) => {
-        // тоже самое что и if (filter) === name return true
-        const isActive = filter === name;
+    const buttons = buttonsData.map(({filterName, label}) => {
+        // тоже самое что и if (filter) === filterName return true
+        const isActive = filter === filterName;
         const clazz = isActive ? 'btn-light' : 'btn-outline-light';
 
         return (
             <button
-                onClick={() => onFilterSelect(name)}
+                onClick={() => onFilterSelect(filterName)}
                 className={`btn ${clazz}`}
                 type="button"
-                key={name}>
+                key={filterName}>
                 {label}
             </button>
         )

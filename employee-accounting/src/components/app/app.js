@@ -100,7 +100,7 @@ class App extends Component {
             })*!/
         }*/
     // поиск во всем слове типо ctrl + F
-    searchEmp = (items, term) => {
+    searchEmployers = (items, term) => {
         if (term.length === 0) return items;
         console.log(term);
 
@@ -122,6 +122,7 @@ class App extends Component {
         }
     }
 
+    // обновляем глобальный стейт
     onUpdateSearch = (term) => {
         this.setState({term: term});
     }
@@ -134,7 +135,7 @@ class App extends Component {
         const {data, term, filter} = this.state;
         const countEmployees = this.state.data.length;
         const increaseEmployees = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.filterPost(this.searchEmp(data, term), filter);
+        const visibleData = this.filterPost(this.searchEmployers(data, term), filter);
 
         return (
             <div className="app">

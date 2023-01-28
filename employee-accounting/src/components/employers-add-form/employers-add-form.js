@@ -32,7 +32,7 @@ class EmployersAddForm extends Component {
 
         // после добавления очищаем форму
         this.setState({
-            name: '',
+            filterName: '',
             salary: ''
         })
     }

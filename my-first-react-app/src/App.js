@@ -1,6 +1,8 @@
 import './App.css';
 import React from "react";
 import {Component, Fragment} from "react";
+import styled from "styled-components";
+
 // обычно таким синтаксисом не пользуются
 const elem = React.createElement(
     'h2',
@@ -36,7 +38,7 @@ const Btn = () => {
     const text = 'Log in';
     const logged = false;
 
-    return <button>{logged ? 'Enter' : text}</button>
+    return <Button>{logged ? 'Enter' : text}</Button>
 }
 
 
@@ -66,12 +68,43 @@ function WhoAmi(props) {
 
 function WhoAmiDestr({name, surname, link}) {
     return (
-        <div>
-            <h1>Му name is {name}, surname - {surname}</h1>
+        <EmpItem>
+            <h1 style={{fontSize: 90}}>Му name is {name}, surname - {surname}</h1>
             <a href={link}>Мой профиль</a>
-        </div>
+        </EmpItem>
     )
 }
+
+const EmpItem = styled.div`
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
+  //поддерживает вложенность
+  a {
+    display: block;
+    margin: 10px 0 10px 0;
+    color: ${props => props.active ? 'orange' : 'black'};
+  }
+  h1{
+    font-style: italic;
+    text-align: center;
+    font-size: 24px;
+  }
+`;
+
+const Wrapper = styled.div`
+  width: 600px;
+  margin: 80px auto 0 auto;
+  //background-color: #61dafb;
+`;
+
+export const Button = styled.button`
+  display: block;
+  padding: 5px 15px;
+  background-color: gold;
+  border: 1px solid rgba(0, 0, 0, .2);
+`;
 
 class WhoAmiClass extends React.Component {
     constructor(props) {
@@ -106,8 +139,8 @@ class WhoAmiClass extends React.Component {
         const {name, surname, link} = this.props;
         const {position, years} = this.state
         return (
-            // еще 1 способ избавиться от пустого дива
-            <>
+            // используем стили и передаем в него пропс
+            <EmpItem active >
                 <button onClick={this.nextYear}>{this.state.text}</button>
                 <h1>Му name is {name},
                     surname - {surname},
@@ -119,10 +152,11 @@ class WhoAmiClass extends React.Component {
                     <span>Введите должность</span>
                     <input type="text" onChange={(event) => this.commitInputChanges(event, 'green')}/>
                 </form>
-            </>
+            </EmpItem>
         )
     }
 }
+
 
 function App() {
     return (
@@ -131,26 +165,29 @@ function App() {
             <Field/>
             <FieldClass/>
             <Btn/>
-            <WhoAmi
-                name="John"
-                surname={"Smith"}
-                link={'profile.com'}
-            />
-            <WhoAmiDestr
-                name="John"
-                surname={"Smith"}
-                link={'profile.com'}
-            />
-            <WhoAmiClass
-                name="John"
-                surname={"Smith"}
-                link={'profile.com'}
-            />
-            <WhoAmiClass
-                name="John"
-                surname={"Smith"}
-                link={'profile.com'}
-            />
+            <Wrapper>
+                <WhoAmi
+                    name="John"
+                    surname={"Smith"}
+                    link={'profile.com'}
+                />
+                <WhoAmiDestr
+                    name="John"
+                    surname={"Smith"}
+                    link={'profile.com'}
+                />
+                <WhoAmiClass
+                    name="John"
+                    surname={"Smith"}
+                    link={'profile.com'}
+                />
+                <WhoAmiClass
+                    name="John"
+                    surname={"Smith"}
+                    link={'profile.com'}
+                />
+            </Wrapper>
+
         </div>
     );
 }

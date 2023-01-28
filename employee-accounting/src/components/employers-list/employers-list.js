@@ -13,12 +13,13 @@ const EmployersList = ({data, onDeleteDrill, onToggleProp}) => {
         return (
             // <EmployersListItem name={item.name} salary={item.salary}/>
             // текущий вариант вариант аналогичен строке выше
-            <EmployersListItem key={id}
-                               {...itemProps}
+            <EmployersListItem
+                key={id}
+                {...itemProps}
                 /*props_drill часть3 прокидываем пропс onDelete дальше в EmployersListItem
                 вызывая функцию из app.js onDeleteDrill */
-                               onDelete={() => onDeleteDrill(id)}
-                               onToggleProp={(event) => onToggleProp(id, event.currentTarget.getAttribute('data-toggle'))}
+                onDelete={() => onDeleteDrill(id)}
+                onToggleProp={(event) => onToggleProp(id, event.currentTarget.getAttribute('data-toggle'))}
             />
         );
     });

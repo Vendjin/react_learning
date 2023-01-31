@@ -1,4 +1,4 @@
-@import "variables";
+@import "variables.scss";
 
 .button {
     display: block;
@@ -34,6 +34,22 @@
 
     &:hover {
         transform: translateY(-5px);
+    }
+
+    &__long{
+        display: block;
+        cursor: pointer;
+        border: none;
+        width: 170px;
+
+        padding: 10px 50px;
+        margin: 45px auto 0 auto;
+        color: white;
+        font-size: 14px;
+        transition: 0.3s transform;
+        &:hover {
+            transform: translateY(-5px);
+        }
     }
 }
 

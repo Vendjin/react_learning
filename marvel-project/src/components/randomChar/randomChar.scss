@@ -46,6 +46,23 @@
         padding: 40px 35px;
         background-color: $dark;
         position: relative;
+        button{
+            margin-top: 17px;
+        }
+    }
+    &__title {
+        font-size: 24px;
+        line-height: 28px;
+        font-weight: bold;
+        color: #FFFFFF;
+        &:nth-child(2){
+            margin-top: 40px;
+        }
+    }
+    &__decoration{
+        position: absolute;
+        bottom: 30px;
+        right: -45px;
     }
 }
 

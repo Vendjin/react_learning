@@ -4,7 +4,7 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 
 import decoration from '../../resources/img/vision.png';
-import Sceleton from "../sceleton/Sceleton";
+
 function App() {
     return (
         <div className="app">

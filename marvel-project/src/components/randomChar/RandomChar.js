@@ -20,12 +20,16 @@ class RandomChar extends Component {
         )
     }
 
+    onCharLoading = () => {
+        this.setState({loading: true})
+    }
+    // добавляем выгруженного персонажа в стейт
     onCharLoaded = (char) => {
         // char тоже самое что и  char:char
         this.setState({char, loading: false})
     }
 
-    // хук для загрузки данных
+    // хук для загрузки данных, первичную подгрузку данных используем в этом хуке
     componentDidMount() {
         this.updateChar();
     }
@@ -38,6 +42,8 @@ class RandomChar extends Component {
         const max = 1011400;
         const id = Math.floor(Math.random() * (max - min + 1)) + min;
 
+        // перед тем как отправить запрос мы устанавливаем спиннер
+        this.onCharLoading();
         this.marvelService
         .getCharacter(id)
         .then(this.onCharLoaded)

@@ -4,14 +4,13 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import {Component} from "react";
 import decoration from '../../resources/img/vision.png';
-
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 class App extends Component{
     state = {
         selectedChar: null,
     }
 
     onCharSelected = (id) => {
-        console.log(id)
         this.setState({
             selectedChar: id
         })
@@ -25,8 +24,11 @@ class App extends Component{
                     <div className="char__content">
                         {/*передаем проп в CharList, оттуда вернет id чара*/}
                         <CharList onCharSelected={this.onCharSelected}/>
-                        {/*полученное id чара передаем через проп в CharInfo*/}
-                        <CharInfo charId = {this.state.selectedChar}/>
+                        <ErrorBoundary>
+                            {/*полученное id чара передаем через проп в CharInfo*/}
+                            <CharInfo charId = {this.state.selectedChar}/>
+                        </ErrorBoundary>
+
                     </div>
                     <img className='bg-decoration' src={decoration} alt='vision'/>
                 </main>

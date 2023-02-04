@@ -25,24 +25,24 @@ class CharInfo extends Component {
         this.setState({loading: true})
     }
 
+    // полученные данные закидываем в стейт
     onCharLoadedState = (char) => {
         this.setState({char, loading: false})
     }
 
     // хук жизненного цикла, предзагрузка данных
     componentDidMount() {
-        console.log('ghtlpfuheprf')
         this.updateCharInfo();
     }
 
     // еще хук жизненного цикла, когда предали пропс
     componentDidUpdate(prevProps, prevState) {
-        console.log("обновление")
         // проверяем изменились ли пропсы для перерендеревания
         if (this.props.charId !== prevProps.charId){
             this.updateCharInfo();
         }
     }
+
 
     updateCharInfo = () => {
         const {charId} = this.props;
@@ -51,11 +51,15 @@ class CharInfo extends Component {
             return;
         }
 
+        // показывать спинер пока данные не загрузились
         this.onLoading();
         this.marvelService
         .getCharacter(charId)
         .then(this.onCharLoadedState)
         .catch(this.onError);
+
+        // строка для примера работы с предохранителем
+        // this.foo.bar = 0
     }
 
     render() {

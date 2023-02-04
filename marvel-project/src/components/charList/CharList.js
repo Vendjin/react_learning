@@ -5,37 +5,54 @@ import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/spinner";
 
 class CharList extends Component {
-    marvelService = new MarvelService();
 
     state = {
         charList: [],
         loading: true,
         error: false,
+        newItemLoading: false,
+        offset : 210
     }
 
-    onCharListLoaded = (charList) => {
-        // char тоже самое что и  char:char
-        this.setState({charList, loading: false})
+    marvelService = new MarvelService();
+    // первичная загрузка для отображения
+    componentDidMount() {
+        this.onRequest();
     }
 
-    updateState = () => {
-        this.marvelService
-        .getAllCharacters()
+    // запрашиваем персонажей
+    onRequest = (offset) => {
+        this.onCharListLoading();
+        this.marvelService.getAllCharacters(offset)
         .then(this.onCharListLoaded)
         .catch(this.onError)
     }
 
-    onError = () => {
-        this.setState(
-            {
-                error: true,
-                loading: false,
-            }
-        )
+
+    // состояние персонажи загрузились
+    onCharListLoaded = (newCharList) => {
+        // char тоже самое что и  char:char
+        // тк список персонажай формируем не заново, а добавляем к старым новых, то предыдущее состояния стейта важно! используй колбек. () => ({}) означает, что возвращаем объект из этой функции
+        this.setState(({offset, charList}) => ({
+            charList: [...charList, ...newCharList],
+            loading: false,
+            newItemLoading: false,
+            offset: offset + 9,
+        }))
     }
 
-    componentDidMount() {
-        this.updateState();
+    onError = () => {
+        this.setState({
+            error: true,
+            loading: false,
+        })
+    }
+
+    // подгрузка дополнительных персонажей
+    onCharListLoading = () => {
+        this.setState({
+            newItemLoading: true
+        })
     }
 
     renderItems(arrChar) {
@@ -49,7 +66,7 @@ class CharList extends Component {
                 <li
                     className='char__item'
                     key={item.id}
-                    // вытаскиваем через колбек из пропсов нашу функцию и вызываем ее
+                    // вытаскиваем через колбек из пропсов нашу функцию и вызываем ее, она изменит глобальный стейт
                     onClick={() => this.props.onCharSelected(item.id)}>
                     <img src={item.thumbnail} alt={item.name} style={imgStyle}/>
                     <div className='char__name'>{item.name}</div>
@@ -66,7 +83,7 @@ class CharList extends Component {
     }
 
     render() {
-        const {charList, loading, error} = this.state;
+        const {charList, loading, error, offset, newItemLoading} = this.state;
         const items = this.renderItems(charList);
 
         const errorMessage = error ? <ErrorMessage/> : null;
@@ -78,7 +95,12 @@ class CharList extends Component {
                 {errorMessage}
                 {spinner}
                 {content}
-                <button className='button__main button__long'>LOAD MORE</button>
+                <button
+                    className='button__main button__long'
+                    disabled={newItemLoading}
+                    onClick={() => this.onRequest(offset)}>
+                    LOAD MORE
+                </button>
             </div>
         )
     }

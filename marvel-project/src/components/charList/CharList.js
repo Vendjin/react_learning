@@ -3,6 +3,8 @@ import MarvelService from "../../services/MarvelService";
 import {Component} from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/spinner";
+import CharInfo from "../charInfo/CharInfo";
+import PropTypes from "prop-types";
 
 class CharList extends Component {
 
@@ -10,11 +12,13 @@ class CharList extends Component {
         charList: [],
         loading: true,
         error: false,
-        newItemLoading: false,
-        offset : 210
+        blockNewItemLoading: false,
+        offset : 210,
+        lastChar: false
     }
 
     marvelService = new MarvelService();
+
     // первичная загрузка для отображения
     componentDidMount() {
         this.onRequest();
@@ -22,22 +26,33 @@ class CharList extends Component {
 
     // запрашиваем персонажей
     onRequest = (offset) => {
+        // onCharListLoading используется и при первичной загрузке, поэтому блокируем кнопку
         this.onCharListLoading();
         this.marvelService.getAllCharacters(offset)
         .then(this.onCharListLoaded)
         .catch(this.onError)
     }
 
+    // процесс загрузки персонажей, когда он запущен, ожидает пока загрузится запрос и не дает наспамить следующие
+    onCharListLoading = () => {
+        this.setState({
+            blockNewItemLoading: true
+        })
+    }
 
     // состояние персонажи загрузились
     onCharListLoaded = (newCharList) => {
-        // char тоже самое что и  char:char
-        // тк список персонажай формируем не заново, а добавляем к старым новых, то предыдущее состояния стейта важно! используй колбек. () => ({}) означает, что возвращаем объект из этой функции
+        let ended = false;
+        if (newCharList.length < 9 ){
+            ended = true;
+        }
+        // тк список персонажей формируем не заново, а добавляем к старым новых, то предыдущее состояния стейта важно! используй колбек. () => ({}) означает, что возвращаем объект из этой функции
         this.setState(({offset, charList}) => ({
             charList: [...charList, ...newCharList],
             loading: false,
-            newItemLoading: false,
+            blockNewItemLoading: false,
             offset: offset + 9,
+            lastChar: ended,
         }))
     }
 
@@ -45,13 +60,6 @@ class CharList extends Component {
         this.setState({
             error: true,
             loading: false,
-        })
-    }
-
-    // подгрузка дополнительных персонажей
-    onCharListLoading = () => {
-        this.setState({
-            newItemLoading: true
         })
     }
 
@@ -74,7 +82,7 @@ class CharList extends Component {
             )
         });
 
-        // А эта конструкция вынесена для центровки спиннера/ошибки
+        // А эта конструкция вынесена для центровки спинера/ошибки
         return (
             <ul className='char__list_wrapper'>
                 {items}
@@ -83,7 +91,7 @@ class CharList extends Component {
     }
 
     render() {
-        const {charList, loading, error, offset, newItemLoading} = this.state;
+        const {charList, loading, error, offset, blockNewItemLoading, lastChar} = this.state;
         const items = this.renderItems(charList);
 
         const errorMessage = error ? <ErrorMessage/> : null;
@@ -97,7 +105,9 @@ class CharList extends Component {
                 {content}
                 <button
                     className='button__main button__long'
-                    disabled={newItemLoading}
+                    // Блокировка кнопки через атрибут disabled и изменение ее стилей, что бы не спамить запросами true - кнопка заблокирована, false разблокирована
+                    disabled={blockNewItemLoading}
+                    style={{'display': lastChar ? 'none': 'block'}}
                     onClick={() => this.onRequest(offset)}>
                     LOAD MORE
                 </button>
@@ -106,5 +116,8 @@ class CharList extends Component {
     }
 }
 
+CharInfo.propTypes = {
+    onCharSelected: PropTypes.func,
+};
 
 export default CharList;

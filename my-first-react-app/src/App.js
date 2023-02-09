@@ -2,7 +2,9 @@ import './App.css';
 import React from "react";
 import {Component, Fragment} from "react";
 import styled from "styled-components";
-
+import {Row} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactDOM from "react-dom";
 // обычно таким синтаксисом не пользуются
 const elem = React.createElement(
     'h2',
@@ -86,7 +88,8 @@ const EmpItem = styled.div`
     margin: 10px 0 10px 0;
     color: ${props => props.active ? 'orange' : 'black'};
   }
-  h1{
+
+  h1 {
     font-style: italic;
     text-align: center;
     font-size: 24px;
@@ -140,7 +143,7 @@ class WhoAmiClass extends React.Component {
         const {position, years} = this.state
         return (
             // используем стили и передаем в него пропс
-            <EmpItem active >
+            <EmpItem active>
                 <button onClick={this.nextYear}>{this.state.text}</button>
                 <h1>Му name is {name},
                     surname - {surname},
@@ -155,6 +158,201 @@ class WhoAmiClass extends React.Component {
             </EmpItem>
         )
     }
+}
+
+
+const DinamicGreating = (props) => {
+    return (
+        <div className={'children'}>
+            {/*{props.children}*/}
+            {
+                React.Children.map(props.children, child => {
+                    return React.cloneElement(child, {className: 'red'})
+                })
+            }
+        </div>
+    )
+}
+
+// еще одна разновидность вставки кода, типо есть заготовка, знаем, что есть точно 2 колонки, а чем заполняться они будут не знаем
+/*const Test = (props) => {
+    return (
+        <Container className='mt-5 mb-5'>
+            <Row>
+                <Col>
+                    {props.left}
+                </Col>
+                <Col>
+                    {props.right}
+                </Col>
+            </Row>
+        </Container>
+    )
+}
+
+const Wrap = () => {
+    <Test>
+        left = {
+            <h2>Какой то текст</h2>
+        }
+        right = {
+            <SomeComponent>
+                <h2>А сюда вставляем целый компонент</h2>
+            </SomeComponent>
+        }
+    </Test>
+}*/
+
+const HelloGreating = () => {
+    return (
+        <div style={{'width': "800px", 'margin': '0 auto', 'backgroundColor': 'black'}}>
+            <DinamicGreating>
+                <h2>Что то написано</h2>
+                <h2>Hello world</h2>
+            </DinamicGreating>
+        </div>
+    )
+}
+
+
+// Render-props pattern
+const Message = (props) => {
+    return (
+        <h2>The counter is {props.counter}</h2>
+    )
+}
+
+class Counter extends Component {
+    state = {
+        counter: 0
+    }
+
+    changeCounter = () => {
+        this.setState(({counter}) => ({
+            counter: counter + 1
+        }))
+    }
+
+    render() {
+        return (
+            <>
+                {this.props.render(this.state.counter)}
+                <button
+                    className={'btn btn-primary'}
+                    onClick={this.changeCounter}>
+                    Click me counter
+                </button>
+            </>
+        )
+    }
+}
+
+// REF-ы - при открытии формы указатель ставился сразу на нужную строку
+class Form extends Component {
+    myRef = React.createRef();
+    mySecondRef = React.createRef();
+
+    // componentDidMount() {
+    //     this.myRef.current.focus();
+    // }
+
+    focusFirst = () => {
+        if (this.myRef){
+            // this.myRef.current.focus();
+            this.myRef.focus();
+        }
+    }
+
+    setInputRef = elem => {
+        this.myRef = elem;
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="mb-3">
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                    <input type="email" className="form-control" id="exampleFormControlInput1"
+                           placeholder="name@example.com" ref={this.setInputRef}/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                    <textarea  onClick={this.focusFirst} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+// ПОРТАЛЫ показыват ькомпонент не внутри родительского а поверх
+class FormPortal extends Component {
+    state = {
+        openModal: false
+    }
+    // handleClick = () => {
+    //     this.setState({
+    //         openModal: true
+    //     })
+    // }
+
+    handleClick = () => {
+        this.setState(({openModal}) => ({
+            openModal: !openModal
+        }))
+        console.log(this.state.openModal)
+    }
+
+    render() {
+        return (
+            <div className='w-50 border mt-5 p-3 m-auto' onClick={this.handleClick}>
+                <div className="mb-3" >
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                    <input type="email" className="form-control" id="exampleFormControlInput1"
+                           placeholder="name@example.com"/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                    <textarea  className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button onClick={this.handleClick}>KNOPKA</button>
+                { this.state.openModal ?
+                    <Portal>
+                        <Msg/>
+                    </Portal> : null
+                }
+
+
+                {/*<Portal>
+                    <Msg/>
+                </Portal>*/}
+            </div>
+        )
+    }
+}
+
+const Portal = (props) => {
+    const node = document.createElement('div');
+    document.body.appendChild(node)
+
+    return ReactDOM.createPortal(props.children, node);
+}
+const Msg = () => {
+    return (
+        <div
+            style={
+                {
+                    'width': '500px',
+                    'height': '150px',
+                    'backgroundColor': 'red',
+                    'position': 'absolute',
+                    'right': '0',
+                    'bottom': '0'
+                }
+            }>
+            Hello scdsfdfgfdfdgfdggg
+        </div>
+    )
 }
 
 
@@ -186,6 +384,20 @@ function App() {
                     surname={"Smith"}
                     link={'profile.com'}
                 />
+                <DinamicGreating color={'green'}>
+                    <h2>Что то написано</h2>
+                    <h2>Hello world</h2>
+                </DinamicGreating>
+
+                <HelloGreating/>
+
+                <Counter render={(counter) => (
+                    <Message counter={counter}/>
+                )}/>
+
+                <Form/>
+
+                <FormPortal/>
             </Wrapper>
 
         </div>

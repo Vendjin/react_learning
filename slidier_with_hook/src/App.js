@@ -1,6 +1,8 @@
-import {Component, useState, useEffect, useCallback, useMemo} from 'react';
+import {Component, useState, useEffect, useCallback, useMemo, useRef} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
+import Refs from "./refs";
+import SelfHooks from "./selfHooks";
 
 class Slider extends Component {
 
@@ -105,7 +107,7 @@ const SliderHook = (props) => {
         console.log('logger');
     }
 
-    // используем для запросов на сервер, таймаутов, изменений DOM структуры
+    // useEffect используем для запросов на сервер, таймаутов, изменений DOM структуры
     // второй передаваемый элемент, это массив зависимостей, за чем следить,
     useEffect(() => {
         console.log('slide')
@@ -151,7 +153,7 @@ const SliderHook = (props) => {
         console.log('Styles');
     }, [style])
 
-    
+
     return (
         <Container>
             <div className="slider w-50 m-auto">
@@ -202,12 +204,16 @@ const Slide = ({getSomeImages}) => {
 function App() {
 
     const [slider, setSlider] = useState(true);
+
     return (
         <>
-            <button onClick={() => setSlider(!slider)}>Click OnOffSlider</button>
+            <button onClick={() => setSlider(!slider)}>
+                Click OnOffSlider
+            </button>
             {slider ? <SliderHook/> : null}
             {/*<Slider/>*/}
-
+            <Refs/>
+            <SelfHooks/>
         </>
     );
 }

@@ -1,87 +1,68 @@
 import './charInfo.scss';
-import {Component} from "react";
+import {useEffect, useState} from "react";
 import MarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Skeleton from "../sceleton/Skeleton";
 import PropTypes from "prop-types";
 
-class CharInfo extends Component {
+const CharInfo = (props) => {
 
-    state = {
-        char: null,
-        loading: false,
-        error: false,
+    const [char, setChar] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
+    const marvelService = new MarvelService();
+
+    const onError = () => {
+        setError(true);
+        setLoading(false);
     }
 
-    marvelService = new MarvelService();
-
-    onError = () => {
-        this.setState({
-            error: true,
-            loading: false
-        })
-    }
-
-    onLoading = () => {
-        this.setState({loading: true})
+    const onLoading = () => {
+        setLoading(true);
     }
 
     // полученные данные закидываем в стейт
-    onCharLoadedState = (char) => {
-        this.setState({char, loading: false})
+    const onCharLoaded = (char) => {
+        setChar(char);
+        setLoading(false);
     }
 
     // хук жизненного цикла, предзагрузка данных
-    componentDidMount() {
-        this.updateCharInfo();
-    }
-
-    // еще хук жизненного цикла, когда предали пропс
-    componentDidUpdate(prevProps, prevState) {
-        // проверяем изменились ли пропсы для перерендеревания
-        if (this.props.charId !== prevProps.charId){
-            this.updateCharInfo();
-        }
-    }
+    useEffect(() => {
+        updateCharInfo();
+    }, [props.charId])
 
 
-    updateCharInfo = () => {
-        const {charId} = this.props;
+    const updateCharInfo = () => {
+        const {charId} = props;
         // что бы не вылезала ошибка, что не передан charId в url на сервер
         if (!charId) {
             return;
         }
 
-        // показывать спинер пока данные не загрузились
-        this.onLoading();
-        this.marvelService
-        .getCharacter(charId)
-        .then(this.onCharLoadedState)
-        .catch(this.onError);
-
-        // строка для примера работы с предохранителем
-        // this.foo.bar = 0
+        // показывать спиннер пока данные не загрузились
+        onLoading();
+        marvelService.getCharacter(charId)
+        .then(onCharLoaded)
+        .catch(onError);
     }
 
-    render() {
-        const {char, loading, error} =this.state;
+    const skeleton = !char || loading || error ? <Skeleton/> : null;
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
 
-        const skeleton = !char || loading || error ? <Skeleton/>: null;
-        const errorMessage = error ? <ErrorMessage/>: null;
-        const spinner = loading ? <Spinner/>: null;
+    const content = !(loading || error || !char) ? <View char={char}/> : null;
 
-        const content = !(loading || error || !char) ? <View char={char}/> : null;
-
-        return (
-            <div className='char__info'>
-                {skeleton}
-                {errorMessage}
-                {spinner}
-                {content}
-            </div>
-        )
-    }
+    return (
+        <div className='char__info'>
+            {skeleton}
+            {errorMessage}
+            {spinner}
+            {content}
+        </div>
+    )
 }
 
 const View = ({char}) => {

@@ -1,6 +1,6 @@
 import './charInfo.scss';
 import {useEffect, useState} from "react";
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Skeleton from "../sceleton/Skeleton";
@@ -9,27 +9,27 @@ import PropTypes from "prop-types";
 const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    /*const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);*/
 
-    const marvelService = new MarvelService();
+    const {loading, error, getCharacter, clearError} = useMarvelService();
 
-    const onError = () => {
+/*    const onError = () => {
         setError(true);
         setLoading(false);
     }
 
     const onLoading = () => {
         setLoading(true);
-    }
+    }*/
 
     // полученные данные закидываем в стейт
     const onCharLoaded = (char) => {
         setChar(char);
-        setLoading(false);
+        // setLoading(false);
     }
 
-    // хук жизненного цикла, предзагрузка данных
+    // предзагрузка данных, первичная загрузка на страницу
     useEffect(() => {
         updateCharInfo();
     }, [props.charId])
@@ -41,12 +41,12 @@ const CharInfo = (props) => {
         if (!charId) {
             return;
         }
-
+        clearError();
         // показывать спиннер пока данные не загрузились
-        onLoading();
-        marvelService.getCharacter(charId)
+        // onLoading();
+        getCharacter(charId)
         .then(onCharLoaded)
-        .catch(onError);
+        // .catch(onError);
     }
 
     const skeleton = !char || loading || error ? <Skeleton/> : null;

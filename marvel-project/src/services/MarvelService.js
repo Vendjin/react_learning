@@ -1,18 +1,30 @@
-class MarvelService {
-    _apiBase = 'https://gateway.marvel.com:443/v1/public/';
-    _apiKey = 'apikey=3be00fde4d4063b65c77a6bbcda778de';
-    _baseOffset = 210;
+// import {useHttp} from '../components/hooks/http.hooks';
 
-    _getResource = async (url) => {
-        let res = await fetch(url);
+import {useHttp} from "../components/hooks/http.hooks";
 
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+const useMarvelService = () => {
+    const {loading, request, error, clearError} = useHttp();
+
+    const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
+    const _apiKey = 'apikey=3be00fde4d4063b65c77a6bbcda778de';
+    const _baseOffset = 210;
+
+    const getResource = async (url) => {
+        try{
+            let res = await fetch(url);
+
+            if (!res.ok) {
+                throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+            }
+
+            return await res.json();
+
+        } catch (e) {
+            throw e;
         }
-        return await res.json();
     }
 
-    _postData = async (url, data) => {
+    const postData = async (url, data) => {
         let res = await fetch(url, {
             method: 'POST',
             headers: {
@@ -23,19 +35,19 @@ class MarvelService {
         return await res.json();
     }
 
-    getAllCharacters = async (offset = this._baseOffset) => {
-        const res = await this._getResource(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiKey}`);
-        return res.data.results.map(this._transformCharacter)
+    const getAllCharacters = async (offset = _baseOffset) => {
+        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`);
+        return res.data.results.map(_transformCharacter)
     }
 
     /*переделал функцию на async/await тк внутри вызываем _getResource, которая так же асинхронная
     и что бы getCharacter не падала, ее так же сделал асинхронной*/
-    getCharacter = async (id) => {
-        const res = await this._getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
-        return this._transformCharacter(res.data.results[0]);
+    const getCharacter = async (id) => {
+        const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
+        return _transformCharacter(res.data.results[0]);
     }
 
-    _transformCharacter = (char) => {
+    const _transformCharacter = (char) => {
         // результат запроса превращаем в объект, который попадет в стейт
         return {
             id: char.id,
@@ -47,6 +59,8 @@ class MarvelService {
             comics: char.comics.items,
         }
     }
+
+    return {loading, error, clearError, getAllCharacters, getCharacter}
 }
 
-export default MarvelService;
+export default useMarvelService;

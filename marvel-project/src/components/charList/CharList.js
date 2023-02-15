@@ -1,5 +1,5 @@
 import './charList.scss';
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import {useState, useEffect, useRef} from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/spinner";
@@ -9,34 +9,37 @@ import PropTypes from "prop-types";
 const CharList = (props) => {
 
     const [charList, setCharList] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    /*const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);*/
     const [blockNewItemLoading, setBlockNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
     const [lastChar, setLastChar] = useState(false);
 
-    const marvelService = new MarvelService();
+    const {loading, error, getAllCharacters} =  useMarvelService();
 
     // первичная загрузка для отображения
     // [] функция выполнится 1 раз при создании компонента
     useEffect(() => {
-        onRequest()
+        onRequest(offset, true)
     }, [])
 
 
     // запрашиваем персонажей
-    const onRequest = (offset) => {
-        // onCharListLoading используется и при первичной загрузке, поэтому блокируем кнопку
-        onCharListLoading();
-        marvelService.getAllCharacters(offset)
+    const onRequest = (offset, initial) => {
+        // initial = true - это первичныя загрузка, а если передали false, то это последющая
+        initial ? setBlockNewItemLoading(false): setBlockNewItemLoading(true) ;
+        // setBlockNewItemLoading используется и при первичной загрузке, поэтому блокируем кнопку
+        // процесс загрузки персонажей, когда он запущен, ожидает пока загрузится запрос и не дает наспамить следующие
+        // setBlockNewItemLoading(true);
+        getAllCharacters(offset)
         .then(onCharListLoaded)
-        .catch(onError)
+        // .catch(onError)
     }
 
-    // процесс загрузки персонажей, когда он запущен, ожидает пока загрузится запрос и не дает наспамить следующие
+/*    // процесс загрузки персонажей, когда он запущен, ожидает пока загрузится запрос и не дает наспамить следующие
     const onCharListLoading = () => {
         setBlockNewItemLoading(true);
-    }
+    }*/
 
     // состояние персонажи загрузились
     const onCharListLoaded = (newCharList) => {
@@ -46,16 +49,16 @@ const CharList = (props) => {
         }
 
         setCharList(charList => [...charList, ...newCharList]);
-        setLoading(loading => false);
+        // setLoading(loading => false);
         setBlockNewItemLoading(blockNewItemLoading => false);
         setOffset(offset => offset + 9);
         setLastChar(lastChar => ended);
     }
 
-    const onError = () => {
+/*    const onError = () => {
         setError(true);
         setLoading(false);
-    }
+    }*/
 
     // массив ссылок на элементы
     const itemRefs = useRef([]);
@@ -103,14 +106,15 @@ const CharList = (props) => {
     const items = renderItems(charList);
 
     const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? items : null;
+    const spinner = loading  && !blockNewItemLoading ? <Spinner/> : null;
+    // const content = !(loading || error) ? items : null;
 
     return (
         <div className='char__list'>
             {errorMessage}
             {spinner}
-            {content}
+            {/*{content}*/}
+            {items}
             <button
                 className='button__main button__long'
                 // Блокировка кнопки через атрибут disabled и изменение ее стилей, что бы не спамить запросами true - кнопка заблокирована, false разблокирована

@@ -1,15 +1,17 @@
 import './randomChar.scss';
 import hammer from '../../resources/img/mjolnir.png';
 import {useEffect, useState} from "react";
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
 const RandomChar = (props) => {
 
     const [char, setChar] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    /*const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);*/
+
+    const {loading, error, getCharacter, clearError} = useMarvelService();
 
     // deps[] функция выполнится 1 раз при создании компонента
     useEffect(() => {
@@ -24,23 +26,21 @@ const RandomChar = (props) => {
 
     }, []);
 
-    const onError = () => {
+    /*const onError = () => {
         setError(true);
         setLoading(false);
     }
 
     const onCharLoading = () => {
         setLoading(true)
-    }
+    }*/
 
     // добавляем выгруженного персонажа в стейт
     const onCharLoaded = (char) => {
         setChar(char);
-        setLoading(false)
+        // setLoading(false)
     }
 
-    // создаем новое свойство marvelService
-    const marvelService = new MarvelService();
 
     const updateChar = () => {
         const min = 1011000;
@@ -48,12 +48,15 @@ const RandomChar = (props) => {
         const id = Math.floor(Math.random() * (max - min + 1)) + min;
 
         // перед тем как отправить запрос мы устанавливаем спиннер
-        onCharLoading();
-        marvelService
-        .getCharacter(id)
+        // onCharLoading();
+        // marvelService
+        clearError();
+        getCharacter(id)
         .then(onCharLoaded)
         // ловим в кетче ошибку и передаем его в обработчик, который поменяет стейт
-        .catch(onError)
+        // .catch(onError)
+        // если возникла ошибка, то ресетим стейт, что бы обновлялось дальше
+        // setError(false);
     }
 
 

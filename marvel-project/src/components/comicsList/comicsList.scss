@@ -1,0 +1,40 @@
+@import "../../style/variables.scss";
+
+.comics{
+    &__list{
+        margin-top: 50px;
+        &_wrapper{
+            display: grid;
+            grid-template-columns: repeat(4, 225px);
+            column-gap: 65px;
+            row-gap: 55px;
+        }
+        &_item{
+            width: 225px;
+            height: 415px;
+            cursor: pointer;
+        }
+        &_img{
+            width: 225px;
+            height: 345px;
+            object-fit: cover;
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, .25);
+        }
+        &_name {
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 16px;
+            color:$dark;
+            margin-top: 10px;
+        }
+        &_price{
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 16px;
+
+            color: $grey;
+            text-transform: uppercase;
+        }
+    }
+}

@@ -9,7 +9,7 @@ const useMarvelService = () => {
     const _apiKey = 'apikey=3be00fde4d4063b65c77a6bbcda778de';
     const _baseOffset = 210;
 
-    const getResource = async (url) => {
+    /*const getResource = async (url) => {
         try{
             let res = await fetch(url);
 
@@ -33,7 +33,7 @@ const useMarvelService = () => {
             body: data
         });
         return await res.json();
-    }
+    }*/
 
     const getAllCharacters = async (offset = _baseOffset) => {
         const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`);
@@ -57,10 +57,33 @@ const useMarvelService = () => {
             homepage: char.urls[0].url,
             wiki: char.urls[1].url,
             comics: char.comics.items,
-        }
-    }
+        };
+    };
 
-    return {loading, error, clearError, getAllCharacters, getCharacter}
-}
+
+    const getAllComics = async (offset = 0) => {
+        const response = await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
+        return response.data.results.map(_transformComics)
+    };
+
+    const getComics = async (id) => {
+        const response = await request(`${_apiBase}comics/${id}?${_apiKey}`);
+        return _transformCharacter(response.data.results[0])
+    };
+
+    const _transformComics = (comics) => {
+        return {
+            id: comics.id,
+            title: comics.title,
+            description: comics.description || `Не описания комикса ${comics.title}`,
+            thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
+            pageCount: comics.pageCount ? `${comics.pageCount} pages` : "No information about the number of pages",
+            prices: comics.prices[0].price ? `${comics.prices[0].price}$` : "No information about prices",
+            language: comics.textObjects[0]?.language || "en-us",
+        };
+    };
+
+    return {loading, error, clearError, getAllCharacters, getCharacter, getAllComics, getComics};
+};
 
 export default useMarvelService;

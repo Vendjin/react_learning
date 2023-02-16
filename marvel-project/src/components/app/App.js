@@ -5,7 +5,7 @@ import CharInfo from "../charInfo/CharInfo";
 import {useState} from "react";
 import decoration from '../../resources/img/vision.png';
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
-
+import ComicsMore from "../comicsMore/ComicsMore";
 const App = () => {
 
     const [selectedChar, setSelectedChar] = useState(null);

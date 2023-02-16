@@ -3,6 +3,7 @@ import {Container} from 'react-bootstrap';
 import './App.css';
 import Refs from "./refs";
 import SelfHooks from "./selfHooks";
+import Filter from "./Filter";
 
 class Slider extends Component {
 
@@ -212,8 +213,11 @@ function App() {
             </button>
             {slider ? <SliderHook/> : null}
             {/*<Slider/>*/}
-            <Refs/>
+            {/*<Refs/>*/}
             <SelfHooks/>
+
+            <hr/>
+            <Filter/>
         </>
     );
 }

@@ -16,13 +16,12 @@ const RandomChar = (props) => {
     // deps[] функция выполнится 1 раз при создании компонента
     useEffect(() => {
         updateChar();
-
-        // создаем и очищаем интревал
+        /*// создаем и очищаем интревал
         const timerId = setInterval(updateChar, 60000);
 
         return () => {
             clearInterval(timerId)
-        }
+        }*/
 
     }, []);
 
@@ -47,16 +46,16 @@ const RandomChar = (props) => {
         const max = 1011400;
         const id = Math.floor(Math.random() * (max - min + 1)) + min;
 
-        // перед тем как отправить запрос мы устанавливаем спиннер
+/*        // перед тем как отправить запрос мы устанавливаем спиннер
         // onCharLoading();
-        // marvelService
+        // marvelService*/
         clearError();
         getCharacter(id)
         .then(onCharLoaded)
-        // ловим в кетче ошибку и передаем его в обработчик, который поменяет стейт
+/*        // ловим в кетче ошибку и передаем его в обработчик, который поменяет стейт
         // .catch(onError)
         // если возникла ошибка, то ресетим стейт, что бы обновлялось дальше
-        // setError(false);
+        // setError(false);*/
     }
 
 

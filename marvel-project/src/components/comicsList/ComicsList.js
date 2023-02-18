@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/spinner";
 import useMarvelService from "../../services/MarvelService";
+import {Link} from "react-router-dom";
 
 const ComicsList = () => {
 
@@ -43,16 +44,12 @@ const ComicsList = () => {
                 imgStyle = {'objectFit': 'fill'};
             }
             return (
-                <li
-                    className='comics__list_item'
-                    tabIndex={0}
-                    key={i}
-                >
-                    <a href="#">
+                <li className='comics__list_item' tabIndex={0} key={i}>
+                    <Link to={`/comics/${item.id}`}>
                         <img src={item.thumbnail} alt={item.title} className='comics__list_img' style={imgStyle}/>
                         <div className="comics__list_name">{item.title}</div>
                         <div className="comics__list_price">{item.prices}</div>
-                    </a>
+                    </Link>
                 </li>
             )
         });

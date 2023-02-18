@@ -24,7 +24,8 @@ const AppHeader = () => {
                     /
                     <li><NavLink
                         to='comics'
-                        end
+                        // end убрал, что бы ссылка comics/12323 тоже подсвечивалась
+                        // end
                         style={({isActive}) => ({color: isActive ? '#9F0013' : '#232222'})}>
                         Comics
                     </NavLink></li>

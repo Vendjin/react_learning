@@ -89,8 +89,6 @@ const View = ({char}) => {
                 {comics.length > 0 ? null : 'Комиксы не найдены'}
                 {comics.map((item, i) => {
                     const comicsId = item.resourceURI.match(/\d+/g)[1];
-                    // console.log(item.resourceURI, item.resourceURI.match(/\d+/g)[1])
-                    // console.log(item)
                     // не показывать больше 10 комиксов
                     if (i > 9) return;
                     return (

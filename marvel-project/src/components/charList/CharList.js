@@ -108,6 +108,28 @@ const CharList = (props) => {
     const spinner = loading  && !blockNewItemLoading ? <Spinner/> : null;
     // const content = !(loading || error) ? items : null;
 
+    // ДИНАМИЧЕСКИЙ ИМПОРТ
+    /*// пример динамического импора
+    if (loading) {
+        import('./someFunc')
+        .then(obj => obj.logger())
+        .catch(error)
+    }
+
+    // можно применить деструктуризацию для динамического импорта, но необходимо использовать
+    // async / await
+    const any = async () => {
+        const {logger, secondLog} = await import('./someFunc');
+        logger();
+    }
+
+    // если экспортируем дефолтную функцию
+    if (loading) {
+        import('./someFunc')
+        .then(obj => obj.default())
+        .catch(error)
+    }*/
+
     return (
         <div className='char__list'>
             {errorMessage}

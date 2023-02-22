@@ -1,11 +1,11 @@
-import {Component, useState, useEffect, useCallback, useMemo, useRef} from 'react';
+import {Component, useState, useEffect, useCallback, useMemo, useRef, memo} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 import Refs from "./refs";
 import SelfHooks from "./selfHooks";
 import Filter from "./Filter";
-
-class Slider extends Component {
+import FormMemo from "./reactMemo";
+class SliderClass extends Component {
 
     constructor(props) {
         super(props);
@@ -66,7 +66,7 @@ class Slider extends Component {
 }
 
 const countTotal = (num) => {
-    console.log('counting');
+    // console.log('counting');
     return num + 10
 }
 const calcValue = () => {
@@ -95,7 +95,7 @@ const SliderHook = (props) => {
     /*меморизировання ФУНКЦИЯ с помощью useCallback, вызовется 1 раз и запомнится в памяти, для правильного
     использования необходимо создавать дочерний компонент Slide*/
     const getSomeImages = useCallback(() => {
-        console.log('fetching');
+        // console.log('fetching');
         return [
             'https://avatars.mds.yandex.net/i?id=1d3a7f4b63e9fe0106cdbe8a12d74131d1205bda-4579121-images-thumbs&n=13',
             'https://bipbap.ru/wp-content/uploads/2017/04/priroda_kartinki_foto_03.jpg',
@@ -111,21 +111,21 @@ const SliderHook = (props) => {
     // useEffect используем для запросов на сервер, таймаутов, изменений DOM структуры
     // второй передаваемый элемент, это массив зависимостей, за чем следить,
     useEffect(() => {
-        console.log('slide')
+        // console.log('slide')
         document.title = `Slide: ${slide}`;
 
         // назначил эффект логгер
-        window.addEventListener('click', logging);
-        // для очистки/удаления эффекта нужно вызвать  return в котором вырубаем наш логгер
+/*        window.addEventListener('click', logging);
+        // для очистки/удаления эффекта нужно вызвать return в котором вырубаем наш логгер
         return () => {
             window.removeEventListener('click', logging);
-        }
+        }*/
 
     }, [slide]);
 
     // можно создавать сколько угодно useEffect
     useEffect(() => {
-        console.log('Log Autoplay');
+        console.log('another useEffect Autoplay');
 
     }, [autoPlay]);
 
@@ -206,18 +206,37 @@ function App() {
 
     const [slider, setSlider] = useState(true);
 
+    /*React.memo - сохраняет компонент если у него не изменились props (касается только props)
+    Позволяет избежать лишнего рендера, только при верхних пропсах
+    Часто применяется например в приложениях по курсам валют
+    Если курс не изменился то и компонент рендерить снова не надо*/
+
+    const [data, setData] = useState({
+        mail: "name@example.com",
+        text: 'some text'
+    });
+
     return (
         <>
             <button onClick={() => setSlider(!slider)}>
                 Click OnOffSlider
             </button>
             {slider ? <SliderHook/> : null}
-            {/*<Slider/>*/}
             {/*<Refs/>*/}
-            <SelfHooks/>
+            {/*<SelfHooks/>*/}
 
-            <hr/>
-            <Filter/>
+            {/*<hr/>*/}
+            {/*<Filter/>*/}
+
+            {/*reactMemo*/}
+            <FormMemo mail={data.mail} text={data.text}/>
+            <button
+                onClick={() => setData({
+                    mail: "name@example.com",
+                    text: 'some text'
+                })}>
+                Click me
+            </button>
         </>
     );
 }

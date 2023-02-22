@@ -8,7 +8,6 @@ import Spinner from "../spinner/spinner";
 const ComicsMore = () => {
     const [comics, setComics] = useState(null);
     const {loading, error, getComics, clearError} = useMarvelService();
-
     const {comicId} = useParams();
 
     useEffect(() => {

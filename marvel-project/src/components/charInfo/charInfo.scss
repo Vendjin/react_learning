@@ -1,24 +1,28 @@
 @import '../../style/variables.scss';
 
-.char{
-    &__info{
+.char {
+    &__info {
         padding: 25px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-        &-header{
+
+        &-header {
             display: grid;
             grid-template-columns: 150px auto;
             column-gap: 35px;
-            img{
+
+            img {
                 width: 150px;
                 height: 150px;
             }
         }
-        &-nav{
+
+        &-nav {
             display: grid;
             grid-template-rows: 35px auto;
             row-gap: 29px;
         }
-        &-name{
+
+        &-name {
             font-weight: bold;
             font-size: 22px;
             line-height: 26px;
@@ -26,41 +30,48 @@
         }
     }
 
-    &__btns{
+    &__btns {
         display: grid;
         grid-template-rows: repeat(2, 38px);
         row-gap: 10px;
-        a{
+
+        a {
             width: 101px;
             text-align: center;
         }
     }
 
-    &__descr{
+    &__descr {
         margin-top: 15px;
         font-weight: 400;
         font-size: 14px;
         line-height: 16px;
     }
 
-    &__comics{
+    &__comics {
         margin-top: 20px;
         font-size: 18px;
         line-height: 21px;
         font-weight: bold;
-        &-list{
+
+        &-list {
             margin-top: 20px;
         }
-        &-item{
+
+        &-item {
             margin-top: 10px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             width: 100%;
             padding: 4px 10px;
             font-size: 16px;
             line-height: 16px;
-
+            cursor: pointer;
+            &:hover {
+                box-shadow: 0 5px 10px $main-color;
+            }
         }
     }
+
     &__select {
         font-weight: bold;
         font-size: 18px;

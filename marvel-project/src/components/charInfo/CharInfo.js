@@ -5,6 +5,7 @@ import Spinner from "../spinner/spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Skeleton from "../sceleton/Skeleton";
 import PropTypes from "prop-types";
+import {Link, useParams} from "react-router-dom";
 
 const CharInfo = (props) => {
 
@@ -13,7 +14,6 @@ const CharInfo = (props) => {
     const [error, setError] = useState(false);*/
 
     const {loading, error, getCharacter, clearError} = useMarvelService();
-
 /*    const onError = () => {
         setError(true);
         setLoading(false);
@@ -88,11 +88,14 @@ const View = ({char}) => {
             <ul className="char__comics-list">
                 {comics.length > 0 ? null : 'Комиксы не найдены'}
                 {comics.map((item, i) => {
+                    const comicsId = item.resourceURI.match(/\d+/g)[1];
+                    // console.log(item.resourceURI, item.resourceURI.match(/\d+/g)[1])
+                    // console.log(item)
                     // не показывать больше 10 комиксов
                     if (i > 9) return;
                     return (
                         <li className="char__comics-item" key={i}>
-                            {item.name}
+                            <Link to={`/comics/${comicsId}`}>{item.name}</Link>
                         </li>
                     )
                 })}

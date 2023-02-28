@@ -5,6 +5,7 @@ function Filter() {
     const [text, setText] = useState('');
     const [posts, setPosts] = useState(data);
     const deferredValue = useDeferredValue(text);
+
     const onValueChange = (e) => {
         setText(e.target.value);
     }

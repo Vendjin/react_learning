@@ -202,6 +202,7 @@ const Slide = ({getSomeImages}) => {
     )
 }
 
+
 function App() {
 
     const [slider, setSlider] = useState(true);
@@ -212,9 +213,16 @@ function App() {
     Если курс не изменился то и компонент рендерить снова не надо*/
 
     const [data, setData] = useState({
-        mail: "name@example.com",
+        mail: {
+            name: "name@example.com"
+        },
         text: 'some text'
     });
+
+    // а для того что бы не было проблем с фнкциями переданнысми в пропс используем useMemo
+    const onLog = useCallback(() => {
+        console.log('wow')
+    }, [])
 
     return (
         <>
@@ -229,10 +237,12 @@ function App() {
             {/*<Filter/>*/}
 
             {/*reactMemo*/}
-            <FormMemo mail={data.mail} text={data.text}/>
+            <FormMemo mail={data.mail} text={data.text} onLog={onLog}/>
             <button
                 onClick={() => setData({
-                    mail: "name@example.com",
+                    mail: {
+                        name: "name@example.com"
+                    },
                     text: 'some text'
                 })}>
                 Click me

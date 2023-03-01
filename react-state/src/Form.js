@@ -1,7 +1,9 @@
-import {memo} from 'react';
+import {memo, useContext} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 import InputContainer from "./Input";
+import dataContext from "./context";
+import TextArea from "./TextArea";
 
 // для обхода проблемы сравнения объектов
 const propsCompare = (prevProps, nextProps) => {
@@ -9,9 +11,10 @@ const propsCompare = (prevProps, nextProps) => {
 }
 
 const FormMemo = memo((props) => {
-    // React.memo когда пропсы будут без изменений, то компонент не будет снвоа ренедерица
+    // React.memo когда пропсы будут без изменений, то компонент не будет снова ренедерица
     console.log('render');
 
+    const context = useContext(dataContext);
     return (
         <Container>
             <form className="w-50 border mt-5 p-3 m-auto">
@@ -20,9 +23,8 @@ const FormMemo = memo((props) => {
                     <InputContainer/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                    <textarea value={props.text} className="form-control" id="exampleFormControlTextarea1"
-                              rows="3"></textarea>
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">{context.text}</label>
+                    <TextArea/>
                 </div>
             </form>
         </Container>

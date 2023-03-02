@@ -1,6 +1,6 @@
 import {createContext} from "react";
 
-const dataContext = createContext({
+const DataContext = createContext({
     mail: 'name@example.com',
     text: '',
     label: '',
@@ -9,5 +9,5 @@ const dataContext = createContext({
     changeLabel: () =>{}
 });
 
-console.dir(dataContext);
-export default dataContext;
+console.dir(DataContext);
+export default DataContext;

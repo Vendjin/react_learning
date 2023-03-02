@@ -1,8 +1,8 @@
 import {useContext} from "react";
-import dataContext from "./context";
+import DataContext from "./context";
 
 const TextArea = () => {
-    const context = useContext(dataContext);
+    const context = useContext(DataContext);
     return (
         <textarea
             // value={context.text}

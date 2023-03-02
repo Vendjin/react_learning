@@ -1,9 +1,9 @@
 import {useContext} from "react";
-import dataContext from "./context";
+import DataContext from "./context";
 
 const InputContainer = () => {
     // получение данных из контекста
-    const context = useContext(dataContext);
+    const context = useContext(DataContext);
 
     return (
         /*<Consumer>

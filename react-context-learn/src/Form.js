@@ -2,7 +2,7 @@ import {memo, useContext} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 import InputContainer from "./Input";
-import dataContext from "./context";
+import DataContext from "./context";
 import TextArea from "./TextArea";
 
 // для обхода проблемы сравнения объектов
@@ -14,7 +14,7 @@ const FormMemo = memo((props) => {
     // React.memo когда пропсы будут без изменений, то компонент не будет снова ренедерица
     console.log('render');
 
-    const context = useContext(dataContext);
+    const context = useContext(DataContext);
     return (
         <Container>
             <form className="w-50 border mt-5 p-3 m-auto">

@@ -1,0 +1,25 @@
+.FormInput {
+    margin-bottom: 1rem;
+    padding: 0 20px 0 20px;
+}
+
+.FormInput label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.FormInput input {
+    padding: 0.5rem 0.75rem;
+    width: 95%;
+    font-size: 1rem;
+}
+
+.Form {
+    padding: 2rem;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+    margin-bottom: 2rem;
+}

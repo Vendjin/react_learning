@@ -1,11 +1,11 @@
 import './App.css';
 import {useContext, useState} from "react";
 import FormMemo from "./Form";
-import dataContext from "./context";
+import DataContext from "./context";
 import textArea from "./TextArea";
 
 
-const {Provider} = dataContext;
+// const {Provider} = DataContext;
 // провайдер, то что передается дальше
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
 
 
     return (
-        <Provider value={data}>
+        <DataContext.Provider value={data}>
             {/*<FormMemo text={data.text}/>*/}
             <FormMemo/>
             <button
@@ -40,7 +40,7 @@ function App() {
             }>
                 Click me
             </button>
-        </Provider>
+        </DataContext.Provider>
     );
 }
 

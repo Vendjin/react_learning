@@ -23,7 +23,8 @@ export default function AddTask() {
                 dispatch({
                     type: 'added',
                     id: nextId++,
-                    text: text
+                    text: text,
+                    done: false
                 });
             }}>Add Task
             </button>

@@ -92,7 +92,7 @@ const withLogger  = (WrappedComponent, getData) => props => {
     useEffect(() => {
         console.log('first render', getData())
     }, [])
-    
+
     return <WrappedComponent {...props}/>
 }
 

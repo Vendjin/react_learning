@@ -13,7 +13,7 @@ export default function Form() {
         },
         validationSchema: Yup.object({
             name: Yup.string()
-                .min(2, 'милимальная длина имени 2 символа')
+                .min(2, 'Минимальная длина имени 2 символа')
                 .required('Обязательное поле'),
             email: Yup.string()
                 .email('Неверный формат email')

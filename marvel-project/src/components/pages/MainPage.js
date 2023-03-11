@@ -4,6 +4,7 @@ import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import decoration from '../../resources/img/vision.png';
 import {useState} from "react";
+import FindForm from "../findForm/FindForm";
 
 
 const MainPage = () => {
@@ -26,6 +27,7 @@ const MainPage = () => {
                 <ErrorBoundary>
                     {/*полученное id чара передаем через пропc в CharInfo*/}
                     <CharInfo charId={selectedChar}/>
+                    <FindForm/>
                 </ErrorBoundary>
             </div>
 

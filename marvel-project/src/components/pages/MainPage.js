@@ -23,12 +23,16 @@ const MainPage = () => {
             <div className="char__content">
                 {/*передаем пропc в CharList, оттуда вернет id чара*/}
                 <CharList onCharSelected={onCharSelected}/>
+                <div>
+                    <ErrorBoundary>
+                        {/*полученное id чара передаем через пропc в CharInfo*/}
+                        <CharInfo charId={selectedChar}/>
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <FindForm/>
+                    </ErrorBoundary>
+                </div>
 
-                <ErrorBoundary>
-                    {/*полученное id чара передаем через пропc в CharInfo*/}
-                    <CharInfo charId={selectedChar}/>
-                    <FindForm/>
-                </ErrorBoundary>
             </div>
 
             <img className='bg-decoration' src={decoration} alt='vision'/>

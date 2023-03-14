@@ -1,0 +1,35 @@
+@import '../../style/variables.scss';
+
+.character{
+    &__more{
+        margin-top: 50px;
+        display: grid;
+        grid-template-columns: 295px 550px auto;
+        column-gap: 50px;
+        a{
+            text-align: end;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+            color: #000000;
+        }
+        &_img {
+            width: 293px;
+            height: 293px;
+            object-fit: contain;
+        }
+        &_title{
+            font-weight: bold;
+            font-size: 22px;
+            line-height: 26px;
+            color: $dark;
+        }
+        &_description{
+            margin-top: 30px;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 21px;
+            color: #000000;
+        }
+    }
+}

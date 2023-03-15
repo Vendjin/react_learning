@@ -13,7 +13,6 @@ const MainPage = () => {
     const onCharSelected = (id) => {
         setSelectedChar(id)
     }
-
     return (
         <>
             <Helmet>

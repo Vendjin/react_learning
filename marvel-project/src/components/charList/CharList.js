@@ -1,6 +1,6 @@
 import './charList.scss';
 import useMarvelService from "../../services/MarvelService";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import {setContentList} from "../../utils/setContent";
 
@@ -47,7 +47,6 @@ const CharList = (props) => {
 
     // массив ссылок на элементы
     const itemRefs = useRef([]);
-
     const focusOnItem = (id) => {
         itemRefs.current.forEach(item => item.classList.remove('char__item_selected'));
         itemRefs.current[id].classList.add('char__item_selected');
@@ -87,9 +86,15 @@ const CharList = (props) => {
         )
     }
 
+    /*из за перехода на принцип Конечного автомата, случился баг, что рендерится компонент
+    2 раза, а анимация выбора не отрабатывает с 1 раза*/
+    const elements = useMemo( () => {
+        return setContentList(process, () => renderItems(charList), blockNewItemLoading);
+    }, [process]);
+
     return (
         <div className='char__list'>
-            {setContentList(process, () => renderItems(charList), blockNewItemLoading)}
+            {elements}
             <button
                 className='button__main button__long'
                 // Блокировка кнопки через атрибут disabled и изменение ее стилей, что бы не спамить запросами true - кнопка заблокирована, false разблокирована

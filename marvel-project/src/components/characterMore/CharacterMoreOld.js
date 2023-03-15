@@ -3,11 +3,12 @@ import {Link, useParams} from "react-router-dom";
 import AppBanner from "../appBanner/AppBanner";
 import {useEffect, useState} from "react";
 import useMarvelService from "../../services/MarvelService";
-import {setContent} from "../../utils/setContent";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/spinner";
 
-export default function CharacterMore() {
+export default function CharacterMoreOld () {
     const [character, setCharacter] = useState(null);
-    const {getCharacter, clearError, process, setProcess} = useMarvelService();
+    const {loading, error, getCharacter, clearError} = useMarvelService();
     const {charId} = useParams();
 
     const onCharacterLoaded = (characterId) => {
@@ -16,27 +17,30 @@ export default function CharacterMore() {
 
     const updateCharacter = () => {
         clearError();
-        getCharacter(charId)
-        .then(onCharacterLoaded)
-        .then(() => setProcess('confirmed'))
-
+        getCharacter(charId).then(onCharacterLoaded);
     }
 
     useEffect(() => {
         updateCharacter(charId);
     }, [charId]);
 
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(loading || error || !character) ? <View character={character}></View> : null
+
     return (
         <>
             <AppBanner/>
-            {setContent(process, View, character)}
+            {errorMessage}
+            {spinner}
+            {content}
         </>
     )
 }
 
 
-const View = ({data}) => {
-    const {name, description, thumbnail} = data;
+const View = ({character}) => {
+    const {name, description, thumbnail} = character;
 
     return (
         <div className='character__more'>

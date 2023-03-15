@@ -1,35 +1,45 @@
 import './charList.scss';
-import useMarvelService from "../../services/MarvelService";
-import {useEffect, useRef, useState} from "react";
+import useMarvelService from "../../services/MarvelServiceOld";
+import {useState, useEffect, useRef} from "react";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/spinner";
+import CharInfo from "../charInfo/CharInfo";
 import PropTypes from "prop-types";
-import {setContentList} from "../../utils/setContent";
 
+const CharListOld = (props) => {
 
-const CharList = (props) => {
     const [charList, setCharList] = useState([]);
+    /*const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);*/
     const [blockNewItemLoading, setBlockNewItemLoading] = useState(false);
     const [offset, setOffset] = useState(210);
     const [lastChar, setLastChar] = useState(false);
 
-    const {getAllCharacters, process, setProcess} =  useMarvelService();
+    const {loading, error, getAllCharacters} =  useMarvelService();
 
     // первичная загрузка для отображения
     // [] функция выполнится 1 раз при создании компонента
     useEffect(() => {
-        onRequest(offset,  true)
+        onRequest(offset, true)
     }, [])
 
 
     // запрашиваем персонажей
     const onRequest = (offset, initial) => {
-        // initial = true - это первичная загрузка, а если передали false, то это последующая
+        // initial = true - это первичныя загрузка, а если передали false, то это последющая
         initial ? setBlockNewItemLoading(false): setBlockNewItemLoading(true) ;
         // setBlockNewItemLoading используется и при первичной загрузке, поэтому блокируем кнопку
         // процесс загрузки персонажей, когда он запущен, ожидает пока загрузится запрос и не дает наспамить следующие
+        // setBlockNewItemLoading(true);
         getAllCharacters(offset)
         .then(onCharListLoaded)
-        .then(() => setProcess('confirmed'))
+        // .catch(onError)
     }
+
+/*    // процесс загрузки персонажей, когда он запущен, ожидает пока загрузится запрос и не дает наспамить следующие
+    const onCharListLoading = () => {
+        setBlockNewItemLoading(true);
+    }*/
 
     // состояние персонажи загрузились
     const onCharListLoaded = (newCharList) => {
@@ -44,6 +54,11 @@ const CharList = (props) => {
         setOffset(offset => offset + 9);
         setLastChar(lastChar => ended);
     }
+
+/*    const onError = () => {
+        setError(true);
+        setLoading(false);
+    }*/
 
     // массив ссылок на элементы
     const itemRefs = useRef([]);
@@ -87,9 +102,40 @@ const CharList = (props) => {
         )
     }
 
+
+    const items = renderItems(charList);
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading  && !blockNewItemLoading ? <Spinner/> : null;
+    // const content = !(loading || error) ? items : null;
+
+    // ДИНАМИЧЕСКИЙ ИМПОРТ
+    /*// пример динамического импора
+    if (loading) {
+        import('./someFunc')
+        .then(obj => obj.logger())
+        .catch(error)
+    }
+
+    // можно применить деструктуризацию для динамического импорта, но необходимо использовать
+    // async / await
+    const any = async () => {
+        const {logger, secondLog} = await import('./someFunc');
+        logger();
+    }
+
+    // если экспортируем дефолтную функцию
+    if (loading) {
+        import('./someFunc')
+        .then(obj => obj.default())
+        .catch(error)
+    }*/
+
     return (
         <div className='char__list'>
-            {setContentList(process, () => renderItems(charList), blockNewItemLoading)}
+            {errorMessage}
+            {spinner}
+            {/*{content}*/}
+            {items}
             <button
                 className='button__main button__long'
                 // Блокировка кнопки через атрибут disabled и изменение ее стилей, что бы не спамить запросами true - кнопка заблокирована, false разблокирована
@@ -102,8 +148,8 @@ const CharList = (props) => {
     )
 }
 
-CharList.propTypes = {
+CharInfo.propTypes = {
     onCharSelected: PropTypes.func.isRequired,
 };
 
-export default CharList;
+export default CharListOld;

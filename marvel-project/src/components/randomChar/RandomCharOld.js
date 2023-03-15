@@ -2,27 +2,44 @@ import './randomChar.scss';
 import hammer from '../../resources/img/mjolnir.png';
 import {useEffect, useState} from "react";
 import useMarvelService from "../../services/MarvelService";
-import {setContent} from "../../utils/setContent";
+import Spinner from "../spinner/spinner";
+import ErrorMessage from "../errorMessage/ErrorMessage";
 
-const RandomChar = () => {
+const RandomCharOld = (props) => {
+
     const [char, setChar] = useState({});
-    const {getCharacter, clearError, process, setProcess} = useMarvelService();
+    /*const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);*/
+
+    const {loading, error, getCharacter, clearError} = useMarvelService();
 
     // deps[] функция выполнится 1 раз при создании компонента
     useEffect(() => {
         updateChar();
-        /*// создаем и очищаем интервал
-        const timer Id = setInterval(updateChar, 60000);
+        /*// создаем и очищаем интревал
+        const timerId = setInterval(updateChar, 60000);
 
         return () => {
             clearInterval(timerId)
         }*/
+
     }, []);
 
-       // добавляем выгруженного персонажа в стейт
+    /*const onError = () => {
+        setError(true);
+        setLoading(false);
+    }
+
+    const onCharLoading = () => {
+        setLoading(true)
+    }*/
+
+    // добавляем выгруженного персонажа в стейт
     const onCharLoaded = (char) => {
         setChar(char);
+        // setLoading(false)
     }
+
 
     const updateChar = () => {
         const min = 1011000;
@@ -35,12 +52,27 @@ const RandomChar = () => {
         clearError();
         getCharacter(id)
         .then(onCharLoaded)
-        .then(() => setProcess('confirmed'))
+        /*        // ловим в кетче ошибку и передаем его в обработчик, который поменяет стейт
+                // .catch(onError)
+                // если возникла ошибка, то ресетим стейт, что бы обновлялось дальше
+                // setError(false);*/
     }
+
+
+    // если есть ошибка, то отображаем компонент с ошибкой, если нет, то null - ничего
+    const errorMessage = error ? <ErrorMessage/> : null;
+    // если стейт лоадинг показываем спиннер, если false, то ничего
+    const spinner = loading ? <Spinner/> : null;
+    // если нет спинера и нет ошибки, то отображаем View иначе null
+    const content = !(loading || error) ? <View char={char}/> : null;
 
     return (
         <div className="randomChar">
-            {setContent(process, View, char)}
+            {/*если стейт лоадинг показываем спиннер, если загружен показываем компонент
+            {loading ? <Spinner/> : <View char={char}/>}*/}
+            {errorMessage}
+            {spinner}
+            {content}
 
             <div className="randomChar__static">
                 <div className="randomChar__title">Random character for today!<br/>
@@ -53,12 +85,13 @@ const RandomChar = () => {
 
         </div>
     )
+
 }
 
 
 // условный компонент
-const View = ({data}) => {
-    const {name, thumbnail, description, homepage, wiki} = data;
+const View = ({char}) => {
+    const {name, thumbnail, description, homepage, wiki} = char;
 
     let toggleImgClass = () => {
         const imgUrl = 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg';
@@ -92,4 +125,4 @@ const View = ({data}) => {
     )
 }
 
-export default RandomChar;
+export default RandomCharOld;

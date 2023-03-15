@@ -1,17 +1,18 @@
 import './comicsList.scss';
 import {useEffect, useState} from "react";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Spinner from "../spinner/spinner";
 import useMarvelService from "../../services/MarvelService";
 import {Link} from "react-router-dom";
-import {setContentList} from "../../utils/setContent";
 
-const ComicsList = () => {
+const ComicsListOld = () => {
 
     const [comicsList, setComicsList] = useState([]);
     const [blockNewComicsLoading, setBlockNewComicsLoading] = useState(false);
     const [offset, setOffset] = useState(0);
     const [lastComics, setLastComics] = useState(false);
 
-    const {getAllComics, process, setProcess} = useMarvelService();
+    const {error, loading, getAllComics} = useMarvelService();
 
     useEffect(() => {
         onRequest(offset, true)
@@ -19,9 +20,7 @@ const ComicsList = () => {
 
     const onRequest = (offset, initial) => {
         initial ? setBlockNewComicsLoading(false) : setBlockNewComicsLoading(true);
-        getAllComics(offset)
-        .then(onComicsListLoaded)
-        .then(() => setProcess('confirmed'))
+        getAllComics(offset).then(onComicsListLoaded)
     }
 
     const onComicsListLoaded = (newComicsList) => {
@@ -63,9 +62,16 @@ const ComicsList = () => {
         )
     }
 
+
+    const items = renderItems(comicsList);
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading && !blockNewComicsLoading ? <Spinner/> : null;
+
     return (
         <div className="comics__list">
-            {setContentList(process, () => renderItems(comicsList), blockNewComicsLoading)}
+            {spinner}
+            {errorMessage}
+            {items}
             <button
                 className='button__main button__long'
                 // Блокировка кнопки через атрибут disabled и изменение ее стилей, что бы не спамить запросами true - кнопка заблокирована, false разблокирована
@@ -79,4 +85,4 @@ const ComicsList = () => {
     )
 }
 
-export default ComicsList;
+export default ComicsListOld;

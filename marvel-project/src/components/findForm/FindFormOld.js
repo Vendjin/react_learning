@@ -5,8 +5,8 @@ import useMarvelService from "../../services/MarvelService";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 
-export default function FindForm() {
-    const {getCharacterByName, clearError, process, setProcess} = useMarvelService();
+export default function FindFormOld() {
+    const {loading, error, getCharacterByName, clearError} = useMarvelService();
     const [char, setChar] = useState(null);
 
     const onCharLoaded = (char) => {
@@ -16,15 +16,10 @@ export default function FindForm() {
     const updateChar = (name) => {
         clearError();
         getCharacterByName(name)
-        .then(onCharLoaded)
-        .then(() => setProcess('confirmed'))
+        .then(onCharLoaded);
     }
 
-    const errorMessage = process === 'error' ?
-        <div className={'formSearch__find-critical-error'}>
-            <ErrorMessage/>
-        </div> : null
-
+    const errorMessage = error ? <div className={'formSearch__find-critical-error'}><ErrorMessage/></div> : null
     const results = !char ? null : char.length > 0 ?
         <div className={'formSearch__find'}>
             <div className={'formSearch__find-success'}>
@@ -61,11 +56,7 @@ export default function FindForm() {
                                id={'characterName'}
                                placeholder={'Enter name'}
                         />
-                        <button className={'button button__main'}
-                                type={'submit'}
-                                disabled={process === 'loading'}>
-                            FIND
-                        </button>
+                        <button className={'button button__main'} type={'submit'} disabled={loading}>FIND</button>
                     </div>
                     <ErrorMessage name={'characterName'} className={'formSearch-error'} component={'div'}/>
                 </Form>

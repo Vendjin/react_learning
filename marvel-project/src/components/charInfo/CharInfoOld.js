@@ -1,48 +1,71 @@
 import './charInfo.scss';
 import {useEffect, useState} from "react";
-import useMarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelServiceOld";
+import Spinner from "../spinner/spinner";
+import ErrorMessage from "../errorMessage/ErrorMessage";
+import Skeleton from "../sceleton/Skeleton";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
-import {setContent} from "../../utils/setContent";
+import {Link, useParams} from "react-router-dom";
 
-const CharInfo = (props) => {
+const CharInfoOld = (props) => {
 
     const [char, setChar] = useState(null);
-    const {getCharacter, clearError, process, setProcess} = useMarvelService();
+    /*const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);*/
 
-    // предзагрузка данных, первичная загрузка на страницу
-    useEffect(() => {
-        updateChar();
-    }, [props.charId])
-
-
-    const updateChar = () => {
-        const {charId} = props;
-        if (!charId) {
-            return;
+    const {loading, error, getCharacter, clearError} = useMarvelService();
+    /*    const onError = () => {
+            setError(true);
+            setLoading(false);
         }
 
-        clearError();
-        getCharacter(charId)
-        .then(onCharLoaded)
-        .then(() => setProcess('confirmed'))
-    }
+        const onLoading = () => {
+            setLoading(true);
+        }*/
 
     // полученные данные закидываем в стейт
     const onCharLoaded = (char) => {
         setChar(char);
+        // setLoading(false);
     }
 
+    // предзагрузка данных, первичная загрузка на страницу
+    useEffect(() => {
+        updateCharInfo();
+    }, [props.charId])
+
+
+    const updateCharInfo = () => {
+        const {charId} = props;
+        // что бы не вылезала ошибка, что не передан charId в url на сервер
+        if (!charId) {
+            return;
+        }
+        clearError();
+        // показывать спиннер пока данные не загрузились
+        // onLoading();
+        getCharacter(charId)
+        .then(onCharLoaded)
+        // .catch(onError);
+    }
+
+    const skeleton = !char || loading || error ? <Skeleton/> : null;
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(loading || error || !char) ? <View char={char}/> : null;
+
     return (
-        <div className="char__info">
-            {setContent(process, View, char)}
+        <div className='char__info'>
+            {skeleton}
+            {errorMessage}
+            {spinner}
+            {content}
         </div>
     )
 }
 
-const View = ({data}) => {
-    const {name, thumbnail, description, homepage, wiki, comics} = data;
-
+const View = ({char}) => {
+    const {name, thumbnail, description, homepage, wiki, comics} = char;
     return (
         <>
             <div className="char__info-header">
@@ -78,8 +101,8 @@ const View = ({data}) => {
     )
 }
 
-CharInfo.propTypes = {
+CharInfoOld.propTypes = {
     charId: PropTypes.number,
 
 }
-export default CharInfo;
+export default CharInfoOld;

@@ -5,7 +5,7 @@ import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 import decoration from '../../resources/img/vision.png';
 import {useState} from "react";
 import FindForm from "../findForm/FindForm";
-
+import {Helmet}  from 'react-helmet'
 
 const MainPage = () => {
     const [selectedChar, setSelectedChar] = useState(null);
@@ -16,6 +16,13 @@ const MainPage = () => {
 
     return (
         <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Marvel information portal"
+                />
+                <title>Marvel information portal</title>
+            </Helmet>
             <ErrorBoundary>
                 <RandomChar/>
             </ErrorBoundary>

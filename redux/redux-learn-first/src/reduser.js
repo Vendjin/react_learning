@@ -1,4 +1,6 @@
-const initialState = {value: 0, foo: 'bar', name: 'ivan'};
+// const initialState = {value: 0, foo: 'bar', name: 'ivan'};
+const initialState = {counter: 0};
+
 
 const reducer = (state= initialState, action) => {
     switch (action.type) {
@@ -7,13 +9,13 @@ const reducer = (state= initialState, action) => {
             в него копируется и разворачивается старый объект ...state
             в новом объекте создается поле value
             со значением из старого state.value и прибавляем 1*/
-            return {...state, value: state.value + 1};
+            return {...state, counter: state.counter + 1};
         case 'DEC':
-            return {...state, value: state.value - 1};
+            return {...state, counter: state.counter - 1};
         case 'RND':
             /*логику рандома нужно вынести за reducer, лучше в само действие, тк это нарушает принцип
             Чистой функции reducer*/
-            return {...state, value: state.value * action.payload}
+            return {...state, counter: state.counter * action.payload}
         default:
             return state;
     }

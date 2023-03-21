@@ -21,17 +21,20 @@ const HeroesAddForm = () => {
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElem, setHeroElem]= useState('');
 
+    const {filters, filtersLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+
         const newHero = {
             id: uuid(),
             name: heroName,
             description: heroDescr,
             element: heroElem,
-        }
+        };
+
         request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
         .then(data => console.log(data, 'ADD'))
         .then(dispatch(heroAdd(newHero)))
@@ -43,7 +46,22 @@ const HeroesAddForm = () => {
         setHeroElem('');
     }
 
+    const renderFilters = (filters, filtersLoadingStatus) => {
+        if (filtersLoadingStatus === 'loading') {
+            return <option>Загрузка элементов</option>
+        } else if (filtersLoadingStatus === 'error') {
+            return <option>Ошибка загрузки</option>
+        }
 
+        if (filters && filters.length > 0){
+            return filters.map(({name, label}) => {
+                // если all то ничего не делаем
+                if (name === 'all') return;
+
+                return <option key={name} value={name}>{label}</option>;
+            })
+        }
+    }
 
     return (
         <form className="border p-4 shadow-lg rounded" onSubmit={onSubmitHandler}>
@@ -86,10 +104,8 @@ const HeroesAddForm = () => {
                     onChange={event => setHeroElem(event.target.value)}
                 >
                     <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {/*<option value="fire">Огонь</option>*/}
+                    {renderFilters(filters, filtersLoadingStatus)}
                 </select>
             </div>
 

@@ -1,7 +1,9 @@
+// В этом файле меняется глобальный стейт
 // const initialState = {value: 0, foo: 'bar', name: 'ivan'};
+
 const initialState = {counter: 0};
 
-
+// функция которая делает изменения стейта
 const reducer = (state= initialState, action) => {
     switch (action.type) {
         case 'INC':

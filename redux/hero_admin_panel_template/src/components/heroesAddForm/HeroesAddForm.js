@@ -46,12 +46,14 @@ const HeroesAddForm = () => {
         setHeroElem('');
     }
 
-    const renderFilters = (filters, filtersLoadingStatus) => {
-        if (filtersLoadingStatus === 'loading') {
-            return <option>Загрузка элементов</option>
-        } else if (filtersLoadingStatus === 'error') {
-            return <option>Ошибка загрузки</option>
-        }
+    if (filtersLoadingStatus === 'loading') {
+        return <option>Загрузка элементов</option>
+    } else if (filtersLoadingStatus === 'error') {
+        return <option>Ошибка загрузки</option>
+    }
+
+    const renderFilters = (filters) => {
+
 
         if (filters && filters.length > 0){
             return filters.map(({name, label}) => {
@@ -105,7 +107,7 @@ const HeroesAddForm = () => {
                 >
                     <option >Я владею элементом...</option>
                     {/*<option value="fire">Огонь</option>*/}
-                    {renderFilters(filters, filtersLoadingStatus)}
+                    {renderFilters(filters)}
                 </select>
             </div>
 

@@ -1,11 +1,12 @@
 import {useHttp} from '../../hooks/http.hook';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {heroesFetching, heroesFetched, heroesFetchingError, heroDelete} from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import data from "bootstrap/js/src/dom/data";
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 // Задача для этого компонента:
 // При клике на "крестик" идет удаление персонажа из общего состояния
@@ -16,6 +17,7 @@ const HeroesList = () => {
     const {filteredHeroes, heroesLoadingStatus} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
+    const nodeRef = useRef(null)
 
     useEffect(() => {
         dispatch(heroesFetching());
@@ -32,27 +34,44 @@ const HeroesList = () => {
     }, [request]);
 
 
-    const renderHeroesList = (heroes, heroesLoadingStatus) => {
-        if (heroesLoadingStatus === "loading") {
-            return <Spinner/>;
-        } else if (heroesLoadingStatus === "error") {
-            return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    if (heroesLoadingStatus === "loading") {
+        return <Spinner/>;
+    } else if (heroesLoadingStatus === "error") {
+        return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    }
+
+    const renderHeroesList = (hero) => {
+        if (hero.length === 0) {
+            return (
+                <CSSTransition
+                    timeout={0}
+                    classNames="hero"
+                    nodeRef={nodeRef}
+                >
+                    <h5 className="text-center mt-5">Героев пока нет</h5>
+                </CSSTransition>
+            )
         }
 
-        if (heroes.length === 0) {
-            return <h5 className="text-center mt-5">Героев пока нет</h5>
-        }
-
-        return heroes.map(({id, ...props}) => {
-            return <HeroesListItem key={id} {...props} onDelete={() => onDelete(id)}/>
+        return hero.map(({id, ...props}) => {
+            return (
+                <CSSTransition
+                    key={id}
+                    timeout={500}
+                    classNames="hero"
+                    nodeRef={nodeRef}
+                >
+                    <HeroesListItem  {...props} onDelete={() => onDelete(id)}/>
+                </CSSTransition>
+            )
         })
     }
 
-    const elements = renderHeroesList(filteredHeroes, heroesLoadingStatus);
+    const elements = renderHeroesList(filteredHeroes);
     return (
-        <ul>
+        <TransitionGroup component="ul">
             {elements}
-        </ul>
+        </TransitionGroup>
     )
 }
 

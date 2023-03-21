@@ -25,12 +25,14 @@ const HeroesFilters = () => {
         .catch(() => dispatch(filtersFetchingError()))
     }, [])
 
-    const renderFilters = (filters, filtersLoadingStatus, activeFilter) => {
-        if (filtersLoadingStatus === 'loading') {
-            return <Spinner/>;
-        } else if (filtersLoadingStatus === 'error') {
-            return <h5 className="text-center mt-5">Ошибка загрузки</h5>
-        }
+
+    if (filtersLoadingStatus === 'loading') {
+        return <Spinner/>;
+    } else if (filtersLoadingStatus === 'error') {
+        return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    }
+
+    const renderFilters = (filters) => {
 
         if (filters.length === 0) {
             return <h5 className="text-center mt-5">Фильтры не найдены</h5>
@@ -51,7 +53,7 @@ const HeroesFilters = () => {
         })
     }
 
-    const elements = renderFilters(filters, filtersLoadingStatus, activeFilter)
+    const elements = renderFilters(filters)
 
     return (
         <div className="card shadow-lg mt-4">

@@ -25,22 +25,16 @@
       "element": "fire"
     },
     {
-      "id": "dcb2bffe-5113-4d54-b16a-6a158bef3aee",
-      "name": "tom",
-      "description": "asdsd",
-      "element": "earth"
-    },
-    {
       "id": "c7faf71a-97f7-4368-9944-20f2c778f1f4",
       "name": "baby",
       "description": "12312323",
       "element": "wind"
     },
     {
-      "id": "9bf6e557-291d-4b39-8a46-bd8a6cc82f65",
-      "name": "ivan",
-      "description": "ivanov",
-      "element": "water"
+      "id": "4aa1ba4e-1a90-4bdb-a44a-8dfa8e5f3e25",
+      "name": "Влад",
+      "description": "Программист",
+      "element": "fire"
     }
   ],
   "filters": [

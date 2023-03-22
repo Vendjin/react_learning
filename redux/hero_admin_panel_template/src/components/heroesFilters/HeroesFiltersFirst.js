@@ -14,7 +14,7 @@ import {useEffect} from "react";
 import data from "bootstrap/js/src/dom/data";
 
 const HeroesFilters = () => {
-    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
+    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

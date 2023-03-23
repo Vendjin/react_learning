@@ -10,6 +10,9 @@ import {createSelector} from "reselect";
 
 const HeroesList = () => {
 
+    /*несколько стейтов с помощью createSelector
+    1 строка получаем значение из стейта filters и оно сохраняется в filter
+    2 строка получаем значение из стейта heroes и оно сохраняется в heroes*/
     const filteredHeroesSelector = createSelector(
         (state) => state.filters.activeFilter,
         (state) => state.heroes.heroes,
@@ -23,7 +26,7 @@ const HeroesList = () => {
     );
 
     /*лучше фильтрацию проводить не в редьюсере, а в useSelector, используется несколько редьюсеров,
-    но есть косяк в том, что даже когда стоит all и будет нажат all, произойдет переренер
+    но есть косяк в том, что даже когда стоит all и будет нажат all, произойдет перерендер
     для этого необходимо использовать библиотеку RESELECT код выше*/
     /*    const filteredHeroes = useSelector(state => {
             if (state.filters.activeFilter === 'all') {
@@ -41,7 +44,10 @@ const HeroesList = () => {
     const nodeRef = useRef(null)
 
     useEffect(() => {
-        dispatch(heroesFetching());
+        /*пример использования расширенного стора вместо функции heroesFetching которая возвращает
+        объект return {type: 'HEROES_FETCHING'} вставим строку на прямую*/
+        // dispatch(heroesFetching());
+        dispatch('HEROES_FETCHING');
         request("http://localhost:3001/heroes")
         .then(data => dispatch(heroesFetched(data)))
         .catch(() => dispatch(heroesFetchingError()))

@@ -10,9 +10,9 @@
 
 import {useCallback, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useHttp} from "../../hooks/http.hook";
+import {useHttp} from "../../../hooks/http.hook";
 import {v4 as uuid} from 'uuid';
-import {heroAdd} from "../../actions";
+import {heroAdd} from "../../../actions";
 
 const HeroesAddForm = () => {
     const [heroName, setHeroName] = useState('');

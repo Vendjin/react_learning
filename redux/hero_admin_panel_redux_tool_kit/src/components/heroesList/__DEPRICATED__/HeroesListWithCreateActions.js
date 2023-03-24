@@ -1,10 +1,11 @@
-import {useHttp} from '../../hooks/http.hook';
+import {useHttp} from '../../../hooks/http.hook';
 import {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {heroDelete, heroesFetched, heroesFetching, heroesFetchingError} from '../../actions';
-import HeroesListItem from "../heroesListItem/HeroesListItem";
-import Spinner from '../spinner/Spinner';
+// import {heroDelete, fetchHeroes} from '../../actions';
+import {heroDelete, fetchHeroes} from '../../../actions/__DEPRICATED__/indexWithCreateAction';
+import HeroesListItem from "../../heroesListItem/HeroesListItem";
+import Spinner from '../../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {createSelector} from "reselect";
 
@@ -44,22 +45,11 @@ const HeroesList = () => {
     const nodeRef = useRef(null)
 
     useEffect(() => {
-        // использую Redux-Thunk в редьюсер передаем heroesFetching без вызова
-        dispatch(heroesFetching)
-        /*/!*пример использования расширенного стора вместо функции heroesFetching которая возвращает
-        объект return {type: 'HEROES_FETCHING'} вставим строку на прямую*!/
-        dispatch('HEROES_FETCHING');*/
-
-        // dispatch(heroesFetching());
-
-        request("http://localhost:3001/heroes")
-        .then(data => dispatch(heroesFetched(data)))
-        .catch(() => dispatch(heroesFetchingError()))
+        dispatch(fetchHeroes(request))
     }, []);
 
     const onDelete = useCallback((heroId) => {
         request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
-        .then(data => console.log(data, 'DELETED'))
         .then(dispatch(heroDelete(heroId)))
         .catch(err => console.log(err))
     }, [request]);

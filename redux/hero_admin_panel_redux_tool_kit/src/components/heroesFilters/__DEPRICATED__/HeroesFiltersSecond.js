@@ -5,11 +5,11 @@
 // Изменять json-файл для удобства МОЖНО!
 // Представьте, что вы попросили бэкенд-разработчика об этом
 // Библиотека classNames
-import {filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged} from "../../actions";
-import Spinner from "../spinner/Spinner";
+import {filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged} from "../../../actions";
+import Spinner from "../../spinner/Spinner";
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
-import {useHttp} from "../../hooks/http.hook";
+import {useHttp} from "../../../hooks/http.hook";
 import {useEffect} from "react";
 import data from "bootstrap/js/src/dom/data";
 

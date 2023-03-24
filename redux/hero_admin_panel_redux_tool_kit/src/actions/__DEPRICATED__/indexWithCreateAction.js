@@ -1,3 +1,4 @@
+// переделанные клсассические акшены с использованием createAction
 import {createAction} from "@reduxjs/toolkit";
 
 export const fetchHeroes = (request) => (dispatch) => {

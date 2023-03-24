@@ -5,7 +5,7 @@ import {
     heroesFetchingError,
     heroAdd,
     heroDelete
-} from "../actions/indexWithCreateAction";
+} from "../actions/__DEPRICATED__/indexWithCreateAction";
 
 
 const initialState = {

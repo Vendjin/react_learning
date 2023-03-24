@@ -2,7 +2,8 @@ import {useHttp} from '../../hooks/http.hook';
 import {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {heroDelete, fetchHeroes} from '../../actions';
+// import {heroDelete, fetchHeroes} from '../../actions';
+import {heroDelete, fetchHeroes} from '../../actions/indexWithCreateAction';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
@@ -49,7 +50,6 @@ const HeroesList = () => {
 
     const onDelete = useCallback((heroId) => {
         request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
-        .then(data => console.log(data, 'DELETED'))
         .then(dispatch(heroDelete(heroId)))
         .catch(err => console.log(err))
     }, [request]);

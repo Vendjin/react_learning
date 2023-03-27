@@ -14,13 +14,13 @@ const stringMiddleware = ({dispatch, getState}) => (nextDispatch) => (action) =>
     return nextDispatch(action);
 };
 
-
+// store с помощью toolkit
 const store = configureStore({
     reducer: {heroes, filters},
     // middleware: [ReduxThunk, stringMiddleware],
-    // добавлены стандартные Middleware (ReduxThunk включены автоматом)
-    // из toolkit и добавлен собственный stringMiddleware
+    // добавлены стандартные Middleware (ReduxThunk включены автоматом) из toolkit
+    // и добавлен собственный stringMiddleware
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware),
     devTools: process.env.NODE_ENV !== 'production',
-})
+});
 export default store;

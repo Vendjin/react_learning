@@ -1,13 +1,14 @@
 import {useHttp} from '../../hooks/http.hook';
 import {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-
-import {fetchHeroes} from '../../actions';
-import {heroDelete} from './heroesSlice';
+// import {fetchHeroes} from '../../actions';
+import {heroDelete, fetchHeroes} from './heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
-import {createSelector} from "reselect";
+// createSelector так же включен в toolKit
+// import {createSelector} from "reselect";
+import {createSelector} from '@reduxjs/toolkit'
 
 const HeroesList = () => {
 
@@ -34,7 +35,9 @@ const HeroesList = () => {
     const nodeRef = useRef(null)
 
     useEffect(() => {
-        dispatch(fetchHeroes(request))
+        // fetchHeroes из стандартных action
+        // dispatch(fetchHeroes(request))
+        dispatch(fetchHeroes())
     }, []);
 
     const onDelete = useCallback((heroId) => {

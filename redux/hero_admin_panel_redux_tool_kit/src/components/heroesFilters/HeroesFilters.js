@@ -1,5 +1,5 @@
-import {fetchFilters} from "../../actions";
-import {activeFilterChanged} from './filtersSlice';
+// import {fetchFilters} from "../../actions";
+import {activeFilterChanged, fetchFilters} from './filtersSlice';
 import Spinner from "../spinner/Spinner";
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
@@ -12,7 +12,9 @@ const HeroesFilters = () => {
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(fetchFilters(request));
+        // fetchFilters из стандартных action
+        // dispatch(fetchFilters(request));
+        dispatch(fetchFilters())
     }, [])
 
 

@@ -1,6 +1,8 @@
 import {heroesFetching, heroesFetched, heroesFetchingError} from '../components/heroesList/heroesSlice';
 import {filtersFetching, filtersFetched, filtersFetchingError} from '../components/heroesFilters/filtersSlice';
 
+// перенесены в ..Slice, как fetchHeroes и применяется в
+//heroesSlice -> extraReducers
 export const fetchHeroes = (request) => (dispatch) => {
     dispatch(heroesFetching())
     request("http://localhost:3001/heroes")

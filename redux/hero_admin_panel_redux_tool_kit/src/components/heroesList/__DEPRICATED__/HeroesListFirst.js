@@ -2,7 +2,7 @@ import {useHttp} from '../../../hooks/http.hook';
 import {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {heroDelete, heroesFetched, heroesFetching, heroesFetchingError} from '../../../actions';
+import {heroDelete, heroesFetched, heroesFetching, heroesFetchingError} from '../../../actions/__DEPRICATED__';
 import HeroesListItem from "../../heroesListItem/HeroesListItem";
 import Spinner from '../../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';

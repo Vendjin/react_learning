@@ -1,5 +1,5 @@
-import {heroesFetching, heroesFetched, heroesFetchingError} from '../components/heroesList/heroesSlice';
-import {filtersFetching, filtersFetched, filtersFetchingError} from '../components/heroesFilters/filtersSlice';
+import {heroesFetching, heroesFetched, heroesFetchingError} from '../../components/heroesList/heroesSlice';
+import {filtersFetching, filtersFetched, filtersFetchingError} from '../../components/heroesFilters/filtersSlice';
 
 // перенесены в ..Slice, как fetchHeroes и применяется в
 //heroesSlice -> extraReducers

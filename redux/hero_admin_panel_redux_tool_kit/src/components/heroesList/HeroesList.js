@@ -2,33 +2,15 @@ import {useHttp} from '../../hooks/http.hook';
 import {useCallback, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 // import {fetchHeroes} from '../../actions';
-import {heroDelete, fetchHeroes} from './heroesSlice';
+import {heroDelete, fetchHeroes, filteredHeroesSelector} from './heroesSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 // createSelector так же включен в toolKit
 // import {createSelector} from "reselect";
-import {createSelector} from '@reduxjs/toolkit'
 
 const HeroesList = () => {
-
-    /*несколько стейтов с помощью createSelector
-    1 строка получаем значение из стейта filters и оно сохраняется в filter
-    2 строка получаем значение из стейта heroes и оно сохраняется в heroes*/
-    const filteredHeroesSelector = createSelector(
-        (state) => state.filters.activeFilter,
-        (state) => state.heroes.heroes,
-        (filter, heroes) => {
-            if (filter === 'all') {
-                return heroes;
-            } else {
-                return heroes.filter(hero => hero.element === filter);
-            }
-        }
-    );
-
-    const filteredHeroes = useSelector(filteredHeroesSelector)
-
+    const filteredHeroes = useSelector(filteredHeroesSelector);
     const {heroesLoadingStatus} = useSelector(state => state.heroes);
     const dispatch = useDispatch();
     const {request} = useHttp();

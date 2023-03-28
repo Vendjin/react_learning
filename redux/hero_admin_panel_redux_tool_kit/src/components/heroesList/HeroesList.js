@@ -19,6 +19,7 @@ const HeroesList = () => {
     useEffect(() => {
         // fetchHeroes из стандартных action
         // dispatch(fetchHeroes(request))
+        // убран request тк он исполянется внтури fetchHeroes
         dispatch(fetchHeroes())
     }, []);
 

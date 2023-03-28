@@ -4,13 +4,16 @@ import {useHttp} from "../../hooks/http.hook";
 import {v4 as uuid} from 'uuid';
 // import {heroAdd} from "../../actions";
 import {heroAdd} from '../heroesList/heroesSlice';
+import {selectAllFilters} from '../heroesFilters/filtersSlice'
+import store from "../../store";
 
 const HeroesAddForm = () => {
     const [heroName, setHeroName] = useState('');
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElem, setHeroElem]= useState('');
 
-    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
+    const filters = selectAllFilters(store.getState());
+    const {filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

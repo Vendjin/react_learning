@@ -1,13 +1,15 @@
 // import {fetchFilters} from "../../actions";
-import {activeFilterChanged, fetchFilters} from './filtersSlice';
+import {activeFilterChanged, fetchFilters, selectAllFilters} from './filtersSlice';
 import Spinner from "../spinner/Spinner";
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import {useHttp} from "../../hooks/http.hook";
 import {useEffect} from "react";
+import store from "../../store";
 
 const HeroesFilters = () => {
-    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
+    const filters = selectAllFilters(store.getState());
+    const {filtersLoadingStatus, activeFilter} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

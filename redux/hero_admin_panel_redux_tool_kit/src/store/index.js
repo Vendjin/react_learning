@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 // import heroes from '../reducers/heroes';
 // import heroes from '../reducers/heroesWithCreateReduser';
-import heroes from '../components/heroesList/heroesSlice';
+import heroesReducer from '../components/heroesList/heroesSlice';
 // import filters from "../reducers/filters";
 import filters from "../components/heroesFilters/filtersSlice";
 
@@ -16,7 +16,7 @@ const stringMiddleware = ({dispatch, getState}) => (nextDispatch) => (action) =>
 
 // store с помощью toolkit
 const store = configureStore({
-    reducer: {heroes, filters},
+    reducer: {heroes: heroesReducer, filters},
     // middleware: [ReduxThunk, stringMiddleware],
     // добавлены стандартные Middleware (ReduxThunk включены автоматом) из toolkit
     // и добавлен собственный stringMiddleware

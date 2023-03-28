@@ -76,7 +76,7 @@ export default reducer;
 // тк адаптер возвращает объект-объектов, а мы используем обычно список объектов,
 // то используем getSelectors для стейта heroes, вытащим selectAll который возвращает список объектов
 // на который и применится map
-const {selectAll} = heroesAdapter.getSelectors(state => state.heroes);
+const {selectAll: selectAllHeroes} = heroesAdapter.getSelectors(state => state.heroes);
 
 /*несколько стейтов с помощью createSelector
     1 строка получаем значение из стейта filters и оно сохраняется в filter
@@ -84,7 +84,7 @@ const {selectAll} = heroesAdapter.getSelectors(state => state.heroes);
 export const filteredHeroesSelector = createSelector(
     (state) => state.filters.activeFilter,
     // (state) => state.heroes.heroes,
-    selectAll,
+    selectAllHeroes,
     (filter, heroes) => {
         if (filter === 'all') {
             return heroes;
@@ -95,9 +95,9 @@ export const filteredHeroesSelector = createSelector(
 );
 
 export const {
-    heroesFetching,
-    heroesFetched,
-    heroesFetchingError,
+    // heroesFetching,
+    // heroesFetched,
+    // heroesFetchingError,
     heroAdd,
     heroDelete,
 } = actions;

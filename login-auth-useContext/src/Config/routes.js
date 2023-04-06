@@ -2,6 +2,7 @@ import React from 'react';
 import Login from '../Pages/Login';
 import Dashboard from '../Pages/Dashboard';
 import NotFound from '../Pages/NotFound';
+import Second from "../Pages/Second";
 
 const routes = [
 	{
@@ -12,6 +13,11 @@ const routes = [
 	{
 		path: '/dashboard',
 		component: Dashboard,
+		isPrivate: true,
+	},
+	{
+		path: '/sec',
+		component: Second,
 		isPrivate: true,
 	},
 	{

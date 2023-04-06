@@ -8,20 +8,24 @@ export async function loginUser(dispatch, loginPayload) {
 	};
 
 	try {
-		dispatch({ type: 'REQUEST_LOGIN' });
-		let response = await fetch(`http://localhost:3004/users`, requestOptions);
+		dispatch({ type: 'REQUEST_LOGIN', payload: loginPayload.redmine_login });
+
+		console.log(requestOptions, 'requestOptions')
+		let response = await fetch(`http://127.0.0.1:80/api/v0/auth/login/`, requestOptions);
 		let data = await response.json();
-		console.log(data)
-		if (data.user) {
+		console.log('Response Data', {...data, userName: loginPayload.redmine_login});
+
+		if (data.token) {
 			dispatch({ type: 'LOGIN_SUCCESS', payload: data });
-			console.log('this')
-			localStorage.setItem('currentUser', JSON.stringify(data));
+			localStorage.setItem('currentUser', JSON.stringify({...data, userName: loginPayload.redmine_login}));
+			// localStorage.setItem('currentUser', JSON.stringify(loginPayload.redmine_login));
 			return data;
 		}
 
-		dispatch({ type: 'LOGIN_ERROR', error: data.errors[0] });
-		console.log(data.errors[0]);
+		dispatch({ type: 'LOGIN_ERROR', error: data});
+		console.log(data);
 		return;
+
 	} catch (error) {
 		dispatch({ type: 'LOGIN_ERROR', error: error });
 		console.log(error);

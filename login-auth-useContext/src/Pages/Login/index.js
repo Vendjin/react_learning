@@ -5,19 +5,20 @@ import styles from './login.module.css';
 import {Redirect, useHistory} from "react-router-dom";
 
 function Login(props) {
-	const [user, setUser] = useState('');
-	const [password, setPassword] = useState('');
+	const [redmine_login, setRedmine_login] = useState('');
+	const [redmine_token, setRedmine_token] = useState('');
 
 	const dispatch = useAuthDispatch();
 	const { loading, errorMessage } = useAuthState();
+	console.log(useAuthState())
 	const history = useHistory();
 	const handleLogin = async (e) => {
 		e.preventDefault();
 
 		try {
-			let response = await loginUser(dispatch, { user, password });
-			if (!response.user) return;
-			console.log(response)
+			let response = await loginUser(dispatch, { redmine_login, redmine_token });
+			console.log(response, 'response')
+			if (!response.token) return;
 			// props.history.push('/dashboard');
 			history.push('/dashboard');
 		} catch (error) {
@@ -36,20 +37,20 @@ function Login(props) {
 							<label htmlFor='text'>Username</label>
 							<input
 								type='text'
-								id='user'
-								value={user}
-								onChange={(e) => setUser(e.target.value)}
-								disabled={loading}
+								id='redmine_login'
+								value={redmine_login}
+								onChange={(e) => setRedmine_login(e.target.value)}
+								// disabled={loading}
 							/>
 						</div>
 						<div className={styles.loginFormItem}>
 							<label htmlFor='password'>Password</label>
 							<input
 								type='password'
-								id='password'
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								disabled={loading}
+								id='redmine_token'
+								value={redmine_token}
+								onChange={(e) => setRedmine_token(e.target.value)}
+								// disabled={loading}
 							/>
 						</div>
 					</div>

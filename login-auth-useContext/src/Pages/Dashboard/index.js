@@ -19,7 +19,7 @@ function Dashboard(props) {
 					Logout
 				</button>
 			</div>
-			<p>Welcome {userDetails.user}</p>
+			<p>Welcome {userDetails.userName}</p>
 		</div>
 	);
 }

@@ -84,6 +84,11 @@
       "user": "tets",
       "password": "123",
       "id": 25
+    },
+    {
+      "user": "admin",
+      "password": "admin",
+      "id": 26
     }
   ]
 }

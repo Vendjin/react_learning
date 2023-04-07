@@ -5,12 +5,32 @@ import styled from "styled-components";
 import {Row} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from "react-dom";
+import Cookies from 'js-cookie'
 // обычно таким синтаксисом не пользуются
 const elem = React.createElement(
     'h2',
     {className: 'greetings'},
     'Hi!'
 );
+
+const data = {"token":"ade20971cd1954dcf606c887843c8ad56d7aadbb","user_id":384,"user_name":"Random Someone","is_django_admin":false};
+
+const setCookies = (data) => {
+    const {token, user_id, user_name} = data;
+    console.log(data.token);
+    const keys = ['token', 'user_id', 'user_name'];
+    keys.map(item => {
+        Cookies.set(item, data[item])
+    })
+}
+
+const Cook = () => {
+    return (
+        <>
+            <Button onClick={() => setCookies(data)}></Button>
+        </>
+    )
+}
 
 const text = 'TExt';
 const reactElem = (
@@ -359,6 +379,7 @@ const Msg = () => {
 function App() {
     return (
         <div className="App">
+            <Cook/>
             <Header/>
             <Field/>
             <FieldClass/>

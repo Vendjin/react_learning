@@ -16,7 +16,10 @@ const stringMiddleware = ({dispatch, getState}) => (nextDispatch) => (action) =>
 
 // store с помощью toolkit
 const store = configureStore({
-    reducer: {heroes: heroesReducer, filters},
+    reducer: {
+        heroes: heroesReducer,
+        filters
+    },
     // middleware: [ReduxThunk, stringMiddleware],
     // добавлены стандартные Middleware (ReduxThunk включены автоматом) из toolkit
     // и добавлен собственный stringMiddleware

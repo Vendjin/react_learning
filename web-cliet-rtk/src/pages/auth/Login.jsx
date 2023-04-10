@@ -37,27 +37,15 @@ const Login = () => {
             try{
                 await handleLogin(values.redmine_login, values.redmine_token)
             } catch (e) {
+                console.log(e, 'error')
                 helpers.setStatus({success: false});
                 helpers.setErrors({ submit: e.message });
                 helpers.setSubmitting(false);
             }
 
-        }
+        },
+
     })
-
-    /*async (values, helpers) => {
-        try {
-            let response = await loginUser(dispatch, {redmine_login: values.redmine_login, redmine_token: values.redmine_token});
-            if (!response.token) return;
-            navigate('/', {replace:true});
-        } catch (error) {
-            helpers.setStatus({success: false});
-            helpers.setErrors({ submit: error.message });
-            helpers.setSubmitting(false);
-        }
-    }*/
-
-
 
     const handleLogin = async (redmine_login, redmine_token) => {
         await dispatch(loginUser({redmine_login, redmine_token}))

@@ -1,12 +1,13 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 import {axiosInstance} from "../../utils/axios";
+
 export const ROOT_URL = 'http://127.0.0.1:80/api/v0/auth/login/';
 const initialState = {
     user: {
-        user_id: '' || sessionStorage.getItem('userId'),
-        user_name: '' || sessionStorage.getItem('userName'),
-        token: '' || sessionStorage.getItem('token')
+        user_id: '',
+        user_name: '',
+        token: ''
     },
     isLoading: false,
     isLogged: false | Cookies.get('isLogged'),
@@ -16,7 +17,7 @@ const initialState = {
 export const loginUser = createAsyncThunk(
     'auth/login',
     async (data, {rejectWithValue}) => {
-        try{
+        try {
             const user = await axiosInstance.post('api/v0/auth/login/', data);
             console.log(user.data)
             sessionStorage.setItem('userId', user.data.user_id);
@@ -24,9 +25,14 @@ export const loginUser = createAsyncThunk(
             sessionStorage.setItem('token', user.data.token);
             return user.data
         } catch (e) {
-            if (e.response && e.response.data.message) {
-                return rejectWithValue(e.response.data.message)
-            } else {
+            if (e.response.status === 401) {
+                throw new Error('Неверный логин или пароль')
+            }
+            if (e.response && e.response.data.detail) {
+                return rejectWithValue(e.response.data.detail)
+            }
+
+            else {
                 return rejectWithValue(e.message)
             }
         }

@@ -4,7 +4,6 @@ import {logOutUser} from "../pages/auth/authSlice";
 
 const Index = () => {
     const navigate = useNavigate();
-    const {user_name} = useSelector(state => state.auth.user)
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logOutUser());
@@ -14,7 +13,7 @@ const Index = () => {
 
     return (
         <>
-            <div>Index  {user_name}</div>
+            <div>Index  {sessionStorage.getItem('userName')}</div>
             <button onClick={handleLogout}>
                 Logout
             </button>

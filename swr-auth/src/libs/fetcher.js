@@ -1,17 +1,20 @@
-import {axiosInstance} from "../utils/axios";
-export const fetcher = (...args) => fetch(...args).then(res => res.json())
+import axios from "axios";
 
-export const login = async (data) => {
-    try {
-        const user = await axiosInstance.post('api/v0/auth/login/', data);
-        console.log(user.data)
-        sessionStorage.setItem('userId', user.data.user_id);
-        sessionStorage.setItem('userName', user.data.user_name);
-        sessionStorage.setItem('token', user.data.token);
+export const fetcher = (url, init) => fetch(url, init).then(res => res.json()).then(data=>data);
 
-    } catch (e) {
-        console.log(e)
-    }
-};
 
+export const fetcherV2 = (params) => {
+    const [url, token] = params;
+    return fetch(url, {
+        headers: {Authorization: `Token ${token}`}
+    }).then(res => res.json()).then(data => data)
+
+}
+export const userFetcher = async (url)=> {
+    const token = sessionStorage.getItem('token');
+    const res = await axios
+    .get(url, {headers: {Authorization: `Token ${token}`}})
+
+    return res.data
+}
 

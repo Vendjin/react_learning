@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export const fetcher = (url, init) => fetch(url, init).then(res => res.json()).then(data=>data);
-
+export const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export const fetcherV2 = (params) => {
     const [url, token] = params;

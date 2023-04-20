@@ -13,12 +13,12 @@ export interface IPropsRegister {
 }
 
 export interface IAuthState {
-    user: {} | IPublicUser,
+    user: IPublicUser,
     isLogged: boolean
 }
 
 export interface IPublicUser {
-    id: number,
+    id: number | null,
     username: string,
     token: string,
     firstName: string,

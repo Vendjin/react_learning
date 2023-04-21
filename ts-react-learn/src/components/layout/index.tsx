@@ -1,12 +1,22 @@
 import {ILayout} from "../../common/types/layout";
 import TopBar from "../top-bar";
+import {useLocation} from "react-router-dom";
 
 const Layout = ({children}: ILayout) => {
+    const location = useLocation();
+
     return (
-        <>
-            <TopBar/>
-            {children}
-        </>
+        location.pathname === '/login' || location.pathname === '/register'
+            ? (
+                <>
+                    {children}
+                </>
+            ) : (
+                <>
+                    <TopBar/>
+                    {children}
+                </>
+            )
     )
 }
 

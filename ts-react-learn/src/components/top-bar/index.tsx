@@ -18,7 +18,8 @@ const TopBarComponent = () => {
             display: 'flex',
             justifyContent: 'space-between',
             paddingX: '32px',
-            paddingY: '24px'
+            paddingY: '24px',
+            width: '100%'
         }}>
             <Grid>Welcome {user.firstName} </Grid>
             <Box display={'flex'}>

@@ -5,22 +5,16 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import {ColorModeContext, tokens} from "../../theme";
+import {ColorModeContext} from "../../theme";
+import {SearchGrid, TopBarBox} from "./styles";
 
 const TopBarComponent = () => {
     const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
     const colorMode: any = useContext(ColorModeContext);
 
     return (
-        <Box sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            paddingX: '32px',
-            paddingY: '24px',
-            width: '100%'
-        }}>
+        <TopBarBox>
             <Grid>Welcome {user.firstName} </Grid>
             <Box display={'flex'}>
                 <Grid onClick={colorMode.toggleColorMode}>
@@ -41,24 +35,16 @@ const TopBarComponent = () => {
                              marginRight: 3
                          }}
                 />
-                <Grid sx={{
-                    display: 'flex',
-                    backgroundColor: colors.primary[600],
-                    borderRadius: 2,
-                    height: '2.5rem'
-                }}>
-                    <IconButton sx={{ '&:hover': { background: 'transparent' } }}>
+                <SearchGrid>
+                    <IconButton sx={{'&:hover': {background: 'transparent'}}}>
                         <SearchIcon/>
                     </IconButton>
-                    <InputBase sx={{
-                        paddingX: '18px',
-                        paddingY: '12px'
-                    }}
+                    <InputBase sx={{padding: '12px 18px'}}
                                placeholder={'Поиск'}
                     />
-                </Grid>
+                </SearchGrid>
             </Box>
-        </Box>
+        </TopBarBox>
     );
 };
 

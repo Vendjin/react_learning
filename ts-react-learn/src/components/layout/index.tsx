@@ -27,15 +27,16 @@ const Layout = ({children}: ILayout) => {
                              isOpen={isOpen}
                              setIsOpen={setIsOpen}
                     />
-                    <Box sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        flexDirection: 'column',
-                        width: `calc(100% - 250px)`
-                    }}>
+
+                    <Box display={'flex'}
+                         justifyContent={'space-between'}
+                         flexDirection={'column'}
+                         width={`calc(100% - 250px)`}
+                    >
                         <TopBar/>
                         {children}
                     </Box>
+
                 </Box>
             )
     )

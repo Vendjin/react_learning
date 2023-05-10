@@ -18,13 +18,12 @@ export const BlueListItemButton = styled(ListItemButton)(
             marginRight: '16px',
             borderRadius: '4px',
             '&:hover': {
-                backgroundColor: '#1900D5',
+                backgroundColor: '#1900D5 !important',
                 color: '#FFFFFF',
                 '&.MuiSvgIcon-root': {
-                    color: `${colors.secondary.DEFAULT}`,
+                    color: `${colors.secondary.DEFAULT} !important`,
                 }
             }
-
         })
     });
 

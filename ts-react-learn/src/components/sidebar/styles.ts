@@ -20,8 +20,8 @@ export const BlueListItemButton = styled(ListItemButton)(
             '&:hover': {
                 backgroundColor: '#1900D5 !important',
                 color: '#FFFFFF',
-                '&.MuiSvgIcon-root': {
-                    color: `${colors.secondary.DEFAULT} !important`,
+                '& .MuiSvgIcon-root': {
+                    color: `${colors.white.DEFAULT} !important`,
                 }
             }
         })

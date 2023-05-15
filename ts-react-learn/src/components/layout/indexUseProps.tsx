@@ -1,10 +1,11 @@
+import {ILayout} from "../../common/types/layout";
 import TopBar from "../top-bar";
-import {Outlet, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {Box, useMediaQuery} from "@mui/material";
 import Sidebar from "../sidebar";
 import {useState} from "react";
 
-const Layout = () => {
+const Layout = ({children}: ILayout) => {
     const [isOpen, setIsOpen] = useState(true);
     const location = useLocation();
     const isNonMobile = useMediaQuery('(min-width:600px)');
@@ -13,7 +14,7 @@ const Layout = () => {
         location.pathname === '/login' || location.pathname === '/register'
             ? (
                 <>
-                    <Outlet/>
+                    {children}
                 </>
             ) : (
                 <Box display={isNonMobile ? 'flex' : 'block'}
@@ -28,13 +29,12 @@ const Layout = () => {
                     />
 
                     <Box display={'flex'}
-                         justifyContent={'center'}
+                         justifyContent={'space-between'}
                          flexDirection={'column'}
-                         // width={`calc(100% - 250px)`}
-                        flexGrow={1}
+                         width={`calc(100% - 250px)`}
                     >
                         <TopBar/>
-                        <Outlet/>
+                        {children}
                     </Box>
 
                 </Box>

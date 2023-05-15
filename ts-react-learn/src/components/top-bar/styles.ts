@@ -1,6 +1,21 @@
-import {Box, Grid, styled} from '@mui/material';
+import {Box, Grid, styled, Toolbar} from '@mui/material';
 import {tokens} from "../../theme";
 
+
+
+export const CustomToolbar = styled(Toolbar) (
+    ({theme}) => {
+        const colors = tokens(theme.palette.mode);
+        return ({
+            justifyContent: 'space-between',
+            padding: '32px 24px',
+            width: '100%',
+            height: '100px',
+            backgroundColor: theme.palette.primary.main,
+            borderBottom: `1px solid ${colors.borderColor}`,
+        })
+    }
+)
 
 export const TopBarBox = styled(Box)(
     ({theme}) => {

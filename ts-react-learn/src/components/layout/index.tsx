@@ -8,7 +8,7 @@ const Layout = () => {
     const [isOpen, setIsOpen] = useState(true);
     const location = useLocation();
     const isNonMobile = useMediaQuery('(min-width:600px)');
-    const isLowMonitor = useMediaQuery('(min-width:1025px)');
+    const isSmallScreen = useMediaQuery('(min-width:1025px)');
 
     return (
         location.pathname === '/login' || location.pathname === '/register'
@@ -23,7 +23,7 @@ const Layout = () => {
                      height={'100%'}
                 >
                     <Sidebar isNonMobile={isNonMobile}
-                             isLowMonitor={isLowMonitor}
+                             isSmallScreen={isSmallScreen}
                              drawerWidth={'250px'}
                              isOpen={isOpen}
                              setIsOpen={setIsOpen}

@@ -8,7 +8,7 @@ import {tokens} from "../../theme";
 import Logo from '../../assets/images/logo.svg';
 import {BlueListItemButton, LogoComponent} from "./styles";
 
-const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isLowMonitor}: any) => {
+const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isSmallScreen}: any) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const {pathname} = useLocation();
@@ -19,6 +19,10 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isLowMonitor}: an
     useEffect(() => {
         setActivePage(pathname.substring(1))
     }, [pathname])
+
+    useEffect(() => {
+        setIsOpen(isSmallScreen)
+    }, [isSmallScreen])
 
     const renderNavMenu = navMenu.map(itemMenu => (
         <BlueListItemButton onClick={() => navigate(`${itemMenu.path}`)}
@@ -34,7 +38,7 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isLowMonitor}: an
 
     return (
         <Box component={'nav'}>
-            {isLowMonitor && isOpen && (
+            {isOpen && (
                 <Drawer open={isOpen}
                         onClose={() => setIsOpen(false)}
                         variant={'persistent'}

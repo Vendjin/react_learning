@@ -38,7 +38,8 @@ export const tokens = (mode: string) => ({
             200: '#D1D1D1'
         },
         gray: {
-            DEFAULT: '#3C3C3C'
+            DEFAULT: '#3C3C3C',
+            100: '#232323',
         },
         accentMain: '#0F0E0E',
         borderColor: '#3C3C3C'
@@ -68,7 +69,8 @@ export const tokens = (mode: string) => ({
             900: '#000000'
         },
         gray: {
-            DEFAULT: '#3C3C3C'
+            DEFAULT: '#3C3C3C',
+            100: '#D1D1D1',
         },
         accentMain: '#F7F7F7',
         borderColor: '#D1D1D1'

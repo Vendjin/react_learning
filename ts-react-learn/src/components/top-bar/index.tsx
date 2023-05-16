@@ -1,31 +1,33 @@
-import {AppBar, Box, Divider, Grid, IconButton, InputBase, useTheme} from '@mui/material';
+import {AppBar, Box, Divider, Grid, IconButton, InputBase, Typography, useTheme} from '@mui/material';
 import React, {useContext} from 'react';
 import {useAppSelector} from "../../utils/hook";
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import {DarkMode, LightMode, Notifications, Search, MenuOutlined} from '@mui/icons-material';
 import {ColorModeContext} from "../../theme";
 import {CustomToolbar, SearchGrid} from "./styles";
+import FlexBetween from "../flexBetween/inedx";
 
-const TopBarComponent = () => {
+const TopBarComponent = (props: any) => {
     const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
     const colorMode: any = useContext(ColorModeContext);
+    const {isOpen, setIsOpen} = props;
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{boxShadow: 'none'}}>
             <CustomToolbar>
-                <Grid>Welcome {user.firstName} </Grid>
+                <FlexBetween sx={{gap: '10px', cursor: 'pointer'}}>
+                    <MenuOutlined onClick={() => setIsOpen(!isOpen)}></MenuOutlined>
+                    <Typography variant={'h3'}>Welcome {user.firstName}</Typography>
+                </FlexBetween>
                 <Box display={'flex'}>
                     <Grid onClick={colorMode.toggleColorMode}>
                         <IconButton>
-                            {theme.palette.mode === 'dark' ? (<DarkModeIcon/>) : (<LightModeIcon/>)}
+                            {theme.palette.mode === 'dark' ? (<DarkMode/>) : (<LightMode/>)}
                         </IconButton>
                     </Grid>
                     <Grid marginLeft={4}>
                         <IconButton>
-                            <NotificationsNoneIcon/>
+                            <Notifications/>
                         </IconButton>
                     </Grid>
                     <Divider orientation="vertical"
@@ -38,7 +40,7 @@ const TopBarComponent = () => {
                     />
                     <SearchGrid>
                         <IconButton sx={{'&:hover': {background: 'transparent'}}}>
-                            <SearchIcon/>
+                            <Search/>
                         </IconButton>
                         <InputBase sx={{padding: '12px 18px'}}
                                    placeholder={'Поиск'}

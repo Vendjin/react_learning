@@ -38,6 +38,8 @@ export const SearchGrid = styled(Grid)(
             {
                 display: 'flex',
                 backgroundColor: colors.primary[600],
+                border: 'solid 1px',
+                borderColor: colors.gray[100],
                 borderRadius: 8,
                 height: '2.5rem'
             })

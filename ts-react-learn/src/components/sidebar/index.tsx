@@ -8,7 +8,7 @@ import {tokens} from "../../theme";
 import Logo from '../../assets/images/logo.svg';
 import {BlueListItemButton, LogoComponent} from "./styles";
 
-const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen}: any) => {
+const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isLowMonitor}: any) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const {pathname} = useLocation();
@@ -34,7 +34,7 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen}: any) => {
 
     return (
         <Box component={'nav'}>
-            {isOpen && (
+            {isLowMonitor && isOpen && (
                 <Drawer open={isOpen}
                         onClose={() => setIsOpen(false)}
                         variant={'persistent'}
@@ -49,33 +49,31 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen}: any) => {
                             },
                         }}
                 >
-                    <Box width={'100%'} sx={{borderBottom: `1px solid ${colors.borderColor}`}}>
-                        <Box>
-                            <FlexBetween>
-                                <LogoComponent>
-                                    <img src={Logo} alt={'logo'}/>
-                                    <Typography variant='h1'
-                                                color={
-                                                    theme.palette.mode === 'dark' ?
-                                                        colors.white.DEFAULT :
-                                                        colors.black.DEFAULT
-                                                }> Demo </Typography>
-                                </LogoComponent>
-                                {!isNonMobile && (
-                                    <IconButton onClick={() => setIsOpen(!isOpen)}>
-                                        <ChevronLeftOutlined/>
-                                    </IconButton>
-                                )}
-                            </FlexBetween>
-                        </Box>
+                    <Box sx={{borderBottom: `1px solid ${colors.borderColor}`}}>
+                        <FlexBetween>
+                            <LogoComponent>
+                                <img src={Logo} alt={'logo'}/>
+                                <Typography variant='h1'
+                                            color={
+                                                theme.palette.mode === 'dark' ?
+                                                    colors.white.DEFAULT :
+                                                    colors.black.DEFAULT
+                                            }> Demo </Typography>
+                            </LogoComponent>
+                            {!isNonMobile && (
+                                <IconButton onClick={() => setIsOpen(!isOpen)}>
+                                    <ChevronLeftOutlined/>
+                                </IconButton>
+                            )}
+                        </FlexBetween>
+
                         <List sx={{marginBottom: '55px'}}>
                             {renderNavMenu}
                         </List>
                     </Box>
 
-                    <Box width={'100%'} marginTop={3}>
-                        <BlueListItemButton sx={{marginLeft: '16px'}}
-                        >
+                    <Box marginTop={3}>
+                        <BlueListItemButton sx={{marginLeft: '16px'}}>
                             <ListItemIcon sx={{color: colors.secondary.DEFAULT}}>
                                 <LogoutOutlined/>
                             </ListItemIcon>

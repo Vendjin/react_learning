@@ -8,7 +8,7 @@ const Layout = () => {
     const [isOpen, setIsOpen] = useState(true);
     const location = useLocation();
     const isNonMobile = useMediaQuery('(min-width:600px)');
-    const isSmallScreen = useMediaQuery('(min-width:1025px)');
+    const isSmallScreen = useMediaQuery('(min-width:1159px)');
 
     return (
         location.pathname === '/login' || location.pathname === '/register'

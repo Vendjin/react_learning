@@ -1,7 +1,15 @@
-export interface IPropsLogin {
+import {FieldValues, UseFormRegister, FieldErrors} from "react-hook-form";
+
+export interface IPropsLogin<
+    TFieldValues extends FieldValues = FieldValues,
+    TContext = any,
+> {
     // функции из useState ничего не возвращают, а меняют состояние, поэтому Void
     setUsername: (value: string) => void,
-    setPassword: (value: string) => void
+    setPassword: (value: string) => void;
+    register: UseFormRegister<TFieldValues>;
+    errors: FieldErrors<TFieldValues>;
+
 }
 
 export interface IPropsRegister {

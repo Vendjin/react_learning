@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {IPropsLogin} from "../../../common/types/auth";
 
 const Login: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
-    const {setUsername, setPassword} = props
+    const {register, errors} = props
     return (
         <>
             <Typography variant="h2"
@@ -20,10 +20,12 @@ const Login: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                        placeholder='Введите ваш login'
                        fullWidth={true}
                        margin='normal'
-
-                       onChange={event => setUsername(
-                           event.target.value
-                       )}
+                       error={!!errors.username}
+                       helperText={errors.username ? `${errors.username.message}` : ''}
+                       {...register('username', {
+                           required: 'Это обязательное поле',
+                           // pattern: 'регулярка паттерна'
+                       })}
             />
 
             <TextField label="password"
@@ -32,10 +34,13 @@ const Login: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                        placeholder='Введите ваш password'
                        fullWidth={true}
                        margin='normal'
+                       error={!!errors.password}
+                       helperText={errors.password ? `${errors.password.message}` : ''}
+                       {...register('password', {
+                           required: 'Это обязательное поле',
+                           minLength: 6
 
-                       onChange={event => setPassword(
-                           event.target.value
-                       )}
+                       })}
             />
 
             <Button variant="contained"

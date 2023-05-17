@@ -1,3 +1,4 @@
+/*
 import React, {useState} from 'react';
 import './style.scss';
 import {Box} from "@mui/material";
@@ -10,7 +11,7 @@ import {login} from "../../store/slice/auth";
 import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 
-
+// @ts-ignore
 const AuthRootComponent: React.FC = (): JSX.Element => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -26,17 +27,18 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 
     const {register, formState: {errors}, handleSubmit} = useForm();
 
-    console.log(errors)
-    const handleSubmitForm = async (data: any) => {
+    const handleSubmitForm = async (event: { preventDefault: () => void }) => {
+        event.preventDefault();
         if (location.pathname === '/login') {
             try {
                 const userData = {
-                    username: data.username,
-                    password: data.password
+                    username,
+                    password
                 };
 
                 const user = await instance.post('auth/login', userData);
                 await dispatch(login(user.data))
+                console.log(user)
                 navigate('/');
 
             } catch (error) {
@@ -64,9 +66,10 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
         }
     }
 
+    // @ts-ignore
     return (
         <div className='root'>
-            <form className='form' onSubmit={handleSubmit(handleSubmitForm)}>
+            <form className='form' onSubmit={handleSubmitForm}>
                 <Box display={'flex'}
                      justifyContent={'center'}
                      alignItems={'center'}
@@ -80,10 +83,7 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                     {
                         location.pathname === '/login'
                             ? <Login setUsername={setUsername}
-                                     setPassword={setPassword}
-                                     register={register}
-                                     errors={errors}
-                            />
+                                     setPassword={setPassword}/>
                             : location.pathname === '/register'
                                 ? <Register setUsername={setUsername}
                                             setPassword={setPassword}
@@ -96,6 +96,9 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
             </form>
         </div>
     );
+    // return (
+    //
+    // );
 };
 
-export default AuthRootComponent;
+export default AuthRootComponent;*/

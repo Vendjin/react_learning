@@ -22,10 +22,12 @@ const Login: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                        margin='normal'
                        error={!!errors.username}
                        helperText={errors.username ? `${errors.username.message}` : ''}
+                       {...register('username')}
+                       /*//без использования yup
                        {...register('username', {
                            required: 'Это обязательное поле',
                            // pattern: 'регулярка паттерна'
-                       })}
+                       })}*/
             />
 
             <TextField label="password"
@@ -36,11 +38,13 @@ const Login: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
                        margin='normal'
                        error={!!errors.password}
                        helperText={errors.password ? `${errors.password.message}` : ''}
+                       {...register('password')}
+                        /*//без использования yup
                        {...register('password', {
                            required: 'Это обязательное поле',
                            minLength: 6
 
-                       })}
+                       })}*/
             />
 
             <Button variant="contained"

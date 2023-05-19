@@ -4,8 +4,8 @@ import React from "react";
 import {IPropsRegister} from "../../../common/types/auth";
 
 const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element => {
-    const {setUsername, setPassword, setRepeatPassword, setName, setEmail} = props;
-
+    // const {setUsername, setPassword, setRepeatPassword, setName, setEmail} = props;
+    const {register, errors} = props
     return (
         <>
             <Typography variant="h2"
@@ -22,9 +22,12 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        placeholder='Введите ваше имя'
                        fullWidth={true}
                        margin='normal'
-                       onChange={event => setName(
+                       error={!!errors.name}
+                       {...register('name')}
+                       helperText={errors.name ? `${errors.name.message}` : ''}
+                       /*onChange={event => setName(
                            event.target.value
-                       )}
+                       )}*/
             />
 
             <TextField label="Email"
@@ -32,9 +35,12 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        placeholder='Введите ваш email'
                        fullWidth={true}
                        margin='normal'
-                       onChange={event => setEmail(
+                       error={!!errors.email}
+                       {...register('email')}
+                       helperText={errors.email ? `${errors.email.message}` : ''}
+                       /*onChange={event => setEmail(
                            event.target.value
-                       )}
+                       )}*/
             />
 
             <TextField label="Login"
@@ -42,9 +48,12 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        placeholder='Придумайте ваш login'
                        fullWidth={true}
                        margin='normal'
-                       onChange={event => setUsername(
+                       error={!!errors.username}
+                       {...register('username')}
+                       helperText={errors.username ? `${errors.username.message}` : ''}
+                       /*onChange={event => setUsername(
                            event.target.value
-                       )}
+                       )}*/
             />
 
             <TextField label="Password"
@@ -53,9 +62,12 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        placeholder='Придумайте ваш password'
                        fullWidth={true}
                        margin='normal'
-                       onChange={event => setPassword(
+                       error={!!errors.password}
+                       {...register('password')}
+                       helperText={errors.password ? `${errors.password.message}` : ''}
+                       /*onChange={event => setPassword(
                            event.target.value
-                       )}
+                       )}*/
             />
 
             <TextField label="Password again"
@@ -64,9 +76,12 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        placeholder='Повторите ваш password'
                        fullWidth={true}
                        margin='normal'
-                       onChange={event => setRepeatPassword(
+                       error={!!errors.confirmPassword}
+                       {...register('confirmPassword')}
+                       helperText={errors.confirmPassword ? `${errors.confirmPassword.message}` : ''}
+                       /*onChange={event => setRepeatPassword(
                            event.target.value
-                       )}
+                       )}*/
             />
 
             <Button variant="contained"

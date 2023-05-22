@@ -8,8 +8,8 @@ import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {LoginSchema, RegisterSchema} from "../../utils/yup/yup";
-import Login from './login/login';
-import Register from './register/register';
+import Login from '../../components/login/login';
+import Register from '../../components/register/register';
 import {AuthForm, RootAuthDiv} from "./styles";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {

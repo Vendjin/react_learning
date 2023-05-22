@@ -1,8 +1,8 @@
 import React from "react";
 import {TextField, Button, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
-import {IPropsLogin} from "../../../common/types/auth";
-import {AppButton} from "../../../components/appButton/appButton";
+import {IPropsLogin} from "../../common/types/auth";
+import {AppButton} from "../appButton/appButton";
 
 const Login: React.FC<IPropsLogin> = (props: IPropsLogin): JSX.Element => {
     const {register, errors} = props

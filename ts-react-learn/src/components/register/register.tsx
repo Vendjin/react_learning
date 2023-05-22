@@ -1,8 +1,8 @@
 import {Button, TextField, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 import React from "react";
-import {IPropsRegister} from "../../../common/types/auth";
-import {AppButton} from "../../../components/appButton/appButton";
+import {IPropsRegister} from "../../common/types/auth";
+import {AppButton} from "../appButton/appButton";
 
 const Register: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
     // const {setUsername, setPassword, setRepeatPassword, setName, setEmail} = props;

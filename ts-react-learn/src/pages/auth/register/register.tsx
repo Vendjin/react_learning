@@ -2,15 +2,16 @@ import {Button, TextField, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 import React from "react";
 import {IPropsRegister} from "../../../common/types/auth";
+import {AppButton} from "../../../components/appButton/appButton";
 
-const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element => {
+const Register: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
     // const {setUsername, setPassword, setRepeatPassword, setName, setEmail} = props;
     const {register, errors} = props
     return (
         <>
             <Typography variant="h2"
                         padding={3}
-                        fontFamily='Poppins'
+                        fontSize={32}
                         fontWeight='normal'
                         textAlign='center'
             >
@@ -25,9 +26,9 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        error={!!errors.name}
                        {...register('name')}
                        helperText={errors.name ? `${errors.name.message}` : ''}
-                       /*onChange={event => setName(
-                           event.target.value
-                       )}*/
+                /*onChange={event => setName(
+                    event.target.value
+                )}*/
             />
 
             <TextField label="Email"
@@ -38,9 +39,9 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        error={!!errors.email}
                        {...register('email')}
                        helperText={errors.email ? `${errors.email.message}` : ''}
-                       /*onChange={event => setEmail(
-                           event.target.value
-                       )}*/
+                /*onChange={event => setEmail(
+                    event.target.value
+                )}*/
             />
 
             <TextField label="Login"
@@ -51,9 +52,9 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        error={!!errors.username}
                        {...register('username')}
                        helperText={errors.username ? `${errors.username.message}` : ''}
-                       /*onChange={event => setUsername(
-                           event.target.value
-                       )}*/
+                /*onChange={event => setUsername(
+                    event.target.value
+                )}*/
             />
 
             <TextField label="Password"
@@ -65,9 +66,9 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        error={!!errors.password}
                        {...register('password')}
                        helperText={errors.password ? `${errors.password.message}` : ''}
-                       /*onChange={event => setPassword(
-                           event.target.value
-                       )}*/
+                /*onChange={event => setPassword(
+                    event.target.value
+                )}*/
             />
 
             <TextField label="Password again"
@@ -79,26 +80,21 @@ const Register: React.FC<IPropsRegister> = (props:IPropsRegister):JSX.Element =>
                        error={!!errors.confirmPassword}
                        {...register('confirmPassword')}
                        helperText={errors.confirmPassword ? `${errors.confirmPassword.message}` : ''}
-                       /*onChange={event => setRepeatPassword(
-                           event.target.value
-                       )}*/
+                /*onChange={event => setRepeatPassword(
+                    event.target.value
+                )}*/
             />
 
-            <Button variant="contained"
-                    fullWidth={true}
-                    sx={{
-                        fontFamily: 'Poppins',
-                        margin: 2,
-                        height: ''
-                    }}
-                    type='submit'
+            <AppButton variant="contained"
+                       fullWidth={true}
+                       type='submit'
             >
                 Contained
-            </Button>
+            </AppButton>
 
             <Typography variant='body1'
                         sx={{
-                            fontFamily: 'Poppins',
+                            marginTop: 1
                         }}
             >
                 У вас уже есть аккаунт?

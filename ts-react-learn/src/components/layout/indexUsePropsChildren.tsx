@@ -1,5 +1,6 @@
+/*
 import {ILayout} from "../../common/types/layout";
-import TopBar from "../top-bar";
+import TopBar from "../topBar";
 import {useLocation} from "react-router-dom";
 import {Box, useMediaQuery} from "@mui/material";
 import Sidebar from "../sidebar";
@@ -42,4 +43,4 @@ const Layout = ({children}: ILayout) => {
     )
 }
 
-export default Layout;
+export default Layout;*/

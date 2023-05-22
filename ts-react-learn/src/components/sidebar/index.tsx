@@ -1,14 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Box, Drawer, IconButton, List, ListItemIcon, ListItemText, Typography, useTheme} from "@mui/material";
 import {ChevronLeftOutlined, LogoutOutlined,} from '@mui/icons-material';
 import {useLocation, useNavigate} from "react-router-dom";
 import FlexBetween from "../flexBetween/inedx";
 import {navMenu} from "../../common/moks/navigate";
-import {tokens} from "../../theme";
+import {tokens} from "../../theme/theme";
 import Logo from '../../assets/images/logo.svg';
-import {BlueListItemButton, LogoComponent} from "./styles";
+import {ListItemButtonCustom, ListItemButtonNav, LogoComponent} from "./styles";
+import {ISidebarProps} from "../../common/types/sidebar/iSidebar";
 
-const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isSmallScreen}: any) => {
+const SideBar: FC<ISidebarProps> = ({
+                                        isNonMobile,
+                                        drawerWidth,
+                                        isOpen,
+                                        setIsOpen,
+                                        isSmallScreen
+                                    }: ISidebarProps): JSX.Element => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const {pathname} = useLocation();
@@ -17,7 +24,7 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isSmallScreen}: a
     const [activePage, setActivePage] = useState('');
 
     useEffect(() => {
-        setActivePage(pathname.substring(1))
+        setActivePage(pathname)
     }, [pathname])
 
     useEffect(() => {
@@ -25,15 +32,15 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isSmallScreen}: a
     }, [isSmallScreen])
 
     const renderNavMenu = navMenu.map(itemMenu => (
-        <BlueListItemButton onClick={() => navigate(`${itemMenu.path}`)}
-                            key={itemMenu.id}
-                            sx={{marginLeft: '16px'}}
+        <ListItemButtonNav onClick={() => navigate(`${itemMenu.path}`)}
+                           key={itemMenu.id}
+                           className={activePage === itemMenu.path ? 'active' : ''}
         >
-            <ListItemIcon sx={{color: colors.secondary.DEFAULT}}>
+            <ListItemIcon sx={{color: colors.secondary.DEFAULT, paddingY: '8px'}}>
                 {itemMenu.icon}
             </ListItemIcon>
             <ListItemText primary={itemMenu.name}/>
-        </BlueListItemButton>
+        </ListItemButtonNav>
     ))
 
     return (
@@ -77,12 +84,12 @@ const SideBar = ({isNonMobile, drawerWidth, isOpen, setIsOpen, isSmallScreen}: a
                     </Box>
 
                     <Box marginTop={3}>
-                        <BlueListItemButton sx={{marginLeft: '16px'}}>
+                        <ListItemButtonCustom>
                             <ListItemIcon sx={{color: colors.secondary.DEFAULT}}>
                                 <LogoutOutlined/>
                             </ListItemIcon>
                             <ListItemText>LogOut</ListItemText>
-                        </BlueListItemButton>
+                        </ListItemButtonCustom>
                     </Box>
                 </Drawer>
             )}

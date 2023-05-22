@@ -5,7 +5,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import {ColorModeContext} from "../../theme";
+import {ColorModeContext} from "../../theme/theme";
 import {SearchGrid, TopBarBox} from "./styles";
 
 const TopBarComponent = () => {

@@ -1,4 +1,4 @@
-import {createContext, useState, useMemo} from 'react';
+import {createContext, useState, useMemo, Context} from 'react';
 import {createTheme} from "@mui/material";
 
 // функция сразу возвращает объект
@@ -135,7 +135,7 @@ export const themeSettings: any = (mode: string) => {
     }
 };
 
-export const ColorModeContext:any = createContext({
+export const ColorModeContext: Context<{ toggleColorMode: () => void }> = createContext({
     toggleColorMode: () => {}
 });
 

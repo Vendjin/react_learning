@@ -1,9 +1,6 @@
 import React from 'react';
-import './style.scss';
 import {Box} from "@mui/material";
 import {useLocation, useNavigate} from "react-router-dom";
-import Login from "./login/login";
-import Register from "./register/register";
 import instance from "../../utils/axios";
 import {useAppDispatch} from "../../utils/hook";
 import {login} from "../../store/slice/auth";
@@ -11,6 +8,9 @@ import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import {LoginSchema, RegisterSchema} from "../../utils/yup/yup";
+import Login from './login/login';
+import Register from './register/register';
+import {AuthForm, RootAuthDiv} from "./styles";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
     const location = useLocation();
@@ -63,8 +63,8 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
     }
 
     return (
-        <div className='root'>
-            <form className='form' onSubmit={handleSubmit(handleSubmitForm)}>
+        <RootAuthDiv>
+            <AuthForm onSubmit={handleSubmit(handleSubmitForm)}>
                 <Box display={'flex'}
                      justifyContent={'center'}
                      alignItems={'center'}
@@ -86,8 +86,8 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
                                 : null
                     }
                 </Box>
-            </form>
-        </div>
+            </AuthForm>
+        </RootAuthDiv>
     );
 };
 

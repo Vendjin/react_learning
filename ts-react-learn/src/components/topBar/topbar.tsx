@@ -1,16 +1,16 @@
 import {AppBar, Box, Divider, Grid, IconButton, InputBase, Typography, useTheme} from '@mui/material';
-import React, {useContext} from 'react';
+import React, {FC, useContext} from 'react';
 import {useAppSelector} from "../../utils/hook";
 import {DarkMode, LightMode, Notifications, Search, MenuOutlined} from '@mui/icons-material';
-import {ColorModeContext} from "../../theme";
+import {ColorModeContext} from "../../theme/theme";
 import {CustomToolbar, SearchGrid} from "./styles";
 import FlexBetween from "../flexBetween/inedx";
+import {ITopBarProps} from "../../common/types/topBar/iTopBar";
 
-const TopBarComponent = (props: any) => {
+const TopBarComponent: FC<ITopBarProps> = ({isOpen, setIsOpen}: ITopBarProps): JSX.Element => {
     const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
     const colorMode: any = useContext(ColorModeContext);
-    const {isOpen, setIsOpen} = props;
 
     return (
         <AppBar position="static" sx={{boxShadow: 'none'}}>

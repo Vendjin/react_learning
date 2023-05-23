@@ -1,13 +1,16 @@
-import {Button, TextField, Typography} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
 import React from "react";
-import {IPropsRegister} from "../../common/types/auth";
-import {AppButton} from "../appButton/appButton";
+import {IPropsRegister} from "../../common/types/auth/auth";
+import {AppButtonLoading} from "../appButton/appButton";
+import {useAppSelector} from "../../utils/hook";
 
-const Register: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element => {
+const Register: React.FC<IPropsRegister> = ({register, errors}: IPropsRegister): JSX.Element => {
     // const {setUsername, setPassword, setRepeatPassword, setName, setEmail} = props;
-    const {register, errors} = props
+    const loading = useAppSelector(state => state.auth.isLoading);
+
     return (
+
         <>
             <Typography variant="h2"
                         padding={3}
@@ -85,12 +88,13 @@ const Register: React.FC<IPropsRegister> = (props: IPropsRegister): JSX.Element 
                 )}*/
             />
 
-            <AppButton variant="contained"
-                       fullWidth={true}
-                       type='submit'
+            <AppButtonLoading variant="contained"
+                              fullWidth={true}
+                              type='submit'
+                              loading={loading}
             >
                 Contained
-            </AppButton>
+            </AppButtonLoading>
 
             <Typography variant='body1'
                         sx={{

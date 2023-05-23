@@ -34,7 +34,8 @@ export interface IPropsRegister<
 
 export interface IAuthState {
     user: IPublicUser,
-    isLogged: boolean
+    isLogged: boolean,
+    isLoading: boolean
 }
 
 export interface IPublicUser {
@@ -46,4 +47,17 @@ export interface IPublicUser {
     email: string,
     gender: string,
     image: string,
+}
+
+export interface ILoginData {
+    username: string;
+    password: string;
+}
+
+export interface IRegisterData {
+    name: string;
+    email: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
 }

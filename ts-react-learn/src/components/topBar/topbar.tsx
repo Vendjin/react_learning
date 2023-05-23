@@ -8,7 +8,7 @@ import FlexBetween from "../flexBetween/inedx";
 import {ITopBarProps} from "../../common/types/topBar/iTopBar";
 
 const TopBarComponent: FC<ITopBarProps> = ({isOpen, setIsOpen}: ITopBarProps): JSX.Element => {
-    const user = useAppSelector(state => state.auth.user);
+    // const user = useAppSelector(state => state.auth.user);
     const theme = useTheme();
     const colorMode: any = useContext(ColorModeContext);
 
@@ -17,7 +17,7 @@ const TopBarComponent: FC<ITopBarProps> = ({isOpen, setIsOpen}: ITopBarProps): J
             <CustomToolbar>
                 <FlexBetween sx={{gap: '10px', cursor: 'pointer'}}>
                     <MenuOutlined onClick={() => setIsOpen(!isOpen)}></MenuOutlined>
-                    <Typography variant={'h3'}>Welcome {user.firstName}</Typography>
+                    <Typography variant={'h3'}>Welcome {sessionStorage.getItem('firstName')}</Typography>
                 </FlexBetween>
                 <Box display={'flex'}>
                     <Grid onClick={colorMode.toggleColorMode}>

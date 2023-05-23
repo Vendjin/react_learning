@@ -1,7 +1,7 @@
 import TopBar from "../topBar/topbar";
 import {Outlet, useLocation} from "react-router-dom";
 import {Box, useMediaQuery} from "@mui/material";
-import Sidebar from "../sidebar";
+import Sidebar from "../sidebar/sidebar";
 import {FC, useState} from "react";
 
 const Layout: FC = (): JSX.Element => {

@@ -7,7 +7,7 @@ import Login from "./login";
 import Register from "./register";
 import instance from "../../utils/axios";
 import {useAppDispatch} from "../../utils/hook";
-import {login} from "../../store/slice/auth";
+import {login} from "../../store/slices/auth";
 import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 

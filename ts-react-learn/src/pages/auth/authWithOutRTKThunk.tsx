@@ -1,7 +1,10 @@
+/*
 import React from 'react';
 import {Box} from "@mui/material";
 import {useLocation, useNavigate} from "react-router-dom";
+import instance from "../../utils/axios";
 import {useAppDispatch} from "../../utils/hook";
+import {login} from "../../store/slices/auth/auth";
 import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -9,7 +12,6 @@ import {LoginSchema, RegisterSchema} from "../../utils/yup/yup";
 import Login from '../../components/login/login';
 import Register from '../../components/register/register';
 import {AuthForm, RootAuthDiv} from "./styles";
-import {loginUser, registerUser} from "../../store/thunks/auth/auth";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
     const location = useLocation();
@@ -24,8 +26,14 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
     const handleSubmitForm = async (data: any) => {
         if (location.pathname === '/login') {
             try {
-                console.log(data, 'Data for request to Login')
-                await dispatch(loginUser(data))
+                const userData = {
+                    username: data.username,
+                    password: data.password
+                };
+
+                const user = await instance.post('auth/login', userData);
+                console.log(user.data)
+                await dispatch(login(user.data))
                 navigate('/');
 
             } catch (error) {
@@ -33,9 +41,18 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
             }
         } else {
             if (data.password === data.confirmPassword) {
-                console.log(data, 'Data for request to Register')
+                console.log(data)
                 try {
-                    await dispatch(registerUser(data))
+                    const userData = {
+                        name: data.name,
+                        email: data.email,
+                        username: data.username,
+                        password: data.password,
+                        confirmPassword: data.confirmPassword,
+                    }
+                    const newUser = JSON.stringify(userData);
+                    console.log(newUser);
+                    await dispatch(login(newUser))
                     navigate('/')
                 } catch (error) {
                     return error
@@ -76,3 +93,4 @@ const AuthRootComponent: React.FC = (): JSX.Element => {
 };
 
 export default AuthRootComponent;
+*/

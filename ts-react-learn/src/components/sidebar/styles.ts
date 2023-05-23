@@ -1,6 +1,6 @@
 import {Box, ListItemButton, styled, Theme} from "@mui/material";
 import {tokens} from "../../theme/theme";
-import {makeStyles} from '@mui/styles';
+// import {makeStyles} from '@mui/styles';
 
 export const LogoComponent = styled(Box)(
     ({theme}) => ({
@@ -63,7 +63,8 @@ export const ListItemButtonNav = styled(ListItemButton)
     };
 });
 
-
+/*
+// код сделанные с помощью makeStyles из версии mui4
 export const useStyles = makeStyles((theme: Theme) => {
     const colors = tokens(theme.palette.mode)
 
@@ -91,4 +92,4 @@ export const useStyles = makeStyles((theme: Theme) => {
             }
         }
     })
-})
+})*/

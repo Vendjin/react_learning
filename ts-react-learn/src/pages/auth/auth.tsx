@@ -9,7 +9,7 @@ import {LoginSchema, RegisterSchema} from "../../utils/yup/yup";
 import Login from '../../components/login/login';
 import Register from '../../components/register/register';
 import {AuthForm, RootAuthDiv} from "./styles";
-import {loginUser, registerUser} from "../../store/thunks/auth/auth";
+import {loginUser, registerUser} from "../../store/thunks/auth/authThunk";
 
 const AuthRootComponent: React.FC = (): JSX.Element => {
     const location = useLocation();

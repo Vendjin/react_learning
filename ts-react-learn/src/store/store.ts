@@ -1,9 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
-import authSlice from "./slices/auth/auth";
+import authSlice from "./slices/auth/authSlice";
+import assetSlice from "./slices/assets/assetSlice";
 
 const store = configureStore({
     reducer: {
-        auth: authSlice
+        auth: authSlice,
+        assets: assetSlice,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== 'production',

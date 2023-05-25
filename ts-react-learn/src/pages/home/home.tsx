@@ -1,10 +1,12 @@
 import {FC, useCallback, useEffect, useMemo, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
-import {Grid, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import {MainBox} from "../../components/mainBox/mainBox";
-import {ItemDetail, ItemGraph, TopCardItem} from "./styles";
+import {ItemDetail, ItemGraph, PriceIndicator, TopCardItem} from "./styles";
 import {getFavoriteAssets} from "../../store/thunks/assets/assetsThunk";
 import AreaChart from "../../components/charts/areaChart/areaChart";
+import TrendUp from '../../assets/images/chart/trend-up.svg';
+import TrendDown from '../../assets/images/chart/trend-down.svg';
 
 const Home: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
@@ -24,7 +26,6 @@ const Home: FC = (): JSX.Element => {
         })
     }, [dispatch])
 
-    console.log(favoriteAssets)
 
     useEffect(() => {
         //Костыль повторного рендера со StrictMode. если тру, то сделать пустой return
@@ -34,8 +35,17 @@ const Home: FC = (): JSX.Element => {
     }, [favoriteAssetName, fetchData])
 
     const renderFavoriteBlock = filteredArray.map((element: any) => {
-        const currentPrice = element.data.prices[0];
-        const currentCapitalize = element.data.market_caps[0];
+        console.log(element)
+        const currentPrice = element.singleAsset.map(
+            (element: any) => element.current_price
+        );
+        const currentCapitalize = element.singleAsset.map(
+            (element: any) => element.market_cap
+        );
+
+        const changePrice = element.singleAsset.map(
+            (element: any) => Number(element.market_cap_change_percentage_24h).toFixed(2)
+        )
 
         return (
             <Grid item lg={6} md={6} xs={12} key={element.name}>
@@ -46,16 +56,23 @@ const Home: FC = (): JSX.Element => {
                         </Typography>
                         <ItemDetail >
                             <Typography variant='h3' fontSize={32} fontWeight='bold'>
-                                ${currentPrice[1].toFixed(3)}
+                                ${currentPrice}
                             </Typography>
-                            <Typography variant='h3' fontSize={18} mt={1}>
-                                {currentCapitalize[1].toFixed(0)}
-                            </Typography>
+                            <PriceIndicator className={changePrice > 0
+                                ? 'positive'
+                                : 'negative'
+                            }>
+                                {changePrice > 0
+                                 ? <img src={TrendUp} alt={'trend-up'}/>
+                                 : <img src={TrendDown} alt={'trend-down'}/>
+                                }
+                                <Typography fontSize={14}>{changePrice}%</Typography>
+                            </PriceIndicator>
                         </ItemDetail>
                     </Grid>
 
                     <ItemGraph item lg={6} md={6} xs={12}>
-                        <AreaChart data={element.data.prices}/>
+                        <AreaChart data={element.data}/>
                     </ItemGraph>
                 </TopCardItem>
             </Grid>

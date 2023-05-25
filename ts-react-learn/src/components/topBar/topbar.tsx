@@ -1,7 +1,6 @@
 import {AppBar, Box, Divider, Grid, IconButton, InputBase, Typography, useTheme} from '@mui/material';
 import React, {FC, useContext} from 'react';
-import {useAppSelector} from "../../utils/hook";
-import {DarkMode, LightMode, Notifications, Search, MenuOutlined} from '@mui/icons-material';
+import {DarkMode, LightMode, MenuOutlined, Notifications, Search} from '@mui/icons-material';
 import {ColorModeContext} from "../../theme/theme";
 import {CustomToolbar, SearchGrid} from "./styles";
 import FlexBetween from "../flexBetween/inedx";

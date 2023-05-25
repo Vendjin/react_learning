@@ -1,10 +1,8 @@
 import {Button, styled} from "@mui/material";
-import {tokens} from "../../theme/theme";
 import LoadingButton from '@mui/lab/LoadingButton';
 
 export const AppButton = styled(Button)(
-    ({theme}) => {
-        const colors = tokens(theme.palette.mode);
+    () => {
         return ({
             margin: 2,
             marginRight: '16px',
@@ -18,8 +16,7 @@ export const AppButton = styled(Button)(
     });
 
 export const AppButtonLoading = styled(LoadingButton)(
-    ({theme}) => {
-        const colors = tokens(theme.palette.mode);
+    () => {
         return ({
             margin: 2,
             marginRight: '16px',

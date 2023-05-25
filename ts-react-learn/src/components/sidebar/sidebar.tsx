@@ -29,7 +29,7 @@ const SideBar: FC<ISidebarProps> = ({
 
     useEffect(() => {
         setIsOpen(isSmallScreen)
-    }, [isSmallScreen])
+    }, [isSmallScreen, setIsOpen])
 
     const renderNavMenu = navMenu.map(itemMenu => (
         <ListItemButtonNav onClick={() => navigate(`${itemMenu.path}`)}

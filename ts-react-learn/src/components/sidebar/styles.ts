@@ -1,9 +1,9 @@
-import {Box, ListItemButton, styled, Theme} from "@mui/material";
+import {Box, ListItemButton, styled} from "@mui/material";
 import {tokens} from "../../theme/theme";
 // import {makeStyles} from '@mui/styles';
 
 export const LogoComponent = styled(Box)(
-    ({theme}) => ({
+    () => ({
         display: 'flex',
         alignItems: 'center',
         gap: '10px',

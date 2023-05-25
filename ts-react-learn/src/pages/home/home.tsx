@@ -1,11 +1,12 @@
-import {useCallback, useEffect, useMemo, useRef} from "react";
+import {FC, useCallback, useEffect, useMemo, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
-import {getFavoriteAssets} from "../../store/thunks/assets/assetsThunk";
-import {Box, Grid, Typography} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import {MainBox} from "../../components/mainBox/mainBox";
-import {ItemDetail, TopCardItem} from "./styles";
+import {ItemDetail, ItemGraph, TopCardItem} from "./styles";
+import {getFavoriteAssets} from "../../store/thunks/assets/assetsThunk";
+import AreaChart from "../../components/charts/areaChart/areaChart";
 
-const Home = () => {
+const Home: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
     const favoriteAssets: any[] = useAppSelector(state => state.assets.favoriteAssets)
     const fetchDataRef = useRef(false)
@@ -37,7 +38,7 @@ const Home = () => {
         const currentCapitalize = element.data.market_caps[0];
 
         return (
-            <Grid item lg={6} md={6} xs={12}>
+            <Grid item lg={6} md={6} xs={12} key={element.name}>
                 <TopCardItem container>
                     <Grid item lg={6} md={6} xs={12}>
                         <Typography variant='h3' fontSize={20} fontWeight='bold' textTransform={"capitalize"}>
@@ -53,9 +54,9 @@ const Home = () => {
                         </ItemDetail>
                     </Grid>
 
-                    <Grid item lg={6} md={6} xs={12}>
-                        {'GRAPH'}
-                    </Grid>
+                    <ItemGraph item lg={6} md={6} xs={12}>
+                        <AreaChart data={element.data.prices}/>
+                    </ItemGraph>
                 </TopCardItem>
             </Grid>
         )

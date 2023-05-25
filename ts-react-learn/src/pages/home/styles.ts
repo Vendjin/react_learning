@@ -15,10 +15,17 @@ export const TopCardItem = styled(Grid)
 });
 
 export const ItemDetail = styled(Box)(
-    ({theme}) => ({
+    () => ({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
         paddingBottom: 20,
+    }));
+
+
+export const ItemGraph = styled(Grid)(
+    () => ({
+        display: 'flex',
+        alignItems: 'flex-end',
     }));

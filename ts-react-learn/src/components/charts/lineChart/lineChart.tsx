@@ -46,7 +46,7 @@ const LineChart = ({data}: ILineChartProps) => {
             },
         },
     };
-
+    console.log(data)
     const values = {
         labels: data[0].priceChartData.map((element: any) =>
             moment(element[0]).format('DD.MM.YY')

@@ -8,19 +8,21 @@ import AreaChart from "../../components/charts/areaChart/areaChart";
 import TrendUp from '../../assets/images/chart/trend-up.svg';
 import TrendDown from '../../assets/images/chart/trend-down.svg';
 import LineChart from "../../components/charts/lineChart/lineChart";
-import {IChartData} from "../../common/types/assets/iAssets";
+import {IChartData, ISingleAsset} from "../../common/types/assets/iAssets";
 
 const Home: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
     const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets)
     const fetchDataRef = useRef(false)
 
-    const favoriteAssetName = useMemo(() => ['bitcoin', 'ethereum'], [])
+    const favoriteAssetName =  ['bitcoin', 'ethereum'];
 
     // при переходе на другую страницу происходит баг, подгружается еще запрос, код удаляет дубликаты
-    const filteredArray = favoriteAssets.filter(
-        (value, index, array) => index === array.findIndex(t => t.name === value.name)
-    )
+    const filteredArray = useMemo(() => {
+        return favoriteAssets.filter(
+            (value, index, array) => index === array.findIndex(t => t.name === value.name)
+        )
+    }, [favoriteAssets])
 
     const fetchData = useCallback((data: string[]) => {
         data.forEach((element: string) => {
@@ -36,18 +38,24 @@ const Home: FC = (): JSX.Element => {
         fetchData(favoriteAssetName)
     }, [favoriteAssetName, fetchData])
 
-    const renderFavoriteBlock = filteredArray.map((element: any) => {
-        console.log(element)
+
+    const renderFavoriteBlock = filteredArray.map((element: IChartData) => {
+        console.log(filteredArray)
+        let currentPrice = 0;
+        let changePrice = 0;
+        element.singleAsset.forEach((element: ISingleAsset) => {
+            currentPrice = element.current_price
+            changePrice = element.market_cap_change_percentage_24h
+        })
+
+        /*// первичный вариант, но не подошел тк нужно указыват ьиндекс
         const currentPrice = element.singleAsset.map(
             (element: any) => element.current_price
         );
-        const currentCapitalize = element.singleAsset.map(
-            (element: any) => element.market_cap
-        );
 
         const changePrice = element.singleAsset.map(
-            (element: any) => Number(element.market_cap_change_percentage_24h).toFixed(2)
-        )
+            (element: any) => element.market_cap_change_percentage_24h
+        )*/
 
         return (
             <Grid item lg={6} md={6} xs={12} key={element.name}>
@@ -56,7 +64,7 @@ const Home: FC = (): JSX.Element => {
                         <Typography variant='h3' fontSize={20} fontWeight='bold' textTransform={"capitalize"}>
                             {element.name}
                         </Typography>
-                        <ItemDetail >
+                        <ItemDetail>
                             <Typography variant='h3' fontSize={32} fontWeight='bold'>
                                 ${currentPrice}
                             </Typography>
@@ -65,10 +73,10 @@ const Home: FC = (): JSX.Element => {
                                 : 'negative'
                             }>
                                 {changePrice > 0
-                                 ? <img src={TrendUp} alt={'trend-up'}/>
-                                 : <img src={TrendDown} alt={'trend-down'}/>
+                                    ? <img src={TrendUp} alt={'trend-up'}/>
+                                    : <img src={TrendDown} alt={'trend-down'}/>
                                 }
-                                <Typography fontSize={14}>{changePrice}%</Typography>
+                                <Typography fontSize={14}>{Number(changePrice).toFixed(2)}%</Typography>
                             </PriceIndicator>
                         </ItemDetail>
                     </Grid>
@@ -94,7 +102,7 @@ const Home: FC = (): JSX.Element => {
                         <LineChart data={filteredArray}/>
                     </Grid>
                 }
-               {/* <Grid item xs={12} sm={12} lg={12}>
+                {/* <Grid item xs={12} sm={12} lg={12}>
                     {filteredArray.length && <LineChart data={filteredArray}/>}
                 </Grid>*/}
             </LineChartBlock>

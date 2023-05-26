@@ -1,5 +1,5 @@
 export interface IAreaChartProps {
-    data: [number[]];
+    data: number[][];
 }
 
 export interface ILineChartProps {
@@ -12,7 +12,7 @@ export interface IChartData {
     singleAsset: ISingleAsset[]
 }
 
-interface ISingleAsset {
+export interface ISingleAsset {
     id: string
     symbol: string
     name: string

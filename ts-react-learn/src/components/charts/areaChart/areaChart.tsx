@@ -73,7 +73,7 @@ const AreaChart = ({data}: IAreaChartProps) => {
         ],
     };
 
-    return <Line options={options} data={values} width={300} height={100}/>
+    return <Line options={options} data={values} width={300} height={'80%'}/>
 }
 
 export default AreaChart;

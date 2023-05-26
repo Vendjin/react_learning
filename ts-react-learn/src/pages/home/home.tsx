@@ -2,11 +2,12 @@ import {FC, useCallback, useEffect, useMemo, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
 import {Box, Grid, Typography} from "@mui/material";
 import {MainBox} from "../../components/mainBox/mainBox";
-import {ItemDetail, ItemGraph, PriceIndicator, TopCardItem} from "./styles";
+import {ItemDetail, ItemGraph, LineChartBlock, PriceIndicator, TopCardItem} from "./styles";
 import {getFavoriteAssets} from "../../store/thunks/assets/assetsThunk";
 import AreaChart from "../../components/charts/areaChart/areaChart";
 import TrendUp from '../../assets/images/chart/trend-up.svg';
 import TrendDown from '../../assets/images/chart/trend-down.svg';
+import LineChart from "../../components/charts/lineChart/lineChart";
 
 const Home: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
@@ -84,6 +85,12 @@ const Home: FC = (): JSX.Element => {
             <Grid container spacing={2}>
                 {renderFavoriteBlock}
             </Grid>
+
+            <LineChartBlock container marginBottom={32}>
+                <Grid item xs={12} sm={12} lg={12}>
+                    {filteredArray.length && <LineChart data={filteredArray}/>}
+                </Grid>
+            </LineChartBlock>
 
         </MainBox>
     )

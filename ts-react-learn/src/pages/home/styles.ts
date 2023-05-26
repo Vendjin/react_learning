@@ -53,3 +53,17 @@ export const PriceIndicator = styled(Box)(
         },
     })
 )
+
+export const LineChartBlock = styled(Grid)
+(({theme}) => {
+    const colors = tokens(theme.palette.mode);
+    return {
+        marginTop: 32,
+        backgroundColor: `${theme.palette.mode === 'dark' ? colors.primary[600] : colors.primary.DEFAULT}`,
+        padding: '20px 16px',
+        minHeight: 270,
+        border: '1px solid',
+        borderColor: `${theme.palette.mode === 'dark' ? colors.gray.DEFAULT : colors.gray[100]}`,
+        borderRadius: 12,
+    };
+});

@@ -8,10 +8,11 @@ import AreaChart from "../../components/charts/areaChart/areaChart";
 import TrendUp from '../../assets/images/chart/trend-up.svg';
 import TrendDown from '../../assets/images/chart/trend-down.svg';
 import LineChart from "../../components/charts/lineChart/lineChart";
+import {IChartData} from "../../common/types/assets/iAssets";
 
 const Home: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
-    const favoriteAssets: any[] = useAppSelector(state => state.assets.favoriteAssets)
+    const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets)
     const fetchDataRef = useRef(false)
 
     const favoriteAssetName = useMemo(() => ['bitcoin', 'ethereum'], [])
@@ -73,7 +74,7 @@ const Home: FC = (): JSX.Element => {
                     </Grid>
 
                     <ItemGraph item lg={6} md={6} xs={12}>
-                        <AreaChart data={element.data}/>
+                        <AreaChart data={element.priceChartData}/>
                     </ItemGraph>
                 </TopCardItem>
             </Grid>
@@ -86,10 +87,16 @@ const Home: FC = (): JSX.Element => {
                 {renderFavoriteBlock}
             </Grid>
 
-            <LineChartBlock container marginBottom={32}>
-                <Grid item xs={12} sm={12} lg={12}>
+            <LineChartBlock container>
+                {
+                    filteredArray.length &&
+                    <Grid item xs={12} sm={12} lg={12}>
+                        <LineChart data={filteredArray}/>
+                    </Grid>
+                }
+               {/* <Grid item xs={12} sm={12} lg={12}>
                     {filteredArray.length && <LineChart data={filteredArray}/>}
-                </Grid>
+                </Grid>*/}
             </LineChartBlock>
 
         </MainBox>

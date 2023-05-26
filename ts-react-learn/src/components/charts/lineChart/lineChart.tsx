@@ -10,7 +10,8 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import {faker} from '@faker-js/faker';
+import {ILineChartProps} from "../../../common/types/assets/iAssets";
+import moment from "moment";
 
 ChartJS.register(
     CategoryScale,
@@ -23,11 +24,7 @@ ChartJS.register(
 );
 
 
-
-
-
-
-const LineChart = ({data}: any) => {
+const LineChart = ({data}: ILineChartProps) => {
     const options = {
         responsive: true,
         scales: {
@@ -50,24 +47,25 @@ const LineChart = ({data}: any) => {
         },
     };
 
-
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
     const values = {
-        labels,
+        labels: data[0].priceChartData.map((element: any) =>
+            moment(element[0]).format('DD.MM.YY')
+        ),
         datasets: [
             {
-                label: 'Dataset 1',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                label: `Цена ${data[0].name}`,
+                data: data[0].priceChartData.map((element: any) => element[1]),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
+            /*// код работает, но данные относительно друг друга рисуются линиями что не очень красиво
+            // для демонстрации графика
             {
-                label: 'Dataset 2',
-                data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+                label: `Цена ${data[1].name}`,
+                data: data[1].priceChartData.map((element: any) => element[1]),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            },
+            },*/
         ],
     };
 

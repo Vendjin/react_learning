@@ -9,7 +9,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 import {ILineChartProps} from "../../../common/types/assets/iAssets";
 import moment from "moment";
 
@@ -27,6 +27,7 @@ ChartJS.register(
 const LineChart = ({data}: ILineChartProps) => {
     const options = {
         responsive: true,
+        // maintainAspectRatio: true,
         scales: {
             x: {
                 grid: {
@@ -70,7 +71,7 @@ const LineChart = ({data}: ILineChartProps) => {
     };
 
 
-    return <Line options={options} data={values}  width={'100%'} height={'20%'}/>;
+    return <Line options={options} data={values} width="100%" height="20%"/>;
 }
 
 

@@ -4,6 +4,6 @@ import {Box} from "@mui/material";
 export const MainBox = styled(Box) (
     () => ({
         flexGrow: 1,
-        padding: 32
+        padding: 32,
     })
 )

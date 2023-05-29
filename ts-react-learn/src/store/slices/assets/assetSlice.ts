@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getFavoriteAssets} from "../../thunks/assets/assetsThunk";
+import {getFavoriteAssets, getTopPriceData} from "../../thunks/assets/assetsThunk";
 
 const initialState: any = {
-    asserts: [],
+    assets: [],
     favoriteAssets: [],
     isLoaded: false
 }
@@ -22,6 +22,9 @@ export const assetSlice = createSlice({
         })
         builder.addCase(getFavoriteAssets.rejected, state => {
             state.isLoaded = false
+        })
+        builder.addCase(getTopPriceData.fulfilled, (state, action) => {
+            state.assets = action.payload
         })
     }
 })

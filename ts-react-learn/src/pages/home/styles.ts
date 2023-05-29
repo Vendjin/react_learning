@@ -62,8 +62,10 @@ export const LineChartBlock = styled(Grid)
         backgroundColor: `${theme.palette.mode === 'dark' ? colors.primary[600] : colors.primary.DEFAULT}`,
         padding: '20px 16px',
         minHeight: 270,
+        // maxHeight: 290,
         border: '1px solid',
         borderColor: `${theme.palette.mode === 'dark' ? colors.gray.DEFAULT : colors.gray[100]}`,
         borderRadius: 12,
+        alignContent: 'center'
     };
 });

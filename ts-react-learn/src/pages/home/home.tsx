@@ -1,21 +1,23 @@
 import {FC, useCallback, useEffect, useMemo, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
-import {Box, Grid, Typography} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import {MainBox} from "../../components/mainBox/mainBox";
 import {ItemDetail, ItemGraph, LineChartBlock, PriceIndicator, TopCardItem} from "./styles";
-import {getFavoriteAssets} from "../../store/thunks/assets/assetsThunk";
+import {getFavoriteAssets, getTopPriceData} from "../../store/thunks/assets/assetsThunk";
 import AreaChart from "../../components/charts/areaChart/areaChart";
 import TrendUp from '../../assets/images/chart/trend-up.svg';
 import TrendDown from '../../assets/images/chart/trend-down.svg';
 import LineChart from "../../components/charts/lineChart/lineChart";
 import {IChartData, ISingleAsset} from "../../common/types/assets/iAssets";
+import TopPrice from "../../components/topPrice/topPrice";
 
 const Home: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
-    const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets)
     const fetchDataRef = useRef(false)
 
-    const favoriteAssetName =  ['bitcoin', 'ethereum'];
+    const favoriteAssets: IChartData[] = useAppSelector(state => state.assets.favoriteAssets)
+    const assetsArray: ISingleAsset[] = useAppSelector(state => state.assets.assets);
+    const favoriteAssetName =  useMemo(() => ['bitcoin', 'ethereum'], []);
 
     // при переходе на другую страницу происходит баг, подгружается еще запрос, код удаляет дубликаты
     const filteredArray = useMemo(() => {
@@ -24,11 +26,18 @@ const Home: FC = (): JSX.Element => {
         )
     }, [favoriteAssets])
 
+
+    const filteredAssetsArray = useMemo(() => {
+        return assetsArray.slice().sort((a, b) => b.current_price - a.current_price)
+    }, [assetsArray])
+
     const fetchData = useCallback((data: string[]) => {
         data.forEach((element: string) => {
             dispatch(getFavoriteAssets(element))
         })
     }, [dispatch])
+
+    const fetchTopPrice = useCallback(() => dispatch(getTopPriceData()), [dispatch])
 
 
     useEffect(() => {
@@ -36,13 +45,14 @@ const Home: FC = (): JSX.Element => {
         if (fetchDataRef.current) return
         fetchDataRef.current = true
         fetchData(favoriteAssetName)
-    }, [favoriteAssetName, fetchData])
+        fetchTopPrice()
+    }, [fetchData, favoriteAssetName, fetchTopPrice])
 
 
     const renderFavoriteBlock = filteredArray.map((element: IChartData) => {
-        console.log(filteredArray)
         let currentPrice = 0;
         let changePrice = 0;
+
         element.singleAsset.forEach((element: ISingleAsset) => {
             currentPrice = element.current_price
             changePrice = element.market_cap_change_percentage_24h
@@ -96,16 +106,14 @@ const Home: FC = (): JSX.Element => {
             </Grid>
 
             <LineChartBlock container>
-                {
-                    filteredArray.length &&
-                    <Grid item xs={12} sm={12} lg={12}>
-                        <LineChart data={filteredArray}/>
-                    </Grid>
-                }
-                {/* <Grid item xs={12} sm={12} lg={12}>
+                 <Grid item xs={12} sm={12} lg={12}>
                     {filteredArray.length && <LineChart data={filteredArray}/>}
-                </Grid>*/}
+                </Grid>
             </LineChartBlock>
+
+            <Grid container>
+                {filteredAssetsArray.length && <TopPrice assets={assetsArray.slice(0, 6)}/>}
+            </Grid>
 
         </MainBox>
     )

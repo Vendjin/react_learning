@@ -1,6 +1,7 @@
 import {styled} from "@mui/material";
 import {tokens} from "../../theme/theme";
 import TableContainer from "@mui/material/TableContainer";
+import TableCell from "@mui/material/TableCell";
 
 export const TableContainerBlock = styled(TableContainer)
 (({theme}) => {
@@ -17,3 +18,14 @@ export const TableContainerBlock = styled(TableContainer)
         }
     };
 });
+
+export const TableCellColored = styled(TableCell)(
+    () => ({
+        "&.positive": {
+            color: '#A9FFA7',
+        },
+        '&.negative': {
+            color: '#FFA7A7',
+        },
+    })
+)

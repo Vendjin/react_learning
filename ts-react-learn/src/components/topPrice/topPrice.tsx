@@ -11,6 +11,7 @@ const TopPrice = ({assets}: any) => {
     return (
         <TableContainerBlock>
             <Table sx={{minWidth: 650}} aria-label="simple table">
+
                 <TableHead>
                     <TableRow>
                         <TableCell>Название</TableCell>
@@ -19,6 +20,7 @@ const TopPrice = ({assets}: any) => {
                         <TableCell align="right">Изменения ($)</TableCell>
                     </TableRow>
                 </TableHead>
+
                 <TableBody>
                     {assets.map((element: any) => (
                         <TableRow
@@ -42,6 +44,7 @@ const TopPrice = ({assets}: any) => {
                         </TableRow>
                     ))}
                 </TableBody>
+
             </Table>
         </TableContainerBlock>
     );

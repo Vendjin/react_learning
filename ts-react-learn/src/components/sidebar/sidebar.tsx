@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, Drawer, IconButton, List, ListItemIcon, ListItemText, Typography, useTheme} from "@mui/material";
-import {ChevronLeftOutlined, LogoutOutlined,} from '@mui/icons-material';
+import {Box, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography, useTheme} from "@mui/material";
+import {ChevronLeftOutlined, LogoutOutlined} from '@mui/icons-material';
 import {useLocation, useNavigate} from "react-router-dom";
 import FlexBetween from "../flexBetween/inedx";
 import {navMenu} from "../../common/moks/navigate";
@@ -8,6 +8,8 @@ import {tokens} from "../../theme/theme";
 import Logo from '../../assets/images/logo.svg';
 import {ListItemButtonCustom, ListItemButtonNav, LogoComponent} from "./styles";
 import {ISidebarProps} from "../../common/types/sidebar/iSidebar";
+import ThemeSwitcher from "../themeSwitcher/themeSwitcher";
+import SearchBar from "../searchBar/searchBar";
 
 const SideBar: FC<ISidebarProps> = ({
                                         isNonMobile,
@@ -79,11 +81,22 @@ const SideBar: FC<ISidebarProps> = ({
                         </FlexBetween>
 
                         <List sx={{marginBottom: '55px'}}>
+                            {!isNonMobile && (
+                                <ListItem>
+                                    <SearchBar/>
+                                </ListItem>
+                            )}
                             {renderNavMenu}
                         </List>
                     </Box>
 
                     <Box marginTop={3}>
+                        {!isNonMobile && (
+                            <ListItem sx={{marginLeft: '8px'}}>
+                                <ThemeSwitcher/>
+                            </ListItem>
+                        )}
+
                         <ListItemButtonCustom>
                             <ListItemIcon sx={{color: colors.secondary.DEFAULT}}>
                                 <LogoutOutlined/>

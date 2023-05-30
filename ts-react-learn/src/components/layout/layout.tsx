@@ -7,7 +7,7 @@ import {FC, useState} from "react";
 const Layout: FC = (): JSX.Element => {
     const [isOpen, setIsOpen] = useState(true);
     const location = useLocation();
-    const isNonMobile = useMediaQuery('(min-width:600px)');
+    const isNonMobile = useMediaQuery('(min-width:760px)');
     const isSmallScreen = useMediaQuery('(min-width:1159px)');
 
     return (
@@ -36,7 +36,9 @@ const Layout: FC = (): JSX.Element => {
                          flexGrow={1}
                     >
                         <TopBar isOpen={isOpen}
-                                setIsOpen={setIsOpen}/>
+                                setIsOpen={setIsOpen}
+                                isNonMobile={isNonMobile}
+                        />
                         <Outlet/>
                     </Box>
 

@@ -6,7 +6,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import {ColorModeContext} from "../../theme/theme";
-import {SearchGrid, TopBarBox} from "./styles";
+import {SearchStack, TopBarBox} from "./styles";
 
 const TopBarComponent = () => {
     const user = useAppSelector(state => state.auth.user);
@@ -35,14 +35,14 @@ const TopBarComponent = () => {
                              marginRight: 3
                          }}
                 />
-                <SearchGrid>
+                <SearchStack>
                     <IconButton sx={{'&:hover': {background: 'transparent'}}}>
                         <SearchIcon/>
                     </IconButton>
                     <InputBase sx={{padding: '12px 18px'}}
                                placeholder={'Поиск'}
                     />
-                </SearchGrid>
+                </SearchStack>
             </Box>
         </TopBarBox>
     );

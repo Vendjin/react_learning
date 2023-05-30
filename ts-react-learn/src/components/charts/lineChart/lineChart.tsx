@@ -55,7 +55,7 @@ const LineChart = ({data}: ILineChartProps) => {
         datasets: [
             {
                 label: `Цена ${data[0].name}`,
-                data: data[0].priceChartData.map((element: any) => element[1]),
+                data: data[0].priceChartData.map((element: any) => element[1].toFixed(2)),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },

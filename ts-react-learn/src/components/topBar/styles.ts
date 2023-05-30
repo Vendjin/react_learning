@@ -1,4 +1,4 @@
-import {Box, Grid, styled, Toolbar} from '@mui/material';
+import {Box, Grid, Stack, styled, Toolbar} from '@mui/material';
 import {tokens} from "../../theme/theme";
 
 
@@ -31,7 +31,22 @@ export const TopBarBox = styled(Box)(
     }
 )
 
-export const SearchGrid = styled(Grid)(
+export const SearchStack = styled(Stack)(
+    ({theme}) => {
+        const colors = tokens(theme.palette.mode);
+        return (
+            {
+                // display: 'flex',
+                backgroundColor: colors.primary[600],
+                border: 'solid 1px',
+                borderColor: colors.gray[100],
+                borderRadius: 8,
+                // height: '2.5rem',
+            })
+    }
+)
+
+export const SearchGridOld = styled(Grid)(
     ({theme}) => {
         const colors = tokens(theme.palette.mode);
         return (

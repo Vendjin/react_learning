@@ -9,6 +9,7 @@ import Layout from "./components/layout/layout";
 import WatchList from "./pages/watchList/watchList";
 import News from "./pages/news/news";
 import Settings from "./pages/settings/settings";
+import SingleAssetPage from "./pages/singleAsset/singleAssetPage";
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
                                     <Route path='/watchlist' element={<WatchList/>}/>
                                     <Route path='/news' element={<News/>}/>
                                     <Route path='/settings' element={<Settings/>}/>
+                                    <Route path='/single/:id' element={<SingleAssetPage/>}/>
                                 </Route>
                             </Route>
 

@@ -1,11 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authSlice from "./slices/auth/authSlice";
 import assetSlice from "./slices/assets/assetSlice";
+import watchListSlice from "./slices/watchList/watchListSlice";
 
 const store = configureStore({
     reducer: {
         auth: authSlice,
         assets: assetSlice,
+        watchList: watchListSlice,
     },
     middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: false

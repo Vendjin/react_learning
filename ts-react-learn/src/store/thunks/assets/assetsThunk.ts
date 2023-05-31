@@ -53,7 +53,7 @@ export const createWatchListRecord = createAsyncThunk(
     'watchlist/create',
     async (data: {name: string, assetId: string}, {rejectWithValue}) => {
         try {
-            return watchListApi.post('watchList', data)
+            return await watchListApi.post('watchList', data)
         } catch (error: any) {
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)

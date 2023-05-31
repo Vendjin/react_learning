@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import {Box} from "@mui/material";
+import {Grid} from "@mui/material";
 
-export const MainBox = styled(Box) (
+export const MainBox = styled(Grid) (
     () => ({
         flexGrow: 1,
         padding: 32,

@@ -5,9 +5,10 @@ import {useAppSelector} from "../../utils/hook";
 import {useNavigate} from "react-router-dom";
 
 const SearchBar: FC = (): JSX.Element => {
-    const assetsArray: ISingleAsset[] = useAppSelector(state => state.assets.assets);
     const navigate = useNavigate();
-    const [selectItem, setSelectItem] = useState<string | null>('')
+    const assetsArray: ISingleAsset[] = useAppSelector(state => state.assets.assets);
+    const [selectItem, setSelectItem] = useState<string | null>('');
+
     return (
         <Stack spacing={2} sx={{width: 300}}>
             <Autocomplete value={selectItem}
@@ -24,11 +25,12 @@ const SearchBar: FC = (): JSX.Element => {
                                                  type: 'search'
                                              }}
                                   />
-                              )}
+                              )
+                          }
                           options={assetsArray.map(
                               (element: { name: string }) => element.name)
-                          }/>
-
+                          }
+            />
         </Stack>
     );
 };

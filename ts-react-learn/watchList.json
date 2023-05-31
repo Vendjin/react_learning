@@ -1,22 +1,6 @@
 {
   "watchList": [
     {
-      "id": 1,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
-      "element": "fire"
-    },
-    {
-      "name": "bob",
-      "assetId": "bob",
-      "id": 2
-    },
-    {
-      "name": "bob",
-      "assetId": "bob",
-      "id": 3
-    },
-    {
       "name": "Ethereum",
       "assetId": "ethereum",
       "id": 4
@@ -25,6 +9,11 @@
       "name": "BNB",
       "assetId": "binancecoin",
       "id": 5
+    },
+    {
+      "name": "Dogecoin",
+      "assetId": "dogecoin",
+      "id": 6
     }
   ]
 }

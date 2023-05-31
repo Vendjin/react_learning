@@ -19,6 +19,7 @@
     "@types/react-dom": "^18.0.11",
     "axios": "^1.3.5",
     "chart.js": "^4.3.0",
+    "concurrently": "^8.0.1",
     "faker": "^6.6.6",
     "moment": "^2.29.4",
     "node-sass": "^7.0.3",
@@ -35,7 +36,7 @@
     "yup": "^1.1.1"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "concurrently \"PORT=3001 react-scripts start\" \"npx json-server watchList.json --port 3002\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

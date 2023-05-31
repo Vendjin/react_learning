@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import {Autocomplete, Stack, TextField} from "@mui/material";
 import {ISingleAsset} from "../../common/types/assets/iAssets";
 import {useAppSelector} from "../../utils/hook";
 import {useNavigate} from "react-router-dom";
 
-const SearchBar = () => {
+const SearchBar: FC = (): JSX.Element => {
     const assetsArray: ISingleAsset[] = useAppSelector(state => state.assets.assets);
     const navigate = useNavigate();
     const [selectItem, setSelectItem] = useState<string | null>('')

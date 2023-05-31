@@ -54,7 +54,6 @@ const AreaChart = ({data}: IAreaChartProps) => {
             },
         },
     };
-    console.log(data)
     const values = {
         labels: data.map((element: number[]): string => moment(element[0]).format('DD.MM.YY')),
         datasets: [

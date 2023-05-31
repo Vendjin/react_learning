@@ -7,7 +7,9 @@ const store = configureStore({
         auth: authSlice,
         assets: assetSlice,
     },
-    middleware: getDefaultMiddleware => getDefaultMiddleware(),
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: false
+    }),
     devTools: process.env.NODE_ENV !== 'production',
 })
 

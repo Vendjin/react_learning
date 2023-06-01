@@ -1,12 +1,13 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {watchListApi} from "../../../utils/axios/axiosInstanсes";
+import {cryptoCompare} from "../../../utils/axios/axiosInstanсes";
 
-export const getWatchList = createAsyncThunk(
-    'watchList/get',
+export const getNews = createAsyncThunk(
+    'get-news',
     async (_, {rejectWithValue}) => {
         try {
-            const asset = await watchListApi.get('watchList',)
-            return asset.data
+            const news = await cryptoCompare.get('news/?lang=EN')
+            console.log(news.data.Data)
+            return news.data.Data
         } catch (error: any) {
             if (error.response && error.response.data.message) {
                 return rejectWithValue(error.response.data.message)

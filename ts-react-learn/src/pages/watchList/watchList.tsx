@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
-import {getWatchList} from "../../store/thunks/watchList/wathcListThunk";
 import {getTopPriceData} from "../../store/thunks/assets/assetsThunk";
-import TableComponent from "../../components/tableComponent/tableComponent";
 import { MainBox } from '../../components/mainBox/mainBox';
 import {Typography} from "@mui/material";
+import { getWatchList } from '../../store/thunks/watchList/wathcListThunk';
+import TableComponent from '../../components/tableComponent/tableComponent';
 
 const WatchList = () => {
     const dispatch = useAppDispatch()

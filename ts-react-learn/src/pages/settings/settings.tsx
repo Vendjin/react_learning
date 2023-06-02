@@ -6,6 +6,7 @@ import {tabProps} from "../../utils/helpers";
 import PersonalInfoSettings from "../../components/personaInfoSettings/personalInfoSettings";
 import {getPublicUser} from "../../store/thunks/auth/authThunk";
 import {useAppDispatch} from "../../utils/hook";
+import ChangePassword from "../../components/changePassword/changePassword";
 
 
 const Settings = () => {
@@ -34,7 +35,7 @@ const Settings = () => {
                       textColor='inherit'
                       TabIndicatorProps={{style: {background: "blue"}}}
                 >
-                    <Tab label="Персональные данные" {...tabProps(0)} />
+                    <Tab label="Изменить персональные данные" {...tabProps(0)} />
                     <Tab label="Изменить пароль" {...tabProps(1)} />
                     <Tab label="Удалить аккаунт" {...tabProps(2)} />
                 </Tabs>
@@ -43,7 +44,7 @@ const Settings = () => {
                 <PersonalInfoSettings/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <ChangePassword/>
             </TabPanel>
             <TabPanel value={value} index={2}>
                 Item Three

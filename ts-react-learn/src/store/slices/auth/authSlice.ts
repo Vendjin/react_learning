@@ -12,6 +12,7 @@ const initialState: any = {
         email: '',
         gender: '',
         image: '',
+        password: '',
     },
     isLogged: false,
     isLoading: false
@@ -60,6 +61,7 @@ export const authSlice = createSlice({
             state.user.email = action.payload.email
             state.user.gender = action.payload.gender
             state.user.image = action.payload.image
+            state.user.password = action.payload.password
         })
         builder.addCase(updateUserInfo.fulfilled, (state, action) => {
             state.user.username = action.payload.username

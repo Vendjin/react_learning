@@ -13,7 +13,7 @@ const TopBarComponent: FC<ITopBarProps> = ({isOpen, setIsOpen, isNonMobile}: ITo
         <AppBar position="static" sx={{boxShadow: 'none'}}>
             <CustomToolbar>
                 <Grid container justifyContent={'space-between'} alignItems={'center'}>
-                    <Grid item sm={3} lg={3}>
+                    <Grid item sm={5} lg={3}>
                         <FlexBetween sx={{gap: '10px', cursor: 'pointer'}}>
                             <MenuOutlined onClick={() => setIsOpen(!isOpen)}></MenuOutlined>
                             <Typography variant={'h3'}>Welcome {sessionStorage.getItem('firstName')}</Typography>
@@ -24,15 +24,15 @@ const TopBarComponent: FC<ITopBarProps> = ({isOpen, setIsOpen, isNonMobile}: ITo
                         <Grid display={'flex'}
                               justifyContent={'flex-end'}
                               alignItems={'center'}
-                              item sm={9} lg={9}
+                              item sm={7} lg={9}
                         >
                             <ThemeSwitcher/>
                             <Divider orientation="vertical"
                                      flexItem
                                      variant={'middle'}
                                      sx={{
-                                         marginLeft: '1.8rem',
-                                         marginRight: 3
+                                         marginLeft: 2,
+                                         marginRight: 2
                                      }}
                             />
                             <SearchBar/>

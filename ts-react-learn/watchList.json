@@ -24,6 +24,11 @@
       "name": "XRP",
       "assetId": "ripple",
       "id": 8
+    },
+    {
+      "name": "Dai",
+      "assetId": "dai",
+      "id": 9
     }
   ]
 }

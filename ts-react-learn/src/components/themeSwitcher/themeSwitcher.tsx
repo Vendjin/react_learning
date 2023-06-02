@@ -14,7 +14,7 @@ const ThemeSwitcher = () => {
                     {theme.palette.mode === 'dark' ? (<DarkMode/>) : (<LightMode/>)}
                 </IconButton>
             </Grid>
-            <Grid marginLeft={4}>
+            <Grid marginLeft={2}>
                 <IconButton>
                     <Notifications/>
                 </IconButton>

@@ -10,6 +10,7 @@ export const loginUser = createAsyncThunk(
             console.log(user.data, 'Response DATA in Login')
             sessionStorage.setItem('token', user.data.token)
             sessionStorage.setItem('firstName', user.data.firstName)
+            sessionStorage.setItem('id', user.data.id)
             return user.data
         } catch (error: any) {
             // если вернется кастомная ошибка из API
@@ -32,6 +33,26 @@ export const registerUser = createAsyncThunk(
             sessionStorage.setItem('firstName', user.data.firstName)
             return user.data
         } catch (error: any) {
+            // если вернется кастомная ошибка из API
+            if (error.response && error.response.data.message){
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.response.data.message)
+            }
+        }
+    }
+)
+
+export const getPublicUser = createAsyncThunk(
+    'auth/get-user-info',
+    async (id: string | null , {rejectWithValue}) => {
+        try {
+            const user = await instance.get(
+                `/users/${id}`
+            )
+            console.log(user.data)
+            return user.data
+        }catch (error: any) {
             // если вернется кастомная ошибка из API
             if (error.response && error.response.data.message){
                 return rejectWithValue(error.response.data.message)

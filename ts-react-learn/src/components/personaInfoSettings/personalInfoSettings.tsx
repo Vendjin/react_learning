@@ -3,35 +3,49 @@ import {useAppDispatch, useAppSelector} from "../../utils/hook";
 import {FormBlock, FormContent} from "./style";
 import {Box, Grid, TextField} from "@mui/material";
 import {AppButtonLoading} from "../appButton/appButton";
-import {getPublicUser} from "../../store/thunks/auth/authThunk";
+import {updateUserInfo} from "../../store/thunks/auth/authThunk";
 
 const PersonalInfoSettings = () => {
     const dispatch = useAppDispatch();
     const {user} = useAppSelector(state => state.auth);
-    const [userInfo, setUserInfo] = useState({
-        username: '',
-        email: '',
-        firstName: '',
-        lastName: '',
-        gender: ''
-    })
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [gender, setGender] = useState('')
 
     useEffect(() => {
-        console.log(user)
-        // setUserInfo({
-        //     // username: user.username
-        // })
+        if (user) {
+            setUsername(user.username)
+            setEmail(user.email)
+            setFirstName(user.firstName)
+            setLastName(user.lastName)
+            setGender(user.gender)
+        }
     }, [user])
+
+    const handleSubmit = (event: any) => {
+        event.preventDefault()
+        const data = {
+            id: user.id,
+            username,
+            email,
+            firstName,
+            lastName,
+            gender
+        }
+        dispatch(updateUserInfo(data))
+    }
 
     return (
         <FormBlock>
-            <Grid component={'form'} noValidate autoComplete={'off'}>
+            <Grid component={'form'} noValidate autoComplete={'off'} onSubmit={handleSubmit}>
                 <FormContent>
-                    <TextField value={userInfo.username} type='text' label='login' variant={"outlined"}/>
-                    <TextField value={userInfo.email} type='email' label='email' variant={"outlined"}/>
-                    <TextField value={userInfo.firstName} type='text' label='firstName' variant={"outlined"}/>
-                    <TextField value={userInfo.lastName} type='text' label='lastName' variant={"outlined"}/>
-                    <TextField value={userInfo.gender} type='text' label='gender' variant={"outlined"}/>
+                    <TextField value={username} onChange={(e)=> setUsername(e.target.value)} type='text' label='login' variant={"outlined"}/>
+                    <TextField value={email} onChange={e => setEmail(e.target.value)} type='email' label='email' variant={"outlined"}/>
+                    <TextField value={firstName} onChange={e => setFirstName(e.target.value)} type='text' label='firstName' variant={"outlined"}/>
+                    <TextField value={lastName} onChange={e => setLastName(e.target.value)} type='text' label='lastName' variant={"outlined"}/>
+                    <TextField value={gender} onChange={e => setGender(e.target.value)} type='text' label='gender' variant={"outlined"}/>
                 </FormContent>
 
                 <Box sx={{marginTop: 3}}>
@@ -44,7 +58,6 @@ const PersonalInfoSettings = () => {
                     </AppButtonLoading>
                 </Box>
             </Grid>
-
         </FormBlock>
     );
 };

@@ -50,7 +50,27 @@ export const getPublicUser = createAsyncThunk(
             const user = await instance.get(
                 `/users/${id}`
             )
-            console.log(user.data)
+            return user.data
+        }catch (error: any) {
+            // если вернется кастомная ошибка из API
+            if (error.response && error.response.data.message){
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.response.data.message)
+            }
+        }
+    }
+)
+
+
+export const updateUserInfo = createAsyncThunk(
+    'auth/update-user-info',
+    async (data: any, {rejectWithValue}) => {
+        try {
+            const user = await instance.put(
+                `/users/${data.id}`, data
+            )
+            sessionStorage.setItem('firstName', user.data.firstName)
             return user.data
         }catch (error: any) {
             // если вернется кастомная ошибка из API

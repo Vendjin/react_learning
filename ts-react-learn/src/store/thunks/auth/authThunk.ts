@@ -28,7 +28,13 @@ export const registerUser = createAsyncThunk(
     async (data: IRegisterData, {rejectWithValue})=> {
         try {
             const user = await instance.post('users/add')
-            console.log(user.data, 'Response data il Register')
+            if (
+                user.data.status === 400 ||
+                user.data.status === 401 ||
+                user.data.status === 500
+            )
+                return
+
             sessionStorage.setItem('token', user.data.token)
             sessionStorage.setItem('firstName', user.data.firstName)
             return user.data
@@ -72,8 +78,29 @@ export const updateUserInfo = createAsyncThunk(
                 `/users/${data.id}`, data
             )
             sessionStorage.setItem('firstName', user.data.firstName)
-            console.log(user.data)
             return user.data
+        }catch (error: any) {
+            // если вернется кастомная ошибка из API
+            if (error.response && error.response.data.message){
+                return rejectWithValue(error.response.data.message)
+            } else {
+                return rejectWithValue(error.response.data.message)
+            }
+        }
+    }
+)
+
+export const deleteUser = createAsyncThunk(
+    'auth/delete-user',
+    async (id: any, {rejectWithValue}) => {
+        try {
+            const user = await instance.delete(
+                `/users/${id.id}`
+            )
+            console.log(user)
+            sessionStorage.removeItem('firstName')
+            sessionStorage.removeItem('id')
+            sessionStorage.removeItem('token')
         }catch (error: any) {
             // если вернется кастомная ошибка из API
             if (error.response && error.response.data.message){

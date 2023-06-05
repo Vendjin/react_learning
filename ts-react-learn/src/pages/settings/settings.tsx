@@ -7,6 +7,7 @@ import PersonalInfoSettings from "../../components/personaInfoSettings/personalI
 import {getPublicUser} from "../../store/thunks/auth/authThunk";
 import {useAppDispatch} from "../../utils/hook";
 import ChangePassword from "../../components/changePassword/changePassword";
+import DeleteAccount from "../../components/deleteAccount/deleteAccount";
 
 
 const Settings = () => {
@@ -47,7 +48,7 @@ const Settings = () => {
                 <ChangePassword/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three
+                <DeleteAccount/>
             </TabPanel>
         </MainBox>
     );

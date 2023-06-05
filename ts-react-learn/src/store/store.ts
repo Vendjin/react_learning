@@ -1,4 +1,4 @@
-import {configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/auth/authSlice";
 import assetSlice from "./slices/assets/assetSlice";
 import watchListSlice from "./slices/watchList/watchListSlice";

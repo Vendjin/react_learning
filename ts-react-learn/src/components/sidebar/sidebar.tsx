@@ -33,6 +33,13 @@ const SideBar: FC<ISidebarProps> = ({
         setIsOpen(isSmallScreen)
     }, [isSmallScreen, setIsOpen])
 
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('firstName')
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('id')
+        navigate('/login')
+    }
     const renderNavMenu = navMenu.map(itemMenu => (
         <ListItemButtonNav onClick={() => navigate(itemMenu.path)}
                            key={itemMenu.id}
@@ -97,7 +104,7 @@ const SideBar: FC<ISidebarProps> = ({
                             </ListItem>
                         )}
 
-                        <ListItemButtonCustom>
+                        <ListItemButtonCustom onClick={handleLogout}>
                             <ListItemIcon sx={{color: colors.secondary.DEFAULT}}>
                                 <LogoutOutlined/>
                             </ListItemIcon>

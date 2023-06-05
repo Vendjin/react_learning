@@ -13,6 +13,10 @@ const News: FC = (): JSX.Element => {
         dispatch(getNews())
     }, [dispatch])
 
+    const handleScroll = () => {
+        console.log('working')
+    }
+
     const renderNewsBlock = news.map((element: any) => (
         <NewsBlock gap={5} key={element.id}>
             <Grid item xs={12} md={3}>

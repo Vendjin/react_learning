@@ -35,7 +35,7 @@ const PersonalInfoSettings: FC = () :JSX.Element => {
             gender
         }
         dispatch(updateUserInfo(data))
-        dispatch(getPublicUser(data.id))
+        // dispatch(getPublicUser(data))
     }
 
     return (

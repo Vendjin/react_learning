@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import {FC, useEffect, useState} from 'react';
 import { useAppDispatch, useAppSelector } from "../../utils/hook";
 import { FormBlock, FormContent } from "./style";
 import { Box, Grid, TextField } from "@mui/material";
 import { AppButtonLoading } from "../appButton/appButton";
 import { updateUserInfo } from "../../store/thunks/auth/authThunk";
 
-const ChangePassword = () => {
+const ChangePassword: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const { user } = useAppSelector(state => state.auth);
     const [username, setUsername] = useState('')
@@ -19,7 +19,7 @@ const ChangePassword = () => {
         }
     }, [user])
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault()
         if (oldPassword === newPassword) {
             const data = {

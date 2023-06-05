@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
+import {FC, FormEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
 import {FormBlock, FormContent} from "./style";
 import {Box, Grid, TextField} from "@mui/material";
 import {AppButtonLoading} from "../appButton/appButton";
-import {updateUserInfo} from "../../store/thunks/auth/authThunk";
+import {getPublicUser, updateUserInfo} from "../../store/thunks/auth/authThunk";
 
-const PersonalInfoSettings = () => {
+const PersonalInfoSettings: FC = () :JSX.Element => {
     const dispatch = useAppDispatch();
     const {user} = useAppSelector(state => state.auth);
     const [username, setUsername] = useState('')
@@ -24,7 +24,7 @@ const PersonalInfoSettings = () => {
         }
     }, [user])
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault()
         const data = {
             id: user.id,
@@ -35,6 +35,7 @@ const PersonalInfoSettings = () => {
             gender
         }
         dispatch(updateUserInfo(data))
+        dispatch(getPublicUser(data.id))
     }
 
     return (

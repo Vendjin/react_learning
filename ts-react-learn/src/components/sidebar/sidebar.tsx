@@ -34,7 +34,7 @@ const SideBar: FC<ISidebarProps> = ({
     }, [isSmallScreen, setIsOpen])
 
     const renderNavMenu = navMenu.map(itemMenu => (
-        <ListItemButtonNav onClick={() => navigate(`${itemMenu.path}`)}
+        <ListItemButtonNav onClick={() => navigate(itemMenu.path)}
                            key={itemMenu.id}
                            className={activePage === itemMenu.path ? 'active' : ''}
         >

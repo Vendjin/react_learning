@@ -1,16 +1,16 @@
-import React, {SyntheticEvent, useEffect, useState} from 'react';
+import React, {FC, SyntheticEvent, useEffect, useState} from 'react';
 import {MainBox} from "../../components/mainBox/mainBox";
 import {Box, Tab, Tabs} from "@mui/material";
-import TabPanel from "../../components/tabPanel/tabPanel";
 import {tabProps} from "../../utils/helpers";
 import PersonalInfoSettings from "../../components/personaInfoSettings/personalInfoSettings";
 import {getPublicUser} from "../../store/thunks/auth/authThunk";
 import {useAppDispatch} from "../../utils/hook";
-import ChangePassword from "../../components/changePassword/changePassword";
-import DeleteAccount from "../../components/deleteAccount/deleteAccount";
+import ChangePassword from '../../components/changePassword/changePassword';
+import DeleteAccount from '../../components/deleteAccount/deleteAccount';
+import TabPanel from '../../components/tabPanel/tabPanel';
 
 
-const Settings = () => {
+const Settings: FC = (): JSX.Element => {
     const [value, setValue] = useState(0);
     const dispatch = useAppDispatch();
 

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import TableComponent from "../tableComponent/tableComponent";
+import {ITablePriceData} from "../../common/types/assets/iAssets";
 
 
-const TopPrice = ({assets}: any) => {
+const TopPrice: FC<ITablePriceData> = ({assets}: ITablePriceData): JSX.Element => {
     return (
         <TableComponent assets={assets}/>
     );

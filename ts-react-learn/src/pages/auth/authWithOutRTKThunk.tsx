@@ -4,7 +4,7 @@ import {Box} from "@mui/material";
 import {useLocation, useNavigate} from "react-router-dom";
 import instance from "../../utils/axios";
 import {useAppDispatch} from "../../utils/hook";
-import {login} from "../../store/slices/auth/auth";
+import {login} from "../../store/slice/auth/auth";
 import {AppErrors} from "../../common/errors";
 import {useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';

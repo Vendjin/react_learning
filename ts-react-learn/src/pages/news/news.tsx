@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
 import {getNews} from "../../store/thunks/news/newsThunk";
 import {Box, Grid, Link, Typography} from "@mui/material";
 import {MainBox} from "../../components/mainBox/mainBox";
 import {NewsBlock, NewsContent} from "./style";
 
-const News = () => {
+const News: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const {news} = useAppSelector(state => state.news)
 
@@ -14,7 +14,7 @@ const News = () => {
     }, [dispatch])
 
     const renderNewsBlock = news.map((element: any) => (
-        <NewsBlock gap={5}>
+        <NewsBlock gap={5} key={element.id}>
             <Grid item xs={12} md={3}>
                 <img src={element.imageurl} alt={element.categories}/>
             </Grid>

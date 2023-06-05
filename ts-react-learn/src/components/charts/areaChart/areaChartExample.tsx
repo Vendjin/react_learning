@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -27,7 +27,7 @@ ChartJS.register(
 
 
 
-const AreaChartExample = () => {
+const AreaChartExample: FC = (): JSX.Element => {
 
     const options = {
         responsive: true,

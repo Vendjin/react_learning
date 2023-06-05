@@ -10,6 +10,7 @@ import {createWatchListRecord} from "../../store/thunks/assets/assetsThunk";
 
 const SingleAssetPage: FC = (): JSX.Element => {
     const navigate = useNavigate();
+    const [error, setError] = useState(false);
     const {id} = useParams();
     const dispatch = useAppDispatch();
     const [openSnackBar, setOpenSnackBar] = useState(false)
@@ -29,12 +30,14 @@ const SingleAssetPage: FC = (): JSX.Element => {
                 data.assetId = asset.id
             }
             dispatch(createWatchListRecord(data))
+            setError(false)
             setSeverityStatus('success')
             setOpenSnackBar(true)
             setTimeout(() =>{setOpenSnackBar(false) }, 2000)
         } catch (e) {
             setSeverityStatus('error')
             setOpenSnackBar(true)
+            setError(true)
             setTimeout(() =>{setOpenSnackBar(false) }, 2000)
         }
     }
@@ -116,7 +119,7 @@ const SingleAssetPage: FC = (): JSX.Element => {
 
                     <Snackbar open={openSnackBar} autoHideDuration={6000}>
                         <Alert severity={severityStatus} sx={{ width: '100%' }}>
-                            success!
+                            {!error ? 'Success': 'Error'}
                         </Alert>
                     </Snackbar>
 

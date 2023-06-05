@@ -78,6 +78,7 @@ export const updateUserInfo = createAsyncThunk(
                 `/users/${data.id}`, data
             )
             sessionStorage.setItem('firstName', user.data.firstName)
+            console.log(user.data)
             return user.data
         }catch (error: any) {
             // если вернется кастомная ошибка из API

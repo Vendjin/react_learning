@@ -1,8 +1,8 @@
 import {ITabPanelProps} from "../../common/types/tabs/iTabs";
 import {Box} from "@mui/material";
-import React from "react";
+import React, {FC} from "react";
 
-const TabPanel = ({ children, value, index, ...other }: ITabPanelProps)  => {
+const TabPanel: FC<ITabPanelProps> = ({children, value, index, ...other}: ITabPanelProps): JSX.Element => {
 
     return (
         <div
@@ -13,7 +13,7 @@ const TabPanel = ({ children, value, index, ...other }: ITabPanelProps)  => {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
+                <Box sx={{p: 3}}>
                     {children}
                 </Box>
             )}

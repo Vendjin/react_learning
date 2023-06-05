@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "./slices/auth/authSlice";
-import assetSlice from "./slices/assets/assetSlice";
-import watchListSlice from "./slices/watchList/watchListSlice";
-import newsSlice from "./slices/news/newsSlice";
+import authSlice from "./slice/auth/authSlice";
+import assetSlice from "./slice/assets/assetSlice";
+import watchListSlice from "./slice/watchList/watchListSlice";
+import newsSlice from "./slice/news/newsSlice";
 
 const store = configureStore({
     reducer: {

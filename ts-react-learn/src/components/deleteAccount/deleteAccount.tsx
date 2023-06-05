@@ -1,5 +1,5 @@
 import { Box, Grid, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, {FC, useState} from 'react';
 import { useAppDispatch, useAppSelector } from "../../utils/hook";
 import { FormBlock } from "./style";
 import { FormContent } from "../changePassword/style";
@@ -7,13 +7,13 @@ import { AppButtonLoading } from "../appButton/appButton";
 import { deleteUser } from '../../store/thunks/auth/authThunk';
 import {useNavigate} from "react-router-dom";
 
-const DeleteAccount = () => {
+const DeleteAccount: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
     const { user } = useAppSelector(state => state.auth)
     const [deleteUserInput, setDeleteUserInput] = useState('');
     const navigate = useNavigate()
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault()
         if (deleteUserInput === 'УДАЛИТЬ') {
             const data = {

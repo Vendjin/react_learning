@@ -1,3 +1,5 @@
+import {string} from "yup";
+
 export interface IAreaChartProps {
     data: number[][];
 }
@@ -45,4 +47,8 @@ interface Roi {
     times: number
     currency: string
     percentage: number
+}
+
+export interface ITablePriceData {
+    assets: ISingleAsset[]
 }

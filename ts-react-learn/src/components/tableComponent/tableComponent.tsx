@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {FC} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import {TableCellColored, TableContainerBlock} from "./styles";
+import {ISingleAsset, ITablePriceData} from "../../common/types/assets/iAssets";
 
 
-const TableComponent = ({assets}: any) => {
+const TableComponent: FC<ITablePriceData> = ({assets}: ITablePriceData): JSX.Element => {
     return (
         <TableContainerBlock>
             <Table sx={{minWidth: 650}} aria-label="simple table">
@@ -22,7 +23,7 @@ const TableComponent = ({assets}: any) => {
                 </TableHead>
 
                 <TableBody>
-                    {assets.map((element: any) => (
+                    {assets.map((element: ISingleAsset) => (
                         <TableRow
                             key={element.name}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}

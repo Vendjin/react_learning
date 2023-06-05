@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
 import {getTopPriceData} from "../../store/thunks/assets/assetsThunk";
 import { MainBox } from '../../components/mainBox/mainBox';
@@ -6,7 +6,7 @@ import {Typography} from "@mui/material";
 import { getWatchList } from '../../store/thunks/watchList/wathcListThunk';
 import TableComponent from '../../components/tableComponent/tableComponent';
 
-const WatchList = () => {
+const WatchList: FC = (): JSX.Element => {
     const dispatch = useAppDispatch()
     const watchList = useAppSelector(state => state.watchList.watchList)
     const assets = useAppSelector(state => state.assets.assets)

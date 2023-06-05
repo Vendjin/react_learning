@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
     CategoryScale,
     Chart as ChartJS,
@@ -27,7 +27,7 @@ ChartJS.register(
 );
 
 
-const AreaChart = ({data}: IAreaChartProps) => {
+const AreaChart: FC<IAreaChartProps> = ({data}: IAreaChartProps): JSX.Element => {
 
     const options = {
         responsive: true,

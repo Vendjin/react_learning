@@ -29,6 +29,11 @@
       "name": "Dai",
       "assetId": "dai",
       "id": 9
+    },
+    {
+      "name": "TRON",
+      "assetId": "tron",
+      "id": 10
     }
   ]
 }

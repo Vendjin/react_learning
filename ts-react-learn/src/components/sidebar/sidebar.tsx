@@ -40,6 +40,7 @@ const SideBar: FC<ISidebarProps> = ({
         sessionStorage.removeItem('id')
         navigate('/login')
     }
+
     const renderNavMenu = navMenu.map(itemMenu => (
         <ListItemButtonNav onClick={() => navigate(itemMenu.path)}
                            key={itemMenu.id}

@@ -10,6 +10,7 @@ const ChangePassword: FC = (): JSX.Element => {
     const { user } = useAppSelector(state => state.auth);
     const [username, setUsername] = useState('')
     const [oldPassword, setOldPassword] = useState('')
+    const [inputOldPassword, setInputOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const ChangePassword: FC = (): JSX.Element => {
 
     const handleSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault()
-        if (oldPassword === newPassword) {
+        if (oldPassword === inputOldPassword) {
             const data = {
                 id: user.id,
                 username,
@@ -36,7 +37,7 @@ const ChangePassword: FC = (): JSX.Element => {
             <Grid component={'form'} noValidate autoComplete={'off'} onSubmit={handleSubmit}>
                 <FormContent>
                     <TextField value={username} onChange={event => setUsername(event.target.value)} type='text' label='login' variant={"outlined"} />
-                    <TextField value={oldPassword} onChange={event => setOldPassword(event.target.value)} type='password' label='Старый пароль' variant={"outlined"} />
+                    <TextField value={inputOldPassword} onChange={event => setInputOldPassword(event.target.value)} type='password' label='Старый пароль' variant={"outlined"} />
                     <TextField value={newPassword} onChange={event => setNewPassword(event.target.value)} type='password' label='Новый пароль' variant={"outlined"} />
                 </FormContent>
 

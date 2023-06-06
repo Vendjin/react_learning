@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../utils/hook";
 import {getNews} from "../../store/thunks/news/newsThunk";
 import {Box, Grid, Link, Typography} from "@mui/material";
@@ -8,16 +8,34 @@ import {NewsBlock, NewsContent} from "./style";
 const News: FC = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const {news} = useAppSelector(state => state.news)
+    const [newsItems, setNewsItems] = useState([]);
+
+    useEffect(() => {
+        setNewsItems(news.slice(0, 10))
+    }, [news])
 
     useEffect(() => {
         dispatch(getNews())
     }, [dispatch])
 
-    const handleScroll = () => {
-        console.log('working')
-    }
+    const handleScroll = useCallback((event: any) => {
+        if (event.target.documentElement.scrollHeight -
+            (event.target.documentElement.scrollTop + window.innerHeight) < 100
+        ) {
+            const nextVisibleItems = news.slice(0, newsItems.length + 10);
+            setNewsItems(nextVisibleItems)
+        }
+    }, [news, newsItems.length])
 
-    const renderNewsBlock = news.map((element: any) => (
+    useEffect(() => {
+        document.addEventListener('scroll', handleScroll)
+        return () => {
+            document.removeEventListener('scroll', handleScroll)
+        }
+    }, [newsItems, handleScroll])
+
+
+    const renderNewsBlock = newsItems.map((element: any) => (
         <NewsBlock gap={5} key={element.id}>
             <Grid item xs={12} md={3}>
                 <img src={element.imageurl} alt={element.categories}/>

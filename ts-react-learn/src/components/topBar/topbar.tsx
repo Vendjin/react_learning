@@ -17,7 +17,7 @@ const TopBarComponent: FC<ITopBarProps> = ({isOpen, setIsOpen, isNonMobile}: ITo
                 <Grid container justifyContent={'space-between'} alignItems={'center'}>
                     <Grid item sm={5} lg={3}>
                         <FlexBetween sx={{gap: '10px', cursor: 'pointer'}}>
-                            <MenuOutlined onClick={() => setIsOpen(!isOpen)}></MenuOutlined>
+                            <MenuOutlined onClick={() => setIsOpen(!isOpen)} sx={{ ...(isOpen && { display: 'none' }) }}></MenuOutlined>
                             <Typography variant={'h3'}>Welcome {user ? (`${user.firstName}`) : ('') }</Typography>
                         </FlexBetween>
                     </Grid>

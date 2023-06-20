@@ -81,7 +81,7 @@ const SideBar: FC<ISidebarProps> = ({
                                                     colors.black.DEFAULT
                                             }> Demo </Typography>
                             </LogoComponent>
-                            {!isNonMobile && (
+                            {isOpen && (
                                 <IconButton onClick={() => setIsOpen(!isOpen)}>
                                     <ChevronLeftOutlined/>
                                 </IconButton>

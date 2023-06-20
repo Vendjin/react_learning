@@ -32,7 +32,7 @@ const Layout: FC = (): JSX.Element => {
                 >
                     <Sidebar isNonMobile={isNonMobile}
                              isSmallScreen={isSmallScreen}
-                             drawerWidth={'250px'}
+                             drawerWidth={'280px'}
                              isOpen={isOpen}
                              setIsOpen={setIsOpen}
                     />

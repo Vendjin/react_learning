@@ -39,6 +39,31 @@
       "name": "Shiba Inu",
       "assetId": "shiba-inu",
       "id": 11
+    },
+    {
+      "name": "Lido Staked Ether",
+      "assetId": "staked-ether",
+      "id": 12
+    },
+    {
+      "name": "Lido Staked Ether",
+      "assetId": "staked-ether",
+      "id": 13
+    },
+    {
+      "name": "Lido Staked Ether",
+      "assetId": "staked-ether",
+      "id": 14
+    },
+    {
+      "name": "Lido Staked Ether",
+      "assetId": "staked-ether",
+      "id": 15
+    },
+    {
+      "name": "Lido Staked Ether",
+      "assetId": "staked-ether",
+      "id": 16
     }
   ]
 }

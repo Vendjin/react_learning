@@ -1,0 +1,20 @@
+.seacrhBlock {
+	position: relative;
+	// display: flex;
+	// align-items: center;
+	input {
+		padding-left: 45px;
+		width: 250px;
+		height: 45px;
+		flex-shrink: 0;
+		border-radius: 10px;
+		border: 1px solid #f3f3f3;
+	}
+	img {
+		position: absolute;
+		right: 216px;
+		top: 22px;
+		transform: translateX(-50%);
+		transform: translateY(-50%);
+	}
+}

@@ -12,7 +12,6 @@ const TableComponent: FC<ITablePriceData> = ({assets}: ITablePriceData): JSX.Ele
     return (
         <TableContainerBlock>
             <Table sx={{minWidth: 650}} aria-label="simple table">
-
                 <TableHead>
                     <TableRow>
                         <TableCell>Название</TableCell>

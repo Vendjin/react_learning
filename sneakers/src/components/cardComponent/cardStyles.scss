@@ -5,8 +5,12 @@
 	flex-shrink: 0;
 	border-radius: 40px;
 	border: 1px solid #f3f3f3;
-	padding: 30px;
-    padding-top: 22px;
+	padding: 22px 30px 30px;
+	transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+	&:hover {
+		box-shadow: 0 20px 35px rgba(0, 0, 0, 0.05);
+		transform: translateY(-5px);
+	}
 	p {
 		font-size: 14px;
 		font-weight: 400;
@@ -27,9 +31,11 @@
         cursor: pointer;
     }
     .liked{
+		border:none;
+		background: none;
         position: absolute;
         cursor: pointer;
-        bottom: 200px;
-        left: 30px;
+        bottom: 195px;
+        left: 25px;
     }
 }

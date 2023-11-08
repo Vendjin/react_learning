@@ -4,8 +4,8 @@ import searchIcon from '../../assets/images/icons/search.svg';
 
 const SearchBar = () => {
   return (
-    <div className='seacrhBlock'>
-        <img src={searchIcon} alt='seacrh'/>
+    <div className='searchBlock'>
+        <img src={searchIcon} alt='search'/>
         <input placeholder='Поиск...'/>
     </div>
   )

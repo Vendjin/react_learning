@@ -1,7 +1,7 @@
 import HeaderComponent from "./components/headerComponent/headerComponent";
 import CarouselComponent from "./components/carouselComponent/carouselComponent";
 import CardComponent from "./components/cardComponent/cardComponent";
-import SearchBar from "./components/seacrhBar/searchBar";
+import SearchBar from "./components/searchBar/searchBar";
 import SideBarBasket from "./components/sideBarrBasket/sideBarBasket";
 
 function App() {

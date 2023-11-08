@@ -5,7 +5,12 @@ import Basket from '../../assets/images/icons/basket.svg';
 import Favorite from '../../assets/images/icons/favorite.svg';
 import Profile from '../../assets/images/icons/profile.svg';
 
-const HeaderComponent = () => {
+const HeaderComponent = ({ isOpen, setIsOpen }) => {
+    const handleOpenBasket = () => {
+        setIsOpen(!isOpen)
+    }
+
+
     return (
         <header>
             <div className='headerLogo'>
@@ -17,7 +22,7 @@ const HeaderComponent = () => {
             </div>
 
             <div className='headerPrice'>
-                <div className='basketWrapper'>
+                <div className='basketWrapper' onClick={handleOpenBasket}>
                     <img src={Basket} alt="Basket" />
                     <p>1205 руб.</p>
                 </div>

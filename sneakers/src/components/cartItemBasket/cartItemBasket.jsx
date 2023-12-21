@@ -3,7 +3,7 @@ import React from 'react';
 import deleteItem from '../../assets/images/icons/deleteItem.svg'
 import cross from '../../assets/images/sneakers/2.png'
 
-const CartItemBasket = ({ name, price, image}) => {
+const BasketItem = ({ name, price, image}) => {
     return (
         <div className="cartItem">
             <div className='cartItem__img'>
@@ -20,4 +20,4 @@ const CartItemBasket = ({ name, price, image}) => {
     );
 };
 
-export default CartItemBasket;
+export default BasketItem;

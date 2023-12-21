@@ -1,6 +1,6 @@
 import './sideBarBasket.scss';
 import React from 'react';
-import CartItemBasket from "../cartItemBasket/cartItemBasket";
+import BasketItem from "../cartItemBasket/cartItemBasket";
 import arrowIcon from '../../assets/images/icons/arrow.svg';
 import closeSideBar from '../../assets/images/icons/deleteItem.svg'
 
@@ -20,16 +20,16 @@ const SideBarBasket = ({ isOpen, setIsOpen }) => {
                         </div>
                         <div className="sideBarWrapper">
                             <div className="cartItemWrapper">
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
-                                <CartItemBasket />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
+                                <BasketItem />
                             </div>
                             <div className="sideBarOrderBlock d-flex flex-column">
                                 <div className='d-flex'>

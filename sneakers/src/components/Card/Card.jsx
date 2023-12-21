@@ -5,7 +5,7 @@ import unLiked from '../../assets/images/icons/unLiked.png';
 import liked from '../../assets/images/icons/liked.svg';
 import ok from '../../assets/images/icons/ok.svg'
 
-const Card = ({ name, price }) => {
+const Card = ({ name, price, image }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [currentPrice, setCurrentPrice] = useState('')
 
@@ -28,7 +28,7 @@ const Card = ({ name, price }) => {
     }
     return (
         <div className='cardWrapper'>
-            <img width={133} height={112} src='/img/sneakers/1.png' alt='sneakers' />
+            <img width={133} height={112} src={image} alt='sneakers' />
             <p>{name}</p>
             <button className='liked' onClick={handleIsLiked}>
                 {isLiked ?

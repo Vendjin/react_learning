@@ -20,9 +20,11 @@ function App() {
                     <SearchBar />
                 </div>
                 <div className="sneakersWrap">
-                    {homePageArr.map((item, index) =>
-                        <Card name={item.name} price={item.price} image={item.image} key={index} />
-                    )}
+                    {
+                        homePageArr.map((item, index) => (
+                            <Card name={item.name} price={item.price} image={item.image} key={index} />
+                        ))
+                    }
                 </div>
 
             </div>

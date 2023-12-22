@@ -10,13 +10,16 @@ const Card = ({ name, price, image }) => {
     const [currentPrice, setCurrentPrice] = useState('')
 
     useEffect(() => {
+        separatePrice(price)
+    }, [price])
+
+    const separatePrice = (price) => {
         if (price.length === 5) {
             setCurrentPrice(price.slice(0, 2) + ' ' + price.slice(2))
         } else {
             setCurrentPrice(price.slice(0, 1) + ' ' + price.slice(1))
         }
-        
-    }, [price])
+    }
 
     const handleIsLiked = () => {
         setIsLiked(!isLiked)
